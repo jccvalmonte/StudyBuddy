@@ -1,1 +1,5 @@
 /bin/
+
+server/node_modules/**
+
+server/data/**
