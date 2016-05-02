@@ -1,7 +1,100 @@
- var express = require('express');
- var app = express(); 
+/** Data created on: 4/27/2016
+This is the 'main' entry point for our Node server, This
+is how we will run are Node Application **/
 
- app.use(express.static(__dirname + "/ui"));
+var express           		= require ('express'),
+	app    			 		= express(), //for express we have defined a new 'app'
+	bodyParser              = require('body-parser'),
+	mongoose                = require('mongoose'),
+	flashcardsetsController = require('./server/controllers/flashcardset_controller');
+	FlashcardSet            = require('./server/models/flashcardset');
+//For the above app we need to define some routes
+//anyone makes a request to the route directory; 
+//respond by sending a file named index.html
 
- app.listen(8080);
- console.log("Server listening on port 8080");
+//initializing mongoose connection to the MongoDB database
+//route to database held in 'db.config'
+var mongoDBConnection = require('./db.config');
+mongoose.connect(mongoDBConnection.uri);
+console.log(mongoDBConnection.uri);
+
+
+//global variables to access the schema models
+var Sets;
+var Cards;
+
+app.use(bodyParser());
+app.use('/js', express.static(__dirname + '/client/js'));
+app.use('/images', express.static(__dirname + '/images'));
+
+//mongoose.connect('mongodb://localhost:27017/studybuddy');
+
+//when connection is created, schemas are defined
+//and the models are created
+mongoose.connection.on('open', function(){
+	console.log('DB connection established!');
+
+	var Schema = mongoose.Schema;
+
+	var CardSetSchema = new Schema({
+		setIdNum: Number,
+		Name : String,
+		Category: String,
+		numCards : Number,
+		Author: String,
+		DateCreated: Date
+	},
+	{collection: 'sets'}
+	);
+	Sets = mongoose.model('Sets', CardSetSchema);
+	
+	var CardListSchema = new Schema({
+		setIdNum: String,
+		cards : [{
+			cardId: Number,
+			front : String,
+			back : String
+		}]
+	},
+	{collection: 'cards'}
+	);
+	Cards = mongoose.model('Cards', CardListSchema);
+	
+	console.log('Models Created!');
+});
+
+//REST API
+app.get('/', function (req, res){
+	res.sendfile(__dirname + '/client/views/index.html');
+});
+
+app.get('/home', function (req, res){
+	res.sendfile(__dirname + '/client/views/home.html');
+});
+
+app.get('/signup', function (req, res){
+	res.sendfile(__dirname + '/client/views/signUp.html');
+});
+
+
+//app.get('/api/flashcard_sets', flashcardsetsController.list);
+//app.post('/api/flashcard_sets', flashcardsetsController.create);
+
+app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
+
+	//var searchrequest = {'$regex': req.params.flashcardsetName};
+	var searchrequest = {'$regex': new RegExp('^' + req.params.flashcardsetName.toLowerCase(), 'i')};
+		//FlashcardSet.find({category: searchrequest},function(err, found) {
+    Sets.find({Category: searchrequest},function(err, found) {
+			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+			if (err)
+				res.send(err)
+			else
+			res.json(found); // return all todos in JSON format
+		});
+	});	
+
+//Handle all the http request that come in on port 3000
+app.listen(3000, function() {
+	console.log('Listening on port 3000');
+})
