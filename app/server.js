@@ -6,8 +6,9 @@ var express           		= require ('express'),
 	app    			 		= express(), //for express we have defined a new 'app'
 	bodyParser              = require('body-parser'),
 	mongoose                = require('mongoose'),
+	url 					= require('url'),
 	flashcardsetsController = require('./server/controllers/flashcardset_controller');
-	FlashcardSet            = require('./server/models/flashcardset');
+	
 //For the above app we need to define some routes
 //anyone makes a request to the route directory; 
 //respond by sending a file named index.html
@@ -18,14 +19,18 @@ var mongoDBConnection = require('./db.config');
 mongoose.connect(mongoDBConnection.uri);
 console.log(mongoDBConnection.uri);
 
-
 //global variables to access the schema models
 var Sets;
 var Cards;
 
 app.use(bodyParser());
-app.use('/js', express.static(__dirname + '/client/js'));
-app.use('/images', express.static(__dirname + '/images'));
+
+//app.use(express.static(__dirname + '/public')); 
+
+app.use(express.static('./'));
+//app.use('/home', express.static('./client/views/home.html'));
+app.use('/js', express.static('./client/js/controllers'));
+app.use('/images', express.static('./images'));
 
 //mongoose.connect('mongodb://localhost:27017/studybuddy');
 
@@ -64,17 +69,20 @@ mongoose.connection.on('open', function(){
 });
 
 //REST API
-app.get('/', function (req, res){
+/*app.get('/', function (req, res){
 	res.sendfile(__dirname + '/client/views/index.html');
 });
 
+app.get('/card', function (req, res){
+	res.sendfile(__dirname + '/client/views/card.html');
+});
 app.get('/home', function (req, res){
 	res.sendfile(__dirname + '/client/views/home.html');
 });
 
 app.get('/signup', function (req, res){
 	res.sendfile(__dirname + '/client/views/signUp.html');
-});
+}); */
 
 
 //app.get('/api/flashcard_sets', flashcardsetsController.list);
@@ -94,7 +102,23 @@ app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
 		});
 	});	
 
+
+app.get('/card/:setIdNum', function(req, res) {
+
+	var searchrequest = req.params.setIdNum;
+	//console.log(searchrequest);
+    Cards.find({settIdNum: searchrequest},function(err, found) {
+			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+			if (err)
+				res.send(err)
+			else
+				
+			//console.log(res.json);
+			res.json(found); // return all cards in JSON format
+
+		});
+	});	
 //Handle all the http request that come in on port 3000
 app.listen(3000, function() {
-	console.log('Listening on port 3000');
+	console.log('I\'m Listening....');
 })
