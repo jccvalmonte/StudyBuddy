@@ -1,15 +1,39 @@
 <div ng-app="studybuddyApp" ng-controller="cardsController" ng-init='getcardResults()'>
-<table> 
-			   		<tbody>
-				   		<tr ng-repeat="resultCard in resultCards">
-				   		<br>
-					   		<td align="right">
-					   		<!--<a ng-href="/cards/{{result.setIdNum}}" >{{result.Category}} </a> -->
-					   		<a href="" ng-click=""> {{resultCard.cards}}  </a>
-					   		</td>
-					   	</form>	
-				   		</tr>
-			  		 </tbody>
-		   		</table>
+	<div class="flip">
+		<div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
+				<div class="face front">		
+							<table> 
+						   		<tbody>
+							   		<tr >
+								   		<td>
+								   		{{resultCards.cards[i].front}}
+								   		</td>
+							   		</tr>
+						  		 </tbody>
+					   		</table>		  		
+				</div>
+				<div class="face back">
+							<table> 
+						   		<tbody>
+							   		<tr >
+								   		<td>
+								   		{{resultCards.cards[i].back}} 
+								   		</td>
+							   		</tr>
+						  		 </tbody>
+					   		</table>		
+				</div>
+		</div>	
+		<!--<table> 
+					<tbody>
+						<tr ng-repeat="resultCard in resultCards">
+								   		<td style="font-size:15pt;"> "Total Flashcards:" {{resultCard.length}}
+								   		</td>
+							   		</tr>
+						  		 </tbody>
 
+		</table> -->		   		
+		</div>
+	<div ng-click="updateCount()">Next</div>
 </div>
+

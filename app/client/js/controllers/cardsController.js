@@ -5,13 +5,14 @@ app.controller('cardsController', ['$scope', '$resource', '$http', '$location','
 		 $scope.getcardResults = function() {
 
 			$scope.setIdNum = $routeParams.setIdNum;
-
 	    	var url = "/card/"+ $scope.setIdNum;
 			console.log(" cards url "+ url);
 
 				$http.get(url).success(function(data){
-				$scope.resultCards = data;
-				console.log($scope.resultCards);
+					var i=0;
+					$scope.i = i;
+				$scope.resultCards = data[0];
+				console.log("resultcards: " +$scope.resultCards);
 				//console.log($scope.resultCards[0].settIdNum);
 				//$location.path("/card");
 				//console.log("Test cards: ", $scope.resultCards);
@@ -19,6 +20,10 @@ app.controller('cardsController', ['$scope', '$resource', '$http', '$location','
 				//$window.location.href ='/card?$scope.resultCards';
 				
 			});
+		}
+
+		$scope.updateCount = function () {
+			$scope.i = $scope.i + 1;
 		}
 
 	}]);
