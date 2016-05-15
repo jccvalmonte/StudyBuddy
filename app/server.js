@@ -93,7 +93,7 @@ app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
 	//var searchrequest = {'$regex': req.params.flashcardsetName};
 	var searchrequest = {'$regex': new RegExp('^' + req.params.flashcardsetName.toLowerCase(), 'i')};
 		//FlashcardSet.find({category: searchrequest},function(err, found) {
-    Sets.find({Category: searchrequest},function(err, found) {
+    Sets.find({Name: searchrequest},function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
