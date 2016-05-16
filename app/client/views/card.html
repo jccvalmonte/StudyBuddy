@@ -6,17 +6,18 @@
 						   		<tbody>
 							   		<tr >
 								   		<td>
+
 								   		{{resultCards.cards[i].front}}
 								   		</td>
 							   		</tr>
 						  		 </tbody>
 					   		</table>		  		
 				</div>
-				<div class="face back">
+				<div class="face back" s>
 							<table> 
 						   		<tbody>
 							   		<tr >
-								   		<td>
+								   		<td style="text-align: center;">
 								   		{{resultCards.cards[i].back}} 
 								   		</td>
 							   		</tr>
@@ -34,6 +35,13 @@
 
 		</table> -->		   		
 		</div>
-	<div ng-click="updateCount()">Next</div>
+	<!-- <div ng-click="updateCount()">Next</div> -->
+		<div style="text-align: center;">
+			
+			<button type="submit" ng-click="reduceCount()" class="btn btn-default"> Previous </button>
+			<button type="submit" ng-click="updateCount()" class="btn btn-default"> Next </button>
+
+		</div>
+
 </div>
 
