@@ -6,8 +6,7 @@ var express           		= require ('express'),
 	app    			 		= express(), //for express we have defined a new 'app'
 	bodyParser              = require('body-parser'),
 	mongoose                = require('mongoose'),
-	url 					= require('url'),
-	flashcardsetsController = require('./server/controllers/flashcardset_controller');
+	url 					= require('url');
 	
 //For the above app we need to define some routes
 //anyone makes a request to the route directory; 

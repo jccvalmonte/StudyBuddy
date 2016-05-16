@@ -3,7 +3,6 @@ app.controller('cardsController', ['$scope', '$resource', '$http', '$location','
 	function ($scope, $resource, $http, $location, $routeParams, $mdDialog) {
 
 		 $scope.getcardResults = function() {
-
 			$scope.setIdNum = $routeParams.setIdNum;
 	    	var url = "/card/"+ $scope.setIdNum;
 			console.log(" cards url "+ url);
@@ -13,11 +12,6 @@ app.controller('cardsController', ['$scope', '$resource', '$http', '$location','
 					$scope.i = i;
 				$scope.resultCards = data[0];
 				console.log("resultcards: " +$scope.resultCards);
-				//console.log($scope.resultCards[0].settIdNum);
-				//$location.path("/card");
-				//console.log("Test cards: ", $scope.resultCards);
-
-				//$window.location.href ='/card?$scope.resultCards';
 				
 			});
 		}
@@ -36,7 +30,16 @@ app.controller('cardsController', ['$scope', '$resource', '$http', '$location','
 		}
 
 		$scope.reduceCount = function () {
+			var len = $scope.resultCards.cards.length;
+			if($scope.i > 0){
 			$scope.i = $scope.i - 1;
+			}
+			else
+			{
+				$scope.firstcard = $routeParams.name;
+				window.alert("This is the First Card for "+ $scope.firstcard + " flashcard set");
+				
+			}
 		}
 
 	}]);
