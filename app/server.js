@@ -7,7 +7,7 @@ var express           		= require ('express'),
 	bodyParser              = require('body-parser'),
 	mongoose                = require('mongoose'),
 	url 					= require('url');
-	
+//var FlashcardSet = require('../models/flashcardset');
 //For the above app we need to define some routes
 //anyone makes a request to the route directory; 
 //respond by sending a file named index.html
@@ -68,6 +68,7 @@ mongoose.connection.on('open', function(){
 
 	var AccountSchema = new Schema({
 		email: String,
+<<<<<<< HEAD
 		password : String
 	},
 	{collection: 'accounts'}
@@ -75,6 +76,14 @@ mongoose.connection.on('open', function(){
 
 	Accounts = mongoose.model('Accounts', AccountSchema);	
 
+=======
+		password: String
+	},
+	{collection: 'accounts'}
+	);
+	Accounts = mongoose.model('Accounts', AccountSchema);
+	
+>>>>>>> refs/remotes/origin/master
 	console.log('Models Created!');
 });
 
@@ -128,36 +137,95 @@ app.get('/card/:setIdNum', function(req, res) {
 		});
 	});	
 
+//"/getAccount/"+ $scope.email + $scope.pswd;
+
 app.get('/getAccount/:email', function(req, res) {
-
-	var email = req.params.email;
-
+ 
+      var email = req.params.email;
+      var password = req.params.pswd;
+ 
     Accounts.find({email: email}, function(err, found) {
-			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-			if (err)
-				res.send(err)
-			else
-				
-			//console.log(res.json);
-			res.json(found); // return all accounts in JSON format
-
-		});
-	});	
-
-
+     			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+                if (err)
+                    res.send(err)
+                    else
+                                                      
+               	//console.log(res.json);
+                    res.json(found); // return all accounts in JSON format
+                });
+    });          
+ 
 app.post('/createAccount/:email/:password', function(req, res) {
-
-	var email = req.params.email;
-	var password = req.params.password;
-
+ 
+              var email = req.params.email;
+              var password = req.params.password;
+ 
     Accounts.create({email: email}, {password: password}, function(err, found) {
-			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-			if (err)
-				res.send(err)
-		});
-	});	
+                                         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+                    if (err)
+                       res.send(err)
+                    });
+              });         
+>>>>>>> refs/remotes/origin/master
 
 //Handle all the http request that come in on port 3000
 app.listen(3000, function() {
 	console.log('I\'m Listening....');
 })
+
+/*module.exports.create = function(req, res){
+
+var set = new Sets();
+	set.Name = req.body.name;
+	set.Category = req.body.category;
+	set.numCards = req.body.numCards;
+	set.Author = req.user;
+	//set.dateCreated = new.Date(); 
+
+	set.save(function(err,set){
+	if(err)
+	res.send('error');
+	else
+	console.log('set added!');
+	res.send(set);
+	})
+}
+
+module.exports.update = function(req,res){
+Sets.findOneAndUpdate({
+_id: req.body.id},
+{$set:
+{Name:req.body.name}},
+{upsert: true},
+function(err, newSet){
+if(err){
+console.log('update error');
+}else{
+console.log('set updated!');
+res.send(newSet);
+}
+}
+});
+}
+
+module.exports.delete = function(req,res){
+Sets.findOneAndRemove({
+_id:req.body.id
+}, function(err,set){
+if(err){
+res.send('error deleting');
+}else{
+console.log('set deleted!');
+res.send(set);
+}
+}
+}
+
+});
+}
+
+module.exports.list = function(req, res){
+    FlashcardSet.find({}, function (err, results){
+    res.json(results);
+    });
+} */
