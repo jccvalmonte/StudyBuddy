@@ -7,7 +7,7 @@ var express           		= require ('express'),
 	bodyParser              = require('body-parser'),
 	mongoose                = require('mongoose'),
 	url 					= require('url');
-	
+//var FlashcardSet = require('../models/flashcardset');
 //For the above app we need to define some routes
 //anyone makes a request to the route directory; 
 //respond by sending a file named index.html
@@ -116,7 +116,67 @@ app.get('/card/:setIdNum', function(req, res) {
 
 		});
 	});	
+
+
+
 //Handle all the http request that come in on port 3000
 app.listen(3000, function() {
 	console.log('I\'m Listening....');
 })
+
+/*module.exports.create = function(req, res){
+
+var set = new Sets();
+	set.Name = req.body.name;
+	set.Category = req.body.category;
+	set.numCards = req.body.numCards;
+	set.Author = req.user;
+	//set.dateCreated = new.Date(); 
+
+	set.save(function(err,set){
+	if(err)
+	res.send('error');
+	else
+	console.log('set added!');
+	res.send(set);
+	})
+}
+
+module.exports.update = function(req,res){
+Sets.findOneAndUpdate({
+_id: req.body.id},
+{$set:
+{Name:req.body.name}},
+{upsert: true},
+function(err, newSet){
+if(err){
+console.log('update error');
+}else{
+console.log('set updated!');
+res.send(newSet);
+}
+}
+});
+}
+
+module.exports.delete = function(req,res){
+Sets.findOneAndRemove({
+_id:req.body.id
+}, function(err,set){
+if(err){
+res.send('error deleting');
+}else{
+console.log('set deleted!');
+res.send(set);
+}
+}
+}
+
+});
+}
+
+module.exports.list = function(req, res){
+    FlashcardSet.find({}, function (err, results){
+    res.json(results);
+    });
+} */

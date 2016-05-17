@@ -134,9 +134,24 @@
 		</div>
 	</div>
 
+	<!--<div class="container">
+        <center class="jumbotron">
+                <h1>Flashcard Sets</h1>
+        </center>
+    </div>
+
+    <center class="container" ng-controller="flashcardsetsController">
+    <div class="input-group col-md-6">
+        <input type="text" class="search-query form-control" placeholder="Search Study Buddy" ng-model="flashcardsetName" />
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit" ng-click="getFlashcardset(flashcardsetName)">
+                <span class=" glyphicon glyphicon-search"></span>
+            </button>
+        </span>
+    </div>
+    </center> -->
+
 	<div class="container" ng-controller="flashcardsetsController">
-		<!--<div class="col-xs-6"></div> -->
-		
 			<form class="form-search input-lg" role="search">
 				<input type="text" class="form-search" placeholder="Search Study Buddy" ng-model="flashcardsetName">
 				<button type="submit" ng-click="getFlashcardset(flashcardsetName)" class="btn btn-default">
