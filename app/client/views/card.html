@@ -1,15 +1,40 @@
 <div ng-app="studybuddyApp" ng-controller="cardsController" ng-init='getcardResults()'>
-<table> 
-			   		<tbody>
-				   		<tr ng-repeat="resultCard in resultCards">
-				   		<br>
-					   		<td align="right">
-					   		<!--<a ng-href="/cards/{{result.setIdNum}}" >{{result.Category}} </a> -->
-					   		<a href="" ng-click=""> {{resultCard.cards}}  </a>
-					   		</td>
-					   	</form>	
-				   		</tr>
-			  		 </tbody>
-		   		</table>
+	<div class="flip">
+		<div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
+				<div class="face front">		
+							<table> 
+						   		<tbody>
+							   		<tr >
+								   		<td>
+
+								   		{{resultCards.cards[i].front}}
+								   		</td>
+							   		</tr>
+						  		 </tbody>
+					   		</table>		  		
+				</div>
+				<div class="face back" s>
+							<table> 
+						   		<tbody>
+							   		<tr >
+								   		<td style="text-align: center;">
+								   		{{resultCards.cards[i].back}} 
+								   		</td>
+							   		</tr>
+						  		 </tbody>
+					   		</table>		
+				</div>
+		</div>	   		
+		</div>
+	<!-- <div ng-click="updateCount()">Next</div> -->
+		<div style="text-align: center;">
+			
+			<button type="submit" ng-click="reduceCount()" class="btn btn-default"> < </button>
+			<a> <font size= "4" color = "red" face="verdana">  Flashcards:  {{i+1}} / {{resultCards.cards.length}} 
+			</font></a>
+			<button type="submit" ng-click="updateCount()" class="btn btn-default"> > </button>
+
+		</div>
 
 </div>
+

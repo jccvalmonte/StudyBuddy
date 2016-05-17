@@ -1,16 +1,22 @@
-
 <!-- Search Flashcard  View-->
-<div ng-controller="flashcardsetsController" ng-init='getcardsetResults()'>
-				<table> 
-			   		<tbody>
-				   		<tr ng-repeat="result in results">
-				   		<br>
-					   		<td>
-					   		<!--<a ng-href="/cards/{{result.setIdNum}}" >{{result.Category}} </a> -->
-					   		<a href="" ng-click="redirectSearchCardUrl(result.setIdNum)"> {{result.Category}}  </a>
-					   		</td>
-					   	</form>	
-				   		</tr>
-			  		 </tbody>
-		   		</table>
-</div>
+<center ng-controller="flashcardsetsController" ng-init='getcardsetResults()' style="margin-top:50px">
+	<table> 
+		<thead>
+			<th>Set Name</th>
+			<th>Category</th>
+			<th># Cards</th>
+			<th>Author</th>
+			<th>Date Created</th>
+		</thead>
+		<tbody>
+   		<tr ng-repeat="result in results">
+	   		<td><a href="" ng-click="redirectSearchCardUrl(result.setIdNum, result.Name)">{{result.Name}}</a></td>
+	   		<td>{{result.Category}}</td>
+	   		<td>{{result.numCards}}</td>
+	   		<td>{{result.Author}}</td>
+	   		<td>{{result.DateCreated}}</td>
+	   	</form>	
+   		</tr>
+		 </tbody>
+	</table>
+</center>

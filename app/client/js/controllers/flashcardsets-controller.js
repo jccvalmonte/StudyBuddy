@@ -39,8 +39,8 @@ app.controller('flashcardsetsController', ['$scope', '$resource', '$http', '$loc
 		}
 
 
-		$scope.redirectSearchCardUrl = function(setIdNum) {
-			var url = "/card/"+setIdNum;
+		$scope.redirectSearchCardUrl = function(setIdNum, name) {
+			var url = "/card/"+setIdNum+ "/"+name;
 			console.log(url);
 			$location.path(url);
 		}
