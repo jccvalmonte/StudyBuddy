@@ -51,6 +51,7 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'sets'}
 	);
+
 	Sets = mongoose.model('Sets', CardSetSchema);
 	
 	var CardListSchema = new Schema({
@@ -63,9 +64,20 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'cards'}
 	);
+
 	Cards = mongoose.model('Cards', CardListSchema);
 	
 	console.log('Models Created!');
+
+	var AccountSchema = new Schema({
+		email: String,
+		password : String
+	},
+	{collection: 'accounts'}
+	);
+
+	Accounts = mongoose.model('Accounts', AccountSchema);
+	
 });
 
 //REST API
@@ -118,6 +130,39 @@ app.get('/card/:setIdNum', function(req, res) {
 
 		});
 	});	
+
+app.get('/getAccount/:email', function(req, res) {
+
+	var email = req.params.email;
+	//console.log(searchrequest);
+    Cards.find({email: email}, function(err, found) {
+			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+			if (err)
+				res.send(err)
+			else
+				
+			//console.log(res.json);
+			res.json(found); // return all accounts in JSON format
+
+		});
+	});	
+
+
+app.post('/getAccount/:email/:password', function(req, res) {
+
+	var email = req.params.email;
+	var password = req.params.password;
+
+	//console.log(searchrequest);
+    Cards.create({email: email}, {password: password}, function(err, found) {
+			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+			if (err)
+				res.send(err)
+		});
+	});	
+
+
+
 //Handle all the http request that come in on port 3000
 app.listen(3000, function() {
 	console.log('I\'m Listening....');
