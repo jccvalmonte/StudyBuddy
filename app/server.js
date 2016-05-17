@@ -6,8 +6,7 @@ var express           		= require ('express'),
 	app    			 		= express(), //for express we have defined a new 'app'
 	bodyParser              = require('body-parser'),
 	mongoose                = require('mongoose'),
-	url 					= require('url'),
-	flashcardsetsController = require('./server/controllers/flashcardset_controller');
+	url 					= require('url');
 	
 //For the above app we need to define some routes
 //anyone makes a request to the route directory; 
@@ -107,12 +106,11 @@ app.get('/card/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
 	//console.log(searchrequest);
-    Cards.find({settIdNum: searchrequest},function(err, found) {
+    Cards.find({setIdNum: searchrequest},function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
 			else
-				
 			//console.log(res.json);
 			res.json(found); // return all cards in JSON format
 
