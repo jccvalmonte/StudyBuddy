@@ -66,8 +66,6 @@ mongoose.connection.on('open', function(){
 	);
 
 	Cards = mongoose.model('Cards', CardListSchema);
-	
-	console.log('Models Created!');
 
 	var AccountSchema = new Schema({
 		email: String,
@@ -76,8 +74,9 @@ mongoose.connection.on('open', function(){
 	{collection: 'accounts'}
 	);
 
-	Accounts = mongoose.model('Accounts', AccountSchema);
-	
+	Accounts = mongoose.model('Accounts', AccountSchema);	
+
+	console.log('Models Created!');
 });
 
 //REST API
@@ -134,8 +133,8 @@ app.get('/card/:setIdNum', function(req, res) {
 app.get('/getAccount/:email', function(req, res) {
 
 	var email = req.params.email;
-	//console.log(searchrequest);
-    Cards.find({email: email}, function(err, found) {
+
+    Accounts.find({email: email}, function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
@@ -148,20 +147,17 @@ app.get('/getAccount/:email', function(req, res) {
 	});	
 
 
-app.post('/getAccount/:email/:password', function(req, res) {
+app.post('/createAccount/:email/:password', function(req, res) {
 
 	var email = req.params.email;
 	var password = req.params.password;
 
-	//console.log(searchrequest);
-    Cards.create({email: email}, {password: password}, function(err, found) {
+    Accounts.create({email: email}, {password: password}, function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
 		});
 	});	
-
-
 
 //Handle all the http request that come in on port 3000
 app.listen(3000, function() {

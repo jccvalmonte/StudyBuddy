@@ -24,7 +24,8 @@ app.controller('accountsController', ['$scope', '$resource', '$http', '$location
 		}
 
 		$scope.createAccount = function(email, password) {
-			console.log(acount);
+			console.log("Email: " + email);
+			console.log("Password: " + password);
 			var url = "/createAccount/"+ email + "/" + password;
 			$location.path(url);
 			console.log("Account Created: " + url);

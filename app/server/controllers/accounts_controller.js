@@ -2,7 +2,7 @@ var Accounts = require('../models/accounts');
 
 module.exports.create = function(req, res){
 
-	var  = new Accounts(req.body);
+	var accounts = new Accounts(req.body);
 	accounts.save(function (err, result){
 		res.json(result);
 	}); //save to MongoDb database
