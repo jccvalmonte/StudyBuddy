@@ -1,17 +1,18 @@
 'use strict';
 
-angular
+var app = angular
   			.module('studybuddyApp', [
 		    'ngResource',
 		    'ngRoute'
   		])
   .config(function ($routeProvider) {
     $routeProvider
-      /*.when('/', {
+      .when('/', {
         templateUrl: '/index.html'
-	  })*/
+	  })
       .when('/home', {
-        templateUrl: '/home.html'
+        templateUrl: '/client/views/homeScreen.html'
+        controller: 'homeScrnCntrl'
       })
        .when('/signup', {
         templateUrl: '/client/views/signUp.html'

@@ -87,6 +87,15 @@ app.get('/signup', function (req, res){
 //app.get('/api/flashcard_sets', flashcardsetsController.list);
 //app.post('/api/flashcard_sets', flashcardsetsController.create);
 
+app.get('/sets', function(req,res){
+	Sets.find(function(err,found){
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
+	});
+});
+
 app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
 
 	//var searchrequest = {'$regex': req.params.flashcardsetName};

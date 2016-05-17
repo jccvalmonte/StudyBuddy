@@ -1,8 +1,7 @@
-'use strict';
 
 
-angular.module('studybuddyApp')
-.controller('homeScrnCntrl',[$scope, $rootScope, $http,
+var app = angular.module('studybuddyApp');
+app.controller('homeScrnCntrl',[$scope, $rootScope, $http,
 		function($scope, $rootScope, $http){
 
 			$scope.getSets = function(){
