@@ -24,6 +24,10 @@ var app= angular
         templateUrl: '/client/views/card.html',
         controller: 'cardsController'
       })
+      .when('/getAccount/:email', {
+        templateUrl: '/client/views/account.html',
+        controller: 'accountController'
+      })
       .otherwise({
         redirectTo: '/'
       });
