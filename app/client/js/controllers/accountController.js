@@ -2,19 +2,19 @@ var app = angular.module('studybuddyApp');
 app.controller('accountController', ['$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($scope, $resource, $http, $location, $routeParams ) {
 
-		$scope.getAccount = function(email, password) {
+	/*	$scope.getAccount = function(email, password) {
 			//console.log(flashcardsetName);
 			var url = "/getAccount/"+email;
 			$location.path(url);
 			console.log("getAccountfirst:" + url);
-		}
+		}*/
 
-		$scope.getAccountResults = function() {
+		$scope.getAccountResults = function(email,password) {
 
-			$scope.email = $routeParams.email;
-			$scope.pswd = $routeParams.password;
+		//	$scope.email = $routeParams.email;
+		//	$scope.pswd = $routeParams.password;
 
-	    	var url = "/getAccount/"+ $scope.email;
+	    	var url = "/getAccount/"+ email;
 			console.log(" get Account url "+ url);
 
 				$http.get(url).success(function(data){
@@ -26,7 +26,7 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 						window.location.href = 'myFlashcards.html';
 					}
 
-				console.log($scope.results);
+				console.log("test "+$scope.results);
 			});
 		}
 }]);

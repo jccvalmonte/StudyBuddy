@@ -130,7 +130,7 @@ app.get('/card/:setIdNum', function(req, res) {
 app.get('/getAccount/:email', function(req, res) {
  
       var email = req.params.email;
-      var password = req.params.pswd;
+      //var password = req.params.pswd;
  
     Accounts.find({email: email}, function(err, found) {
      			// if there is an error retrieving, send the error. nothing after res.send(err) will execute

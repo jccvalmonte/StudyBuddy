@@ -25,7 +25,7 @@ var app= angular
         controller: 'cardsController'
       })
       .when('/getAccount/:email', {
-        templateUrl: '/client/views/account.html',
+        //templateUrl: '/client/views/account.html',
         controller: 'accountController'
       })
       .otherwise({
