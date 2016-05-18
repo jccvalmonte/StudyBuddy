@@ -36,7 +36,7 @@
 			</div> <!--/.navbar-header-->
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="myNavbarCollapse">
+			<div class="collapse navbar-collapse" id="myNavbarCollapse" >
 
 			<!-- Links -->
 			<ul class="nav navbar-nav navbar-right">
@@ -47,18 +47,26 @@
 		</div> <!--/.container-fluid-->	
 	</nav>
 
-	<center class="container">
-		<div class="jumbotron"><h1>My Flashcards</h1></div>
-	</center>
+	<div ng-controller="accountController">
+		<center class="container">
+			<div class="jumbotron"><button class="btn btn-primary" type="button" ng-click="myflashcardsets()">My Flashcards</button>
+	</div>
+		</center>
+	</div>
 
-	<center class="container" ng-controller="flashcardsetsController">
+	<!--<center class="container" ng-controller="flashcardsetsController">
 		<form class="form-search input-lg" role="search">
 			<input type="text" class="form-search" placeholder="Search" ng-model="flashcardsetName">
 			<button type="submit" ng-click="getFlashcardset(flashcardsetName)" class="btn btn-default">
 			<span class="glyphicon glyphicon-search"></span>
 			</button>
 		</form>	
-	</center>
+	</center> -->
+
+
+
+
+
 
 	<!--
 	<center class="container-fluid">
@@ -75,7 +83,6 @@
 		
 	<div ng-view=""></div>
 
-
 	<!-- Import core angularjs and jquery dependencies -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
@@ -87,10 +94,12 @@
     <script type = "text/javascript" src="/client/js/app.js"></script>
 	<script type = "text/javascript" src="/client/js/controllers/flashcardsets-controller.js"> </script>
 	<script type = "text/javascript" src="/client/js/controllers/cardsController.js"> </script>
+	<script type = "text/javascript" src="/client/js/controllers/accountController.js"> </script>
 
 	<!-- Latest compiled and minified JavaScript -->
 	<!-- Import core Bootstrap javascript dependencies -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 
 </body>
 </html>	

@@ -1,5 +1,9 @@
 <!-- Login/Create Account  View-->
-<center ng-controller="accountController" ng-init='getAccountResults()' style="margin-top:50px">
-	<p> Hello! </p>
+<div ng-app="studybuddyApp" ng-controller="accountController">
+	<table>
+	<tr ng-repeat="result in results">
+		<td>{{result.firstName}}</td>
+	</tr>
+	</table>
 		
-</center>
+</div>
