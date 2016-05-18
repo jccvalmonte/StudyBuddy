@@ -17,13 +17,30 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 	    	var url = "/getAccount/"+ $scope.email;
 			console.log(" get Account url "+ url);
 
-				$http.get(url).success(function(data){
-				$scope.results = data;
+			$http.get(url).success(function(data){
+			$scope.results = data;
 					if($scope.results.length==0){
 						window.alert('Not a valid user, Please Try again');
 					}
 					else{
 						window.alert('Welcome!');
+					}
+
+				console.log($scope.results);
+			});
+		}
+
+		$scope.createAccount = function(email, password) {
+			console.log("Email: " + email);
+			var url = "/createAccount/"+ email + "/" + password;
+		
+			$http.post(url).success(function(data){
+			$scope.results = data;
+					if($scope.results.length==0){
+						window.alert('Account creation failed');
+					}
+					else{
+						window.alert('Successfully created an account!');
 					}
 
 				console.log($scope.results);

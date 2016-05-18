@@ -102,21 +102,21 @@ app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
 	//var searchrequest = {'$regex': req.params.flashcardsetName};
 	var searchrequest = {'$regex': new RegExp('^' + req.params.flashcardsetName.toLowerCase(), 'i')};
 		//FlashcardSet.find({category: searchrequest},function(err, found) {
-    Sets.find({Category: searchrequest},function(err, found) {
+			Sets.find({Category: searchrequest},function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
 			else
 			res.json(found); // return all todos in JSON format
-		});
-	});	
+	});
+		});	
 
 
 app.get('/card/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
 	//console.log(searchrequest);
-    Cards.find({setIdNum: searchrequest},function(err, found) {
+	Cards.find({setIdNum: searchrequest},function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
@@ -125,37 +125,39 @@ app.get('/card/:setIdNum', function(req, res) {
 			res.json(found); // return all cards in JSON format
 
 		});
-	});	
+});	
 
 //"/getAccount/"+ $scope.email + $scope.pswd;
 
 app.get('/getAccount/:email', function(req, res) {
- 
-      var email = req.params.email;
-      var password = req.params.pswd;
- 
-    Accounts.find({email: email}, function(err, found) {
-     			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-                if (err)
-                    res.send(err)
-                    else
-                                                      
-               	//console.log(res.json);
-                    res.json(found); // return all accounts in JSON format
-                });
-    });          
- 
+
+	var email = req.params.email;
+	var password = req.params.pswd;
+
+	Accounts.find({email: email}, function(err, found) {
+     	// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+     	if (err)
+     		res.send(err)
+     	else
+        //console.log(res.json);
+        res.json(found); // return all accounts in JSON format
+    });
+});          
+
 app.post('/createAccount/:email/:password', function(req, res) {
- 
-              var email = req.params.email;
-              var password = req.params.password;
- 
-    Accounts.create({email: email}, {password: password}, function(err, found) {
-                                         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-                    if (err)
-                       res.send(err)
-                    });
-              });         
+
+	var email = req.params.email;
+	var password = req.params.password;
+
+	Accounts.create({email: email}, {password: password}, function(err, found) {
+    	// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+     	if (err)
+     		res.send(err)
+     	else
+        //console.log(res.json);
+        res.json(found); // return all accounts in JSON format
+    });
+});         
 
 //Handle all the http request that come in on port 3000
 app.listen(3000, function() {
