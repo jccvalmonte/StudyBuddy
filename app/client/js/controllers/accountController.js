@@ -26,10 +26,10 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 					else{
 							console.log("hello dips "+$scope.results);
 							
-							
+							//window.location.href("myFlashcards.html");
 									//$scope.setit = !$scope.setit;
 								var locationurl = "/getUserFlashcardsets/"+email;	
-									$location.path(locationurl);
+								$location.path(locationurl);
 									
 						}
 				});
