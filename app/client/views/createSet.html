@@ -1,0 +1,46 @@
+<div id="newSet" ng-controller='flashcardsetsController' ng-init='initNewSet()'>
+	<h1>New Set</h1>
+	<p></p>
+	<!--<div class="panel panel-default">
+	  <div class="panel-heading">Id</div>
+	  <div class="panel-body">
+		<span ng-bind='set.setIdNum' id='Id' class="label label-default"></span>
+	  </div>
+	</div>		-->
+	<div class="panel panel-default">
+	  <div class="panel-heading">Name</div>
+	  <div class="panel-body">
+		<input id="Name" ng-model="set.Name" type="text" class="form-control" placeholder="Name of your set" aria-describedby="basic-addon1">
+	  </div>
+	</div>		
+	<div class="panel panel-default">
+	  <div class="panel-heading">Category</div>
+	  <div class="panel-body">
+		<input id="Category" ng-model="set.Category" type="text" class="form-control" placeholder="What category is your set in?" aria-describedby="basic-addon1">
+	  </div>
+	</div>		
+	<!--<div class="panel panel-default">
+	  <div class="panel-heading">Due Date</div>
+	  <div class="panel-body">
+		<input id="lDDate" ng-model="list.due" type="text" class="form-control" placeholder="Completion date" aria-describedby="basic-addon1">
+	  </div>
+	 </div>				
+	<div class="panel panel-default">
+	  <div class="panel-heading">State</div>
+	  <div class="panel-body">
+		<span ng-bind="list.state" class="label label-default"></span>
+	  </div>
+	 </div>  
+	<div class="panel panel-default">
+	  <div class="panel-heading">Author</div>
+	  <div class="panel-body">
+		<span ng-bind="set.Author" id='Author' class="label label-default"></span>
+	  </div>
+	 </div>  -->
+
+	 <p class="verticalSpace"></p>
+	  <a class="btn btn-lg btn-primary" ng-click='writeSet()' role="button">Add</a>
+	<p class="verticalSpace"></p>
+			 
+<!--	<button ng-click="createNew('newList')" type="button" class="btn btn-default">Add</button> -->
+</div>

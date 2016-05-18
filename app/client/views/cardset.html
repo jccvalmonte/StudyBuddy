@@ -1,7 +1,7 @@
 <!-- Search Flashcard  View-->
 <div ng-controller="flashcardsetsController" ng-init='getcardsetResults()' style="margin-top:50px">
-	<table class="table table-bordered table-hover"> 
-		<thead class="thead-inverse">
+	<table class="table table-bordered table-striped table-hover"> 
+		<thead>
 			<th>Name</th>
 			<th>Category</th>
 			<th># Cards</th>
@@ -15,7 +15,6 @@
 	   		<td>{{result.numCards}}</td>
 	   		<td>{{result.Author}}</td>
 	   		<td>{{result.DateCreated}}</td>
-	   	</form>	
    		</tr>
 		 </tbody>
 	</table>

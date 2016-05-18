@@ -47,3 +47,9 @@
   	align-items: center;
   	justify-content: center;
 }
+
+.card {
+box-shadow: 10px 5px 5px gray;
+text-shadow: 1px 1px;
+
+}

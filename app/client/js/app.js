@@ -33,6 +33,10 @@ var app= angular
       })
       .when('/getUserFlashcardsets/:email', {
         templateUrl: '/client/views/displayUserFlashcards.html'
+      })
+      .when('/createset',{
+        templateUrl: '/client/views/createset.html',
+        controller: 'flashcardsetsController'
       }) 
       .otherwise({
         redirectTo: '/'

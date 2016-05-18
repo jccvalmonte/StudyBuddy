@@ -9,7 +9,7 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 			console.log("getAccountfirst:" + url);
 		}
 
-		$scope.getAccountResults = function(email,password) {
+		$scope.getAccountResults = function(email, password) {
 			$scope.setit = false;
 		//	$scope.email = $routeParams.email;
 		//	$scope.pswd = $routeParams.password;
@@ -21,18 +21,17 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 			$http.get(url).success(function(data){
 				$scope.results = data;
 
-				if ($scope.results.length==0) {
-					window.alert('Not a valid user. Please try again.');
-				} else {
-					console.log("hello dips "+$scope.results);
+					if($scope.results.length==0){
+						window.alert('Not a valid user, Please Try again');
+					}
+					else{
+							//window.location.href("myFlashcards.html");
+									//$scope.setit = !$scope.setit;
+								var locationurl = "/getUserFlashcardsets/"+email;	
+								$location.path(locationurl);			
+						}
+				});
 
-					//window.location.href("myFlashcards.html");
-					//$scope.setit = !$scope.setit;
-					var locationurl = "/getUserFlashcardsets/"+email;	
-					$location.path(locationurl);
-
-				}
-			});
 		}
 
 		$scope.createAccount = function(email, firstName, lastName, password) {

@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
 	<link rel="stylesheet" type="text/css" href="/styles/card.css">
 	<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
@@ -56,7 +57,6 @@
 					<li><a href="home.html"><font face="calibri" size=3 style="padding-right:10px;">Log Out</a></font></li>
 				</ul>
 			</div> 
-
 			<center class="container" ng-show="myVar">
 				<div class="jumbotron"><h1>My Flashcards</h1></div>
 			</center> -->
@@ -65,54 +65,55 @@
 		</div> <!--/.container-fluid-->
 	</nav>
 
-
 	<!-- Log In Form -->
-	<div class="modal fade" id="loginModal" ng-controller="accountController">
+	<div class="modal fade" id="loginModal">
 		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<div class="modal-title">
-						<center>
-							<span class="glyphicon glyphicon-log-in"></span>
-							<img src="/images/StudyBuddyCharacterSmall.png" />
-						</center>
-					</div>
+			<div class="modal-content" ng-controller="accountController">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<div class="modal-title">
+					<center>
+					<span class="glyphicon glyphicon-log-in"></span>
+					<img src="/images/StudyBuddyCharacterSmall.png"/>
+					</center>
 				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="inputEmail">Email address</label>
-						<input ng-model="email" class="form-control" id="inputEmail" placeholder="Email" type="email">
-					</div>
-					<div class="form-group">
-						<label for="inputPassword">Password</label>
-						<input ng-model="password" class="form-control" id="inputPassword" placeholder="Password" type="password">
-					</div>
-					<p class="text-mid"><a href="client/views/signUp.html">Create an account</a></p>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="inputEmail">Email address</label>
+					<input class="form-control" id="inputEmail" placeholder="Email" type="email" ng-model="email">
 				</div>
-				<div class="modal-footer">
-					<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="getAccountResults(email, password)">Log In</button>
+				<div class="form-group">
+					<label for="inputPassword">Password</label>
+					<input class="form-control" id="inputPassword" placeholder="Password" type="password" ng-model="password">
 				</div>
+				<p class="text-mid"><a href="signUp.html">Create an account</a></p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-lg btn-primary btn-block" type="submit" data-dismiss="modal" ng-click="getAccountResults(email,password)">
+					Log In
+				</button>
+			</div>
 			</div>
 		</div>
 	</div>
 
 
 	<center class="container">
-		<div class="jumbotron"><h1>Flashcard Sets</h1></div>
+		<div class="jumbotron"><h1>Study Buddy</h1></div>
 	</center>
 
 	<center class="container" ng-controller="flashcardsetsController">
 		<form class="form-search input-lg" role="search">
-			<input type="text" class="form-search" placeholder="Search Study Buddy" ng-model="flashcardsetName">
+			<input type="text" class="form-search" placeholder="Search" ng-model="flashcardsetName">
 			<button type="submit" ng-click="getFlashcardset(flashcardsetName)" class="btn btn-default">
 			<span class="glyphicon glyphicon-search"></span>
 			</button>
 		</form>	
 	</center>			
-
 		
 	<div ng-view=""></div>
+	
 
 
 	<!-- Import core angularjs and jquery dependencies -->
