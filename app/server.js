@@ -68,6 +68,8 @@ mongoose.connection.on('open', function(){
 
 	var AccountSchema = new Schema({
 		email: String,
+		firstName: String,
+		lastName: String,
 		password: String
 	},
 	{collection: 'accounts'}
@@ -144,12 +146,14 @@ app.get('/getAccount/:email', function(req, res) {
     });
 });          
 
-app.post('/createAccount/:email/:password', function(req, res) {
+app.post('/createAccount/:email/:firstName/:lastName/:password', function(req, res) {
 
 	var email = req.params.email;
+	var firstName = req.params.firstName;
+	var lastName = req.params.lastName;
 	var password = req.params.password;
 
-	Accounts.create({email: email}, {password: password}, function(err, found) {
+	Accounts.create({email: email}, {firstName: firstName}, {lastName: lastName}, {password: password}, function(err, found) {
     	// if there is an error retrieving, send the error. nothing after res.send(err) will execute
      	if (err)
      		res.send(err)

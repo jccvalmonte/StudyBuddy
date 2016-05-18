@@ -30,9 +30,13 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 			});
 		}
 
-		$scope.createAccount = function(email, password) {
+		$scope.createAccount = function(email, firstName, lastName, password) {
 			console.log("Email: " + email);
-			var url = "/createAccount/"+ email + "/" + password;
+			console.log("First Name: " + firstName);
+			console.log("lastName: " + lastName);
+			console.log("Password: " + password);
+
+			var url = "/createAccount/"+ email + "/" + firstName + "/" + lastName + "/" + password;
 		
 			$http.post(url).success(function(data){
 			$scope.results = data;
@@ -41,6 +45,7 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 					}
 					else{
 						window.alert('Successfully created an account!');
+						window.location.href = '/home.html';
 					}
 
 				console.log($scope.results);
