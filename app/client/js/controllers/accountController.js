@@ -14,7 +14,7 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 		//	$scope.email = $routeParams.email;
 		//	$scope.pswd = $routeParams.password;
 
-		var url = "/getAccount/"+ email;
+		var url = "/getAccount/"+ email + "/" + password;
 		console.log(" get Account url "+ url);
 
 			//$scope.myVar = false;
@@ -30,7 +30,7 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 					//$scope.setit = !$scope.setit;
 					var locationurl = "/getUserFlashcardsets/"+email;	
 					$location.path(locationurl);
-					
+
 				}
 			});
 		}
@@ -87,5 +87,4 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 
 			//console.log("getAccountfirst:" + url);
 		}*/
-		>>>>>>> refs/remotes/origin/master
 	}]);
