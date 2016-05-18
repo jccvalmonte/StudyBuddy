@@ -20,10 +20,9 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 				$http.get(url).success(function(data){
 				$scope.results = data;
 
-					if($scope.results.length==0){
-						window.alert('Not a valid user, Please Try again');
-					}
-					else{
+					if ($scope.results.length==0) {
+						window.alert('Not a valid user. Please try again.');
+					} else {
 							console.log("hello dips "+$scope.results);
 							
 							//window.location.href("myFlashcards.html");
@@ -31,33 +30,33 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 								var locationurl = "/getUserFlashcardsets/"+email;	
 								$location.path(locationurl);
 									
-						}
+					}
 				});
 		}
 
-		//gethomepageurl 
-$scope.getUsercardsetResults = function() {
+				//gethomepageurl 
+		$scope.getUsercardsetResults = function() {
 
-		$scope.email = $routeParams.email;
+				$scope.email = $routeParams.email;
 
-    	var url = "/getUserFlashcardsets/"+ $scope.email;
-		console.log(" getUserFlashcardsets url "+ url);
+		    	var url = "/getUserFlashcardsets/"+ $scope.email;
+				console.log(" getUserFlashcardsets url "+ url);
 
-			$http.get(url).success(function(data){
-			$scope.userresults = data;
-			console.log($scope.userresults);
-			
-		});
-	}
-//redirectUserCardUrl
+					$http.get(url).success(function(data){
+					$scope.userresults = data;
+					console.log($scope.userresults);
+					
+				});
+			}
+		//redirectUserCardUrl
 
-$scope.redirectUserCardUrl = function(setIdNum, name) {
+		$scope.redirectUserCardUrl = function(setIdNum, name) {
 
-    	var url = "/card/"+setIdNum+ "/"+name;
-		console.log(url);
-		$location.path(url);
-			
-	}
+		    	var url = "/card/"+setIdNum+ "/"+name;
+				console.log(url);
+				$location.path(url);
+					
+			}
 	/*	$scope.myflashcardsets = function() {
 			console.log("test here I am");
 			var url = "/getAccount/"+ email;
