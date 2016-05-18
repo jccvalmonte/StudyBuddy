@@ -1,0 +1,22 @@
+<div ng-app="studybuddyApp" ng-controller="accountController" ng-init="getUsercardsetResults()">
+	<center  style="margin-top:50px">
+		<table> 
+			<thead>
+				<th>Set Name</th>
+				<th>Category</th>
+				<th># Cards</th>
+				<th>Author</th>
+				<th>Date Created</th>
+			</thead>
+			<tbody>
+		   		<tr ng-repeat="userresult in userresults">
+			   		<td><a href="" ng-click="redirectUserCardUrl(userresult.setIdNum, userresult.Name)">{{userresult.Name}}</a></td>
+			   		<td>{{userresult.Category}}</td>
+			   		<td>{{userresult.numCards}}</td>
+			   		<td>{{userresult.Author}}</td>
+			   		<td>{{userresult.DateCreated}}</td>
+		   		</tr>
+			 </tbody>
+		</table>
+	</center>
+</div>	

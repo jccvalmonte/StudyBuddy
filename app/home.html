@@ -36,22 +36,36 @@
 			</div> <!--/.navbar-header-->
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="myNavbarCollapse">
+			<div class="collapse navbar-collapse" id="myNavbarCollapse" ng-controller = "accountController">
 
 			<!-- Links -->
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="home.html"><font face="calibri" size=3>Home</a></font></li>
-				<li><a href="client/views/signUp.html"><font face="calibri" size=3>Sign Up</a></font></li>
-				<li><a href="#loginModal" data-toggle="modal" data-target="#loginModal"><font face="calibri" size=3 style="padding-right:10px;">Log In</a></font></li>
-			</ul>
-		</div> <!--/.container-fluid-->	
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="home.html"><font face="calibri" size=3>Home</a></font></li>
+					<li><a href="client/views/signUp.html"><font face="calibri" size=3>Sign Up</a></font></li>
+					<li ng-show="myVar"><a href="#"><font face="calibri" size=3>My Flashcards</a></font></li>
+					<li><button type=submit ng-click="loginRedirectUrl()">Log In</a></button></li>
+				</ul>
+			</div>
+
+		<!--	<div class="collapse navbar-collapse" id="myNavbarCollapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="loggedIn_home.html"><font face="calibri" size=3>Home</a></font></li>
+					<li><a href="#"><font face="calibri" size=3>My Flashcards</a></font></li>
+					<li><a href="home.html"><font face="calibri" size=3 style="padding-right:10px;">Log Out</a></font></li>
+				</ul>
+			</div> 
+
+			<center class="container" ng-show="myVar">
+				<div class="jumbotron"><h1>My Flashcards</h1></div>
+			</center> -->
+
+
+		</div> <!--/.container-fluid-->
 	</nav>
 
-	<!-- Log In Form -->
-	<div class="modal fade" id="loginModal" ng-controller="accountController">
-		<div class="modal-dialog">
-			<div class="modal-content">
-			<div class="modal-header">
+	<!-- Log In Form
+	<div ng-controller="accountController">
+		
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				<div class="modal-title">
 					<center>
@@ -73,11 +87,12 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="getAccountResults(email,password)">Log In</button>
+				<a href = "home.html" class="btn btn-lg btn-primary btn-block" ng-click="getAccountResults(email,password)">Log In</a>
 
 			</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<center class="container">
 		<div class="jumbotron"><h1>Flashcard Sets</h1></div>

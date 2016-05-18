@@ -3,7 +3,7 @@
 var app= angular
   			.module('studybuddyApp', [
 		    'ngResource',
-		    'ngRoute'
+		    'ngRoute',
   		])
   .config(function ($routeProvider) {
     $routeProvider
@@ -12,6 +12,9 @@ var app= angular
 	  })*/
       .when('/home', {
         templateUrl: '/home.html'
+      })
+      .when('/loginAccountPage', {
+        templateUrl: '/client/views/accountLogin.html'
       })
        .when('/signup', {
         templateUrl: '/client/views/signUp.html'
@@ -25,9 +28,12 @@ var app= angular
         controller: 'cardsController'
       })
       .when('/getAccount/:email', {
-        //templateUrl: '/client/views/account.html',
+        templateUrl: '/client/views/account.html',
         controller: 'accountController'
       })
+      .when('/getUserFlashcardsets/:email', {
+        templateUrl: '/client/views/displayUserFlashcards.html'
+      }) 
       .otherwise({
         redirectTo: '/'
       });
