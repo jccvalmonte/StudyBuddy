@@ -52,6 +52,7 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'sets'}
 	);
+
 	Sets = mongoose.model('Sets', CardSetSchema);
 	
 	var CardListSchema = new Schema({
@@ -64,10 +65,13 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'cards'}
 	);
+
 	Cards = mongoose.model('Cards', CardListSchema);
 
 	var AccountSchema = new Schema({
 		email: String,
+		firstName: String,
+		lastName: String,
 		password: String
 	},
 	{collection: 'accounts'}
@@ -102,21 +106,21 @@ app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
 	//var searchrequest = {'$regex': req.params.flashcardsetName};
 	var searchrequest = {'$regex': new RegExp('^' + req.params.flashcardsetName.toLowerCase(), 'i')};
 		//FlashcardSet.find({category: searchrequest},function(err, found) {
-    Sets.find({Category: searchrequest},function(err, found) {
+			Sets.find({Category: searchrequest},function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
 			else
 			res.json(found); // return all todos in JSON format
-		});
-	});	
+	});
+		});	
 
 
 app.get('/card/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
 	//console.log(searchrequest);
-    Cards.find({setIdNum: searchrequest},function(err, found) {
+	Cards.find({setIdNum: searchrequest},function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
@@ -125,38 +129,43 @@ app.get('/card/:setIdNum', function(req, res) {
 			res.json(found); // return all cards in JSON format
 
 		});
-	});	
+});	
 
 
 //"/getAccount/"+ $scope.email + $scope.pswd; /getUserFlashcardsets/
 
-app.get('/getAccount/:email', function(req, res) {
- 
-      var email = req.params.email;
-      //var password = req.params.pswd;
- 
-    Accounts.find({email: email}, function(err, found) {
-     			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-                if (err)
-                    res.send(err)
-                    else
-                                                      
-               	//console.log(res.json);
-                    res.json(found); // return all accounts in JSON format
-                });
-    });          
- 
-app.post('/createAccount/:email/:password', function(req, res) {
- 
-              var email = req.params.email;
-              var password = req.params.password;
- 
-    Accounts.create({email: email}, {password: password}, function(err, found) {
-                                         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-                    if (err)
-                       res.send(err)
-                    });
-              });         
+app.get('/getAccount/:email/:password', function(req, res) {
+
+	var email = req.params.email;
+	var password = req.params.password;
+
+	Accounts.find({email: email}, {password: password}, function(err, found) {
+     	// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+     	if (err)
+     		res.send(err)
+     	else
+        //console.log(res.json);
+        res.json(found); // return all accounts in JSON format
+    });
+});          
+
+app.post('/createAccount/:email/:firstName/:lastName/:password', function(req, res) {
+
+	var email = req.params.email;
+	var firstName = req.params.firstName;
+	var lastName = req.params.lastName;
+	var password = req.params.password;
+
+	Accounts.create({email: email}, {firstName: firstName}, {lastName: lastName}, {password: password}, function(err, found) {
+    	// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+     	if (err)
+     		res.send(err)
+     	else
+        //console.log(res.json);
+        res.json(found); // return all accounts in JSON format
+    });
+});                 
+
 
 app.get('/getUserFlashcardsets/:email', function(req, res) {
  
