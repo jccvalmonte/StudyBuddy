@@ -24,13 +24,10 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 						window.alert('Not a valid user, Please Try again');
 					}
 					else{
-							console.log("hello dips "+$scope.results);
-							
 							//window.location.href("myFlashcards.html");
 									//$scope.setit = !$scope.setit;
 								var locationurl = "/getUserFlashcardsets/"+email;	
-								$location.path(locationurl);
-									
+								$location.path(locationurl);			
 						}
 				});
 		}

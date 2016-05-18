@@ -22,6 +22,8 @@ console.log(mongoDBConnection.uri);
 var Sets;
 var Cards;
 
+var idGen = 5;
+
 app.use(bodyParser());
 
 //app.use(express.static(__dirname + '/public')); 
@@ -170,7 +172,21 @@ app.get('/getUserFlashcardsets/:email', function(req, res) {
                 });
     }); 
 
+app.post('/createSet', function(req, res){
+	var jsonObj = req.body;
+	
 
+	jsonObj.setIdNum = idGen;
+
+	console.log(jsonObj);
+
+	Sets.create([jsonObj], function(err){
+		if(err)
+			res.send(err)
+	});
+	res.send(jsonObj);
+	idGen++;
+});
 
 
 //Handle all the http request that come in on port 3000
