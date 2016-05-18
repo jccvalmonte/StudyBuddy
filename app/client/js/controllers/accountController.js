@@ -14,49 +14,72 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 		//	$scope.email = $routeParams.email;
 		//	$scope.pswd = $routeParams.password;
 
-	    	var url = "/getAccount/"+ email;
-			console.log(" get Account url "+ url);
+		var url = "/getAccount/"+ email + "/" + password;
+		console.log(" get Account url "+ url);
+
 			//$scope.myVar = false;
-				$http.get(url).success(function(data){
+			$http.get(url).success(function(data){
 				$scope.results = data;
 
-					if ($scope.results.length==0) {
-						window.alert('Not a valid user. Please try again.');
-					} else {
-							console.log("hello dips "+$scope.results);
-							
-							//window.location.href("myFlashcards.html");
-									//$scope.setit = !$scope.setit;
-								var locationurl = "/getUserFlashcardsets/"+email;	
-								$location.path(locationurl);
-									
-					}
-				});
+				if ($scope.results.length==0) {
+					window.alert('Not a valid user. Please try again.');
+				} else {
+					console.log("hello dips "+$scope.results);
+
+					//window.location.href("myFlashcards.html");
+					//$scope.setit = !$scope.setit;
+					var locationurl = "/getUserFlashcardsets/"+email;	
+					$location.path(locationurl);
+
+				}
+			});
+		}
+
+		$scope.createAccount = function(email, firstName, lastName, password) {
+			console.log("Email: " + email);
+			console.log("First Name: " + firstName);
+			console.log("lastName: " + lastName);
+			console.log("Password: " + password);
+
+			var url = "/createAccount/"+ email + "/" + firstName + "/" + lastName + "/" + password;
+
+			$http.post(url).success(function(data){
+				$scope.results = data;
+				if($scope.results.length==0){
+					window.alert('Account creation failed');
+				}
+				else{
+					window.alert('Successfully created an account!');
+					window.location.href = '/home.html';
+				}
+
+				console.log($scope.results);
+			});
 		}
 
 				//gethomepageurl 
-		$scope.getUsercardsetResults = function() {
+				$scope.getUsercardsetResults = function() {
 
-				$scope.email = $routeParams.email;
+					$scope.email = $routeParams.email;
 
-		    	var url = "/getUserFlashcardsets/"+ $scope.email;
-				console.log(" getUserFlashcardsets url "+ url);
+					var url = "/getUserFlashcardsets/"+ $scope.email;
+					console.log(" getUserFlashcardsets url "+ url);
 
 					$http.get(url).success(function(data){
-					$scope.userresults = data;
-					console.log($scope.userresults);
-					
-				});
-			}
+						$scope.userresults = data;
+						console.log($scope.userresults);
+
+					});
+				}
 		//redirectUserCardUrl
 
 		$scope.redirectUserCardUrl = function(setIdNum, name) {
 
-		    	var url = "/card/"+setIdNum+ "/"+name;
-				console.log(url);
-				$location.path(url);
-					
-			}
+			var url = "/card/"+setIdNum+ "/"+name;
+			console.log(url);
+			$location.path(url);
+
+		}
 	/*	$scope.myflashcardsets = function() {
 			console.log("test here I am");
 			var url = "/getAccount/"+ email;
@@ -64,4 +87,4 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 
 			//console.log("getAccountfirst:" + url);
 		}*/
-}]);
+	}]);

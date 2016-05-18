@@ -24,7 +24,7 @@ app.controller('cardsController', ['$scope', '$resource', '$http', '$location','
 			else
 			{
 				$scope.endofcards = $routeParams.name;
-				window.alert("Done vieiwing all flashcards for "+ $scope.endofcards);
+				window.alert("Done viewing all flashcards for "+ $scope.endofcards);
 				
 			}
 		}
