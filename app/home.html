@@ -99,23 +99,21 @@
 		</div>
 	</div>
 
-
-
 	<center class="container">
-		<div class="jumbotron"><h1>Flashcard Sets</h1></div>
+		<div class="jumbotron"><h1>Study Buddy</h1></div>
 	</center>
 
 	<center class="container" ng-controller="flashcardsetsController">
 		<form class="form-search input-lg" role="search">
-			<input type="text" class="form-search" placeholder="Search Study Buddy" ng-model="flashcardsetName">
+			<input type="text" class="form-search" placeholder="Search" ng-model="flashcardsetName">
 			<button type="submit" ng-click="getFlashcardset(flashcardsetName)" class="btn btn-default">
 			<span class="glyphicon glyphicon-search"></span>
 			</button>
 		</form>	
 	</center>			
-
 		
 	<div ng-view=""></div>
+	
 
 
 	<!-- Import core angularjs and jquery dependencies -->
