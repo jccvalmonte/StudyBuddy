@@ -21,17 +21,17 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 			$http.get(url).success(function(data){
 				$scope.results = data;
 
-				if ($scope.results.length==0) {
-					window.alert('Not a valid user. Please try again.');
-				} else {
-					console.log("hello dips "+$scope.results);
-					//window.location.href("loggedIn_home.html");
-					//$scope.setit = !$scope.setit;
-					var locationurl = "/getUserFlashcardsets/"+email;	
-					$location.path(locationurl);
+					if($scope.results.length==0){
+						window.alert('Not a valid user, Please Try again');
+					}
+					else{
+							//window.location.href("myFlashcards.html");
+									//$scope.setit = !$scope.setit;
+								var locationurl = "/getUserFlashcardsets/"+email;	
+								$location.path(locationurl);			
+						}
+				});
 
-				}
-			});
 		}
 
 		$scope.createAccount = function(email, firstName, lastName, password) {
