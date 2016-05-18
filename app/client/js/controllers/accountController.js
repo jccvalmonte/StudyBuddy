@@ -23,7 +23,7 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 						window.alert('Not a valid user, Please Try again');
 					}
 					else{
-						window.alert('Welcome!');
+						window.location.href = 'myFlashcards.html';
 					}
 
 				console.log($scope.results);

@@ -9,10 +9,10 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="styles/card.css">
-	<link rel="stylesheet" type="text/css" href="styles/main.css">
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -22,7 +22,7 @@
 	<nav class="navbar navbar-default">
 
 		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
+				<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
   				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbarCollapse" aria-expanded="false">
     				<span class="sr-only">Toggle navigation</span>
@@ -40,7 +40,7 @@
 
 			<!-- Links -->
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><font face="calibri" size=3>Home</a></font></li>
+				<li><a href="home.html"><font face="calibri" size=3>Home</a></font></li>
 				<li><a href="client/views/signUp.html"><font face="calibri" size=3>Sign Up</a></font></li>
 				<li><a href="#loginModal" data-toggle="modal" data-target="#loginModal"><font face="calibri" size=3 style="padding-right:10px;">Log In</a></font></li>
 			</ul>
@@ -73,25 +73,25 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="getAccount(email, password)">Log In</button>
+				
 			</div>
 			</div>
 		</div>
 	</div>
 
 	<center class="container">
-		<div class="jumbotron"><h1>Study Buddy</h1></div>
+		<div class="jumbotron"><h1>Flashcard Sets</h1></div>
 	</center>
-
 
 	<center class="container" ng-controller="flashcardsetsController">
 		<form class="form-search input-lg" role="search">
-			<input type="text" class="form-search" placeholder="Search" ng-model="flashcardsetName">
-			<button type="submit" ng-click="getFlashcardset(flashcardsetName)" class="btn btn-primary">
+			<input type="text" class="form-search" placeholder="Search Study Buddy" ng-model="flashcardsetName">
+			<button type="submit" ng-click="getFlashcardset(flashcardsetName)" class="btn btn-default">
 			<span class="glyphicon glyphicon-search"></span>
 			</button>
 		</form>	
 	</center>			
-	
+
 		
 	<div ng-view=""></div>
 
