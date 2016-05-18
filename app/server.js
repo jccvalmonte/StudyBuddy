@@ -7,7 +7,7 @@ var express           		= require ('express'),
 	bodyParser              = require('body-parser'),
 	mongoose                = require('mongoose'),
 	url 					= require('url');
-	
+//var FlashcardSet = require('../models/flashcardset');
 //For the above app we need to define some routes
 //anyone makes a request to the route directory; 
 //respond by sending a file named index.html
@@ -50,6 +50,7 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'sets'}
 	);
+
 	Sets = mongoose.model('Sets', CardSetSchema);
 	
 	var CardListSchema = new Schema({
@@ -62,7 +63,18 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'cards'}
 	);
+
 	Cards = mongoose.model('Cards', CardListSchema);
+
+	var AccountSchema = new Schema({
+		email: String,
+		firstName: String,
+		lastName: String,
+		password: String
+	},
+	{collection: 'accounts'}
+	);
+	Accounts = mongoose.model('Accounts', AccountSchema);
 	
 	console.log('Models Created!');
 });
@@ -101,21 +113,21 @@ app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
 	//var searchrequest = {'$regex': req.params.flashcardsetName};
 	var searchrequest = {'$regex': new RegExp('^' + req.params.flashcardsetName.toLowerCase(), 'i')};
 		//FlashcardSet.find({category: searchrequest},function(err, found) {
-    Sets.find({Category: searchrequest},function(err, found) {
+			Sets.find({Category: searchrequest},function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
 			else
 			res.json(found); // return all todos in JSON format
-		});
-	});	
+	});
+		});	
 
 
 app.get('/card/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
 	//console.log(searchrequest);
-    Cards.find({setIdNum: searchrequest},function(err, found) {
+	Cards.find({setIdNum: searchrequest},function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
@@ -124,8 +136,119 @@ app.get('/card/:setIdNum', function(req, res) {
 			res.json(found); // return all cards in JSON format
 
 		});
-	});	
+});	
+
+
+//"/getAccount/"+ $scope.email + $scope.pswd; /getUserFlashcardsets/
+
+app.get('/getAccount/:email/:password', function(req, res) {
+
+	var email = req.params.email;
+	var password = req.params.password;
+
+	Accounts.find({email: email}, {password: password}, function(err, found) {
+     	// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+     	if (err)
+     		res.send(err)
+     	else
+        //console.log(res.json);
+        res.json(found); // return all accounts in JSON format
+    });
+});          
+
+app.post('/createAccount/:email/:firstName/:lastName/:password', function(req, res) {
+
+	var email = req.params.email;
+	var firstName = req.params.firstName;
+	var lastName = req.params.lastName;
+	var password = req.params.password;
+
+	Accounts.create({email: email}, {firstName: firstName}, {lastName: lastName}, {password: password}, function(err, found) {
+    	// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+     	if (err)
+     		res.send(err)
+     	else
+        //console.log(res.json);
+        res.json(found); // return all accounts in JSON format
+    });
+});                 
+
+
+app.get('/getUserFlashcardsets/:email', function(req, res) {
+ 
+      	var email = req.params.email;
+      //var password = req.params.pswd;
+ 
+    Sets.find({useremail: email}, function(err, found) {
+     			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+                if (err)
+                    res.send(err)
+                    else
+                    res.json(found); // return all accounts in JSON format
+                });
+    }); 
+
+
+
+
 //Handle all the http request that come in on port 3000
 app.listen(3000, function() {
 	console.log('I\'m Listening....');
 })
+
+/*module.exports.create = function(req, res){
+
+var set = new Sets();
+	set.Name = req.body.name;
+	set.Category = req.body.category;
+	set.numCards = req.body.numCards;
+	set.Author = req.user;
+	//set.dateCreated = new.Date(); 
+
+	set.save(function(err,set){
+	if(err)
+	res.send('error');
+	else
+	console.log('set added!');
+	res.send(set);
+	})
+}
+
+module.exports.update = function(req,res){
+Sets.findOneAndUpdate({
+_id: req.body.id},
+{$set:
+{Name:req.body.name}},
+{upsert: true},
+function(err, newSet){
+if(err){
+console.log('update error');
+}else{
+console.log('set updated!');
+res.send(newSet);
+}
+}
+});
+}
+
+module.exports.delete = function(req,res){
+Sets.findOneAndRemove({
+_id:req.body.id
+}, function(err,set){
+if(err){
+res.send('error deleting');
+}else{
+console.log('set deleted!');
+res.send(set);
+}
+}
+}
+
+});
+}
+
+module.exports.list = function(req, res){
+    FlashcardSet.find({}, function (err, results){
+    res.json(results);
+    });
+} */

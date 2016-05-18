@@ -8,7 +8,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="styles/card.css">
+	<link rel="stylesheet" type="text/css" href="/styles/card.css">
+	<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,76 +40,96 @@
 			</div> <!--/.navbar-header-->
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="myNavbarCollapse">
+			<div class="collapse navbar-collapse" id="myNavbarCollapse" ng-controller="accountController">
 
 			<!-- Links -->
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="home.html"><font face="calibri" size=3>Home</a></font></li>
-				<li><a href="client/views/signUp.html"><font face="calibri" size=3>Sign Up</a></font></li>
-				<li><a href="#loginModal" data-toggle="modal" data-target="#loginModal"><font face="calibri" size=3 style="padding-right:10px;">Log In</a></font></li>
-			</ul>
-		</div> <!--/.container-fluid-->	
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="home.html"><font face="calibri" size=3>Home</a></font></li>
+					<li><a href="client/views/signUp.html"><font face="calibri" size=3>Sign Up</a></font></li>
+					<li ng-show="myVar"><a href="#"><font face="calibri" size=3>My Flashcards</a></font></li>
+					<!--<li><button type=submit ng-click="loginRedirectUrl()">Log In</a></button></li> -->
+					<li><a href="#loginModal" data-toggle="modal" data-target="#loginModal"><font face="calibri" size=3 style="padding-right:10px;">Log In</a></font></li>
+				</ul>
+			</div>
+
+		<!--	<div class="collapse navbar-collapse" id="myNavbarCollapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="loggedIn_home.html"><font face="calibri" size=3>Home</a></font></li>
+					<li><a href="#"><font face="calibri" size=3>My Flashcards</a></font></li>
+					<li><a href="home.html"><font face="calibri" size=3 style="padding-right:10px;">Log Out</a></font></li>
+				</ul>
+			</div> 
+
+			<center class="container" ng-show="myVar">
+				<div class="jumbotron"><h1>My Flashcards</h1></div>
+			</center> -->
+
+
+		</div> <!--/.container-fluid-->
 	</nav>
 
+
 	<!-- Log In Form -->
-	<div class="modal fade" id="loginModal">
+	<div class="modal fade" id="loginModal" ng-controller="accountController">
 		<div class="modal-dialog">
 			<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<div class="modal-title">
-					<center>
-					<span class="glyphicon glyphicon-log-in"></span>
-					<img src="/images/StudyBuddyCharacterSmall.png" />
-					</center>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<div class="modal-title">
+						<center>
+							<span class="glyphicon glyphicon-log-in"></span>
+							<img src="/images/StudyBuddyCharacterSmall.png" />
+						</center>
+					</div>
 				</div>
-			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label for="inputEmail">Email address</label>
-					<input class="form-control" id="inputEmail" placeholder="Email" type="email">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="inputEmail">Email address</label>
+						<input ng-model="email" class="form-control" id="inputEmail" placeholder="Email" type="email">
+					</div>
+					<div class="form-group">
+						<label for="inputPassword">Password</label>
+						<input ng-model="password" class="form-control" id="inputPassword" placeholder="Password" type="password">
+					</div>
+					<p class="text-mid"><a href="client/views/signUp.html">Create an account</a></p>
 				</div>
-				<div class="form-group">
-					<label for="inputPassword">Password</label>
-					<input class="form-control" id="inputPassword" placeholder="Password" type="password">
+				<div class="modal-footer">
+					<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="getAccountResults(email, password)">Log In</button>
 				</div>
-				<p class="text-mid"><a href="client/views/signUp.html">Create an account</a></p>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-			</div>
 			</div>
 		</div>
 	</div>
 
 	<center class="container">
-		<div class="jumbotron"><h1>Flashcard Sets</h1></div>
+		<div class="jumbotron"><h1>Study Buddy</h1></div>
 	</center>
 
 	<center class="container" ng-controller="flashcardsetsController">
 		<form class="form-search input-lg" role="search">
-			<input type="text" class="form-search" placeholder="Search Study Buddy" ng-model="flashcardsetName">
+			<input type="text" class="form-search" placeholder="Search" ng-model="flashcardsetName">
 			<button type="submit" ng-click="getFlashcardset(flashcardsetName)" class="btn btn-default">
 			<span class="glyphicon glyphicon-search"></span>
 			</button>
 		</form>	
 	</center>			
 		
+<<<<<<< HEAD
 	<div ng-view=''></div>
+=======
+	<div ng-view=""></div>
+	
+>>>>>>> refs/remotes/origin/master
 
 
 	<!-- Import core angularjs and jquery dependencies -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
-
     <script type = "text/javascript" src="/client/js/app.js"></script>
 	<script type = "text/javascript" src="/client/js/controllers/flashcardsets-controller.js"> </script>
 	<script type = "text/javascript" src="/client/js/controllers/cardsController.js"> </script>
-
-	<!-- Latest compiled and minified JavaScript -->
+	<script type = "text/javascript" src="/client/js/controllers/accountController.js"> </script>
 	<!-- Import core Bootstrap javascript dependencies -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
