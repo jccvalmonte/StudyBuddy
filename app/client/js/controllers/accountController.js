@@ -9,6 +9,13 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 			console.log("getAccountfirst:" + url);
 		}
 
+		$scope.csRedirectUrl = function() {
+			//console.log(flashcardsetName);
+			var url = "/createset";
+			$location.path(url);
+			console.log("redirect to: " + url);
+		}
+
 		$scope.getAccountResults = function(email,password) {
 			$scope.setit = false;
 		//	$scope.email = $routeParams.email;

@@ -64,6 +64,7 @@ app.controller('flashcardsetsController', ['$scope', '$resource', '$http', '$loc
 		newSet.Category = "test";
 		newSet.numCards = 0;
 		newSet.dateCreated = new Date();
+		newSet.useremail = "";
 		$scope.set = newSet;
 	}
 }]);
