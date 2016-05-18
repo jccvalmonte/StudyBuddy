@@ -36,14 +36,15 @@
 			</div> <!--/.navbar-header-->
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="myNavbarCollapse" ng-controller = "accountController">
+			<div class="collapse navbar-collapse" id="myNavbarCollapse" ng-controller="accountController">
 
 			<!-- Links -->
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="home.html"><font face="calibri" size=3>Home</a></font></li>
 					<li><a href="client/views/signUp.html"><font face="calibri" size=3>Sign Up</a></font></li>
 					<li ng-show="myVar"><a href="#"><font face="calibri" size=3>My Flashcards</a></font></li>
-					<li><button type=submit ng-click="loginRedirectUrl()">Log In</a></button></li>
+					<!--<li><button type=submit ng-click="loginRedirectUrl()">Log In</a></button></li> -->
+					<li><a href="#loginModal" data-toggle="modal" data-target="#loginModal"><font face="calibri" size=3 style="padding-right:10px;">Log In</a></font></li>
 				</ul>
 			</div>
 
@@ -63,7 +64,7 @@
 		</div> <!--/.container-fluid-->
 	</nav>
 
-	<!-- Log In Form
+	<!-- Log In Form 
 	<div ng-controller="accountController">
 		
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -94,6 +95,42 @@
 		</div>
 	</div> -->
 
+
+	<!-- Log In Form -->
+	<div class="modal fade" id="loginModal">
+		<div class="modal-dialog">
+			<div class="modal-content" ng-controller="accountController">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<div class="modal-title">
+					<center>
+					<span class="glyphicon glyphicon-log-in"></span>
+					<img src="/images/StudyBuddyCharacterSmall.png" />
+					</center>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="inputEmail">Email address</label>
+					<input class="form-control" id="inputEmail" placeholder="Email" type="email">
+				</div>
+				<div class="form-group">
+					<label for="inputPassword">Password</label>
+					<input class="form-control" id="inputPassword" placeholder="Password" type="password">
+				</div>
+				<p class="text-mid"><a href="signUp.html">Create an account</a></p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="getAccountResults(email,password)">
+					Log In
+				</button>
+			</div>
+			</div>
+		</div>
+	</div>
+
+
+
 	<center class="container">
 		<div class="jumbotron"><h1>Flashcard Sets</h1></div>
 	</center>
@@ -113,18 +150,13 @@
 
 	<!-- Import core angularjs and jquery dependencies -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
-
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
-
     <script type = "text/javascript" src="/client/js/app.js"></script>
 	<script type = "text/javascript" src="/client/js/controllers/flashcardsets-controller.js"> </script>
 	<script type = "text/javascript" src="/client/js/controllers/cardsController.js"> </script>
 	<script type = "text/javascript" src="/client/js/controllers/accountController.js"> </script>
-
-	<!-- Latest compiled and minified JavaScript -->
 	<!-- Import core Bootstrap javascript dependencies -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
