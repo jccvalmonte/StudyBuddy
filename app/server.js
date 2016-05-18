@@ -125,12 +125,13 @@ app.get('/card/:setIdNum', function(req, res) {
 		});
 	});	
 
-//"/getAccount/"+ $scope.email + $scope.pswd;
+
+//"/getAccount/"+ $scope.email + $scope.pswd; /getUserFlashcardsets/
 
 app.get('/getAccount/:email', function(req, res) {
  
       var email = req.params.email;
-      var password = req.params.pswd;
+      //var password = req.params.pswd;
  
     Accounts.find({email: email}, function(err, found) {
      			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
@@ -154,6 +155,23 @@ app.post('/createAccount/:email/:password', function(req, res) {
                        res.send(err)
                     });
               });         
+
+app.get('/getUserFlashcardsets/:email', function(req, res) {
+ 
+      	var email = req.params.email;
+      //var password = req.params.pswd;
+ 
+    Sets.find({useremail: email}, function(err, found) {
+     			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+                if (err)
+                    res.send(err)
+                    else
+                    res.json(found); // return all accounts in JSON format
+                });
+    }); 
+
+
+
 
 //Handle all the http request that come in on port 3000
 app.listen(3000, function() {

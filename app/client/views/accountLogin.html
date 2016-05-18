@@ -1,0 +1,18 @@
+
+	<div ng-app="studybuddyApp" ng-controller="accountController">
+		<form>
+			<label>Email address</label>
+			<input ng-model="email" placeholder="Email" type="email">
+			<br>
+			<label>Password</label>
+			<input ng-model="password" placeholder="Password" type="password">
+			<br>
+			<button type="submit" ng-click="getAccountResults(email,password)">Log In</button>
+		</form>
+
+		<table>
+		<!--	<tr ng-repeat="userresult in userresults" ng-show = "setit">
+			<td><a href="" >{{userresult.Name}}</a></td> -->
+		</table>
+		
+	</div>
