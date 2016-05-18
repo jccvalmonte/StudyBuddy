@@ -68,22 +68,12 @@ mongoose.connection.on('open', function(){
 
 	var AccountSchema = new Schema({
 		email: String,
-<<<<<<< HEAD
-		password : String
-	},
-	{collection: 'accounts'}
-	);
-
-	Accounts = mongoose.model('Accounts', AccountSchema);	
-
-=======
 		password: String
 	},
 	{collection: 'accounts'}
 	);
 	Accounts = mongoose.model('Accounts', AccountSchema);
 	
->>>>>>> refs/remotes/origin/master
 	console.log('Models Created!');
 });
 
@@ -166,7 +156,6 @@ app.post('/createAccount/:email/:password', function(req, res) {
                        res.send(err)
                     });
               });         
->>>>>>> refs/remotes/origin/master
 
 //Handle all the http request that come in on port 3000
 app.listen(3000, function() {
