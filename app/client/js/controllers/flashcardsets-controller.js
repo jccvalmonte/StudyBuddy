@@ -47,7 +47,25 @@ app.controller('flashcardsetsController', ['$scope', '$resource', '$http', '$loc
 		console.log(url);
 		$location.path(url);
 	}
-
+	
+	$scope.writeSet = function() {
+			console.log($scope.set);
+			$http.post('/createSet', $scope.set).success(function(data, status, headers, config) {
+				$scope.set.setIdNum = data.setIdNum;
+			});
+	}
+	
+	$scope.initNewSet = function() {
+		console.log('new set init');
+		var newSet = {};
+		newSet.setIdNum = 0;
+		newSet.Name = "testing";
+		newSet.Author = "Anthony";
+		newSet.Category = "test";
+		newSet.numCards = 0;
+		newSet.dateCreated = new Date();
+		$scope.set = newSet;
+	}
 }]);
 
 		/*	cardset.$save(function (result){

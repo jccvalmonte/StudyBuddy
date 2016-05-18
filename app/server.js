@@ -22,6 +22,8 @@ console.log(mongoDBConnection.uri);
 var Sets;
 var Cards;
 
+var idGen = 5;
+
 app.use(bodyParser());
 
 //app.use(express.static(__dirname + '/public')); 
@@ -46,7 +48,8 @@ mongoose.connection.on('open', function(){
 		Category: String,
 		numCards : Number,
 		Author: String,
-		DateCreated: Date
+		DateCreated: Date,
+		useremail: String
 	},
 	{collection: 'sets'}
 	);
@@ -54,7 +57,7 @@ mongoose.connection.on('open', function(){
 	Sets = mongoose.model('Sets', CardSetSchema);
 	
 	var CardListSchema = new Schema({
-		setIdNum: String,
+		setIdNum: Number,
 		cards : [{
 			cardId: Number,
 			front : String,
@@ -126,7 +129,7 @@ app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
 app.get('/card/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
-	//console.log(searchrequest);
+	console.log(searchrequest);
 	Cards.find({setIdNum: searchrequest},function(err, found) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
@@ -188,7 +191,21 @@ app.get('/getUserFlashcardsets/:email', function(req, res) {
                 });
     }); 
 
+app.post('/createSet', function(req, res){
+	var jsonObj = req.body;
+	
 
+	jsonObj.setIdNum = idGen;
+
+	console.log(jsonObj);
+
+	Sets.create([jsonObj], function(err){
+		if(err)
+			res.send(err)
+	});
+	res.send(jsonObj);
+	idGen++;
+});
 
 
 //Handle all the http request that come in on port 3000

@@ -7,11 +7,11 @@ var app = angular
   		])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+    /*  .when('/', {
         templateUrl: '/index.html'
-	  })
+	  })*/
       .when('/home', {
-        templateUrl: '/client/views/homeScreen.html'
+        templateUrl: '/client/views/homeScreen.html',
         controller: 'homeScrnCntrl'
       })
       .when('/loginAccountPage', {
@@ -35,6 +35,10 @@ var app = angular
       .when('/getUserFlashcardsets/:email', {
         templateUrl: '/client/views/displayUserFlashcards.html'
       }) 
+      .when('/createset',{
+        templateUrl: '/client/views/createset.html',
+        controller: 'flashcardsetsController'
+      })
       .otherwise({
         redirectTo: '/'
       });
