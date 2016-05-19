@@ -23,7 +23,7 @@ var app= angular
         templateUrl: '/client/views/cardset.html',
         controller: 'flashcardsetsController'
       })
-      .when('/card/:setIdNum/:name', {
+      .when('/card/:setIdNum/', {
         templateUrl: '/client/views/card.html',
         controller: 'cardsController'
       })

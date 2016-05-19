@@ -50,6 +50,7 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 			console.log("Password: " + password);
 
 			var url = "/createAccount/"+ email + "/" + firstName + "/" + lastName + "/" + password;
+			//instead of passing all the parameters we can use json object to pass the values in it
 
 			$http.post(url).success(function(data){
 				$scope.results = data;
