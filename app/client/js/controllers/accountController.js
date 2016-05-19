@@ -2,6 +2,15 @@ var app = angular.module('studybuddyApp');
 app.controller('accountController', ['$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($scope, $resource, $http, $location, $routeParams ) {
 
+		
+
+		$scope.getCreateUrl = function() {
+			//console.log(flashcardsetName);
+			var url = "/createset";
+			$location.path(url);
+			console.log("createset:" + url);
+		}
+
 		$scope.loginRedirectUrl = function() {
 			//console.log(flashcardsetName);
 			var url = "/loginAccountPage/";
