@@ -16,7 +16,8 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 			console.log("redirect to: " + url);
 		}
 
-		$scope.getAccountResults = function(email,password) {
+
+		$scope.getAccountResults = function(email, password) {
 			$scope.setit = false;
 		//	$scope.email = $routeParams.email;
 		//	$scope.pswd = $routeParams.password;
@@ -32,8 +33,7 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 					window.alert('Not a valid user. Please try again.');
 				} else {
 					console.log("hello dips "+$scope.results);
-
-					//window.location.href("myFlashcards.html");
+					//window.location.href("loggedIn_home.html");
 					//$scope.setit = !$scope.setit;
 					var locationurl = "/getUserFlashcardsets/"+email;	
 					$location.path(locationurl);
