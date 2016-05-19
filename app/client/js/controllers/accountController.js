@@ -31,7 +31,7 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 				$scope.results = data;
 
 					if($scope.results.length==0){
-						window.alert('Not a valid user, Please Try again');
+						window.alert('Not a valid user. Please try again.');
 					}
 					else{
 							//window.location.href("myFlashcards.html");
