@@ -196,9 +196,7 @@ app.post('/createSet', function(req, res){
 	
 
 	jsonObj.setIdNum = idGen;
-
 	console.log(jsonObj);
-
 	Sets.create([jsonObj], function(err){
 		if(err)
 			res.send(err)

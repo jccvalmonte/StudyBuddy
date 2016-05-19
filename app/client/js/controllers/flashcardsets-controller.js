@@ -47,7 +47,7 @@ app.controller('flashcardsetsController', ['$scope', '$resource', '$http', '$loc
 		console.log(url);
 		$location.path(url);
 	}
-	
+
 	$scope.writeSet = function() {
 			console.log($scope.set);
 			$http.post('/createSet', $scope.set).success(function(data, status, headers, config) {
