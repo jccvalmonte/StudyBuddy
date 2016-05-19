@@ -30,8 +30,8 @@
 .flip .card .front {
   position: absolute;
   z-index: 1;
-    background: blue;
-    color: white;
+    /*background: blue;*/
+    color: black;
     cursor: pointer;
   	display: flex;
   	align-items: center;
@@ -40,8 +40,8 @@
 }
 .flip .card .back {
   -webkit-transform: rotatex(-180deg);
-    background: green;
-    color: white;
+    background: white;
+    color: black;
     cursor: pointer;
     display: flex;
   	align-items: center;
@@ -49,7 +49,8 @@
 }
 
 .card {
+  background-image: url("/images/white index card.png");
 box-shadow: 10px 5px 5px gray;
-text-shadow: 1px 1px;
+text-shadow: 0px;
 
 }
