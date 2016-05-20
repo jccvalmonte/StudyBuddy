@@ -32,25 +32,26 @@
   position: absolute;
   z-index: 1;
   background-image: url("/images/white index card.png");
-  color: white;
+  color: black;
   cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 
 .flip .card .back {
   -webkit-transform: rotatex(-180deg);
     background: white;
-    color: white;
+    color: black;
     cursor: pointer;
     display: flex;
-  	align-items: center;
-  	justify-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .card {
   box-shadow: 10px 5px 5px gray;
   text-shadow: 1px 1px;
 }
+

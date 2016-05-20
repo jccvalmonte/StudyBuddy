@@ -29,7 +29,7 @@ app.controller('account-controller', ['$scope', '$resource', '$http', '$location
 				$scope.results = data;
 
 					if($scope.results.length==0){
-						window.alert('Not a valid user, Please Try again');
+						window.alert('Not a valid user. Please try again.');
 					}
 					else{
 							//window.location.href("myFlashcards.html");
@@ -40,13 +40,41 @@ app.controller('account-controller', ['$scope', '$resource', '$http', '$location
 				});
 		}
 
-		$scope.createAccount = function(email, firstName, lastName, password) {
+
+		$scope.initUserSignUp = function(email, firstName, lastName, password) {
+			console.log('new user signup');
+			var newUser = {};
+			newUser.email = email;
+			newUser.firstName = firstName;
+			newUser.lastName = lastName;
+			newUser.password = password;
+			
+			$scope.userSignUp = newUser;
+		}
+
+		$scope.writeUserSignUp = function() {
+			console.log($scope.set);
+			$http.post('/signup', $scope.userSignUp).success(function(data) {
+				$scope.results = data;
+				if($scope.results.length==0){
+					window.alert('Account creation failed');
+				}
+				else{
+					window.alert('Successfully created an account!');
+					//window.location.href = '/home.html';
+				}
+			});
+		}
+
+
+	/*	$scope.createAccount = function(email, firstName, lastName, password) {
 			console.log("Email: " + email);
 			console.log("First Name: " + firstName);
 			console.log("lastName: " + lastName);
 			console.log("Password: " + password);
 
 			var url = "/createAccount/"+ email + "/" + firstName + "/" + lastName + "/" + password;
+			//instead of passing all the parameters we can use json object to pass the values in it
 
 			$http.post(url).success(function(data){
 				$scope.results = data;
@@ -60,7 +88,7 @@ app.controller('account-controller', ['$scope', '$resource', '$http', '$location
 
 				console.log($scope.results);
 			});
-		}
+		}*/
 
 		$scope.getUsercardsetResults = function() {
 
@@ -72,7 +100,6 @@ app.controller('account-controller', ['$scope', '$resource', '$http', '$location
 			$http.get(url).success(function(data){
 				$scope.userresults = data;
 				console.log($scope.userresults);
-
 			});
 		}
 
@@ -81,7 +108,6 @@ app.controller('account-controller', ['$scope', '$resource', '$http', '$location
 			var url = "/card/"+setIdNum+ "/"+name;
 			console.log(url);
 			$location.path(url);
-
 		}
 
 	}]);
