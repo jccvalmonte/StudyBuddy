@@ -96,6 +96,15 @@ app.get('/home', function (req, res){
 	});*/
 });
 
+app.get('/homeSets', function(req,res){
+	Sets.find({}, function(err,found){
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
+	});
+});
+
 app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
 
 	//var searchrequest = {'$regex': req.params.flashcardsetName};
@@ -108,7 +117,7 @@ app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
 			else
 			res.json(found); // return all todos in JSON format
 	});
-		});	
+});	
 
 
 app.get('/card/:setIdNum', function(req, res) {
