@@ -11,6 +11,7 @@
 
 	<link rel="stylesheet" type="text/css" href="/styles/card.css">
 	<link rel="stylesheet" type="text/css" href="/styles/main.css">
+	<link rel="stylesheet" type="text/css" href="/styles/toolbar.css">
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -79,7 +80,7 @@
 	<div class="main">
 	<!-- Content Here -->
 
-	<center class="container-fluid" ng-controller="card-set-controller" style="margin-top:150px">
+	<center class="container-fluid" ng-controller="card-set-controller" style="margin-top:50px; margin-bottom:80px">
 		<form class="form-search input-lg" role="search">
 			<input type="text" class="form-search" placeholder="Search" ng-model="flashcardsetName">
 			<button type="submit" ng-click="getFlashcardset(flashcardsetName)" class="btn btn-default">
