@@ -81,6 +81,8 @@ mongoose.connection.on('open', function(){
 	console.log('Models Created!');
 });
 
+
+
 //REST API
 /*app.get('/', function (req, res){
 	res.sendfile(__dirname + '/client/views/index.html');
@@ -199,64 +201,6 @@ app.post('/createSet', function(req, res){
 });
 
 
-//Handle all the http request that come in on port 3000
 app.listen(3000, function() {
 	console.log('Server listening on port 3000...');
 })
-
-/*module.exports.create = function(req, res){
-
-var set = new Sets();
-	set.Name = req.body.name;
-	set.Category = req.body.category;
-	set.numCards = req.body.numCards;
-	set.Author = req.user;
-	//set.dateCreated = new.Date(); 
-
-	set.save(function(err,set){
-	if(err)
-	res.send('error');
-	else
-	console.log('set added!');
-	res.send(set);
-	})
-}
-
-module.exports.update = function(req,res){
-Sets.findOneAndUpdate({
-_id: req.body.id},
-{$set:
-{Name:req.body.name}},
-{upsert: true},
-function(err, newSet){
-if(err){
-console.log('update error');
-}else{
-console.log('set updated!');
-res.send(newSet);
-}
-}
-});
-}
-
-module.exports.delete = function(req,res){
-Sets.findOneAndRemove({
-_id:req.body.id
-}, function(err,set){
-if(err){
-res.send('error deleting');
-}else{
-console.log('set deleted!');
-res.send(set);
-}
-}
-}
-
-});
-}
-
-module.exports.list = function(req, res){
-    FlashcardSet.find({}, function (err, results){
-    res.json(results);
-    });
-} */
