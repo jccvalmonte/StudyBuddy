@@ -85,7 +85,6 @@ mongoose.connection.on('open', function(){
 /*app.get('/', function (req, res){
 	res.sendfile(__dirname + '/client/views/index.html');
 });
-
 app.get('/card', function (req, res){
 	res.sendfile(__dirname + '/client/views/card.html');
 });
@@ -205,14 +204,12 @@ app.listen(3000, function() {
 })
 
 /*module.exports.create = function(req, res){
-
 var set = new Sets();
 	set.Name = req.body.name;
 	set.Category = req.body.category;
 	set.numCards = req.body.numCards;
 	set.Author = req.user;
 	//set.dateCreated = new.Date(); 
-
 	set.save(function(err,set){
 	if(err)
 	res.send('error');
@@ -221,7 +218,6 @@ var set = new Sets();
 	res.send(set);
 	})
 }
-
 module.exports.update = function(req,res){
 Sets.findOneAndUpdate({
 _id: req.body.id},
@@ -238,7 +234,6 @@ res.send(newSet);
 }
 });
 }
-
 module.exports.delete = function(req,res){
 Sets.findOneAndRemove({
 _id:req.body.id
@@ -251,10 +246,8 @@ res.send(set);
 }
 }
 }
-
 });
 }
-
 module.exports.list = function(req, res){
     FlashcardSet.find({}, function (err, results){
     res.json(results);
