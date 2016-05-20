@@ -99,11 +99,11 @@
 	        <tbody>
 	        
 	        <tr class="active" ng-repeat="set in sets">
-	        	<td><a href="" ng-click="redirectSearchCardUrl(result.setIdNum, result.Name)">{{result.Name}}</a></td>
-		   		<td>{{result.Category}}</td>
-		   		<td>{{result.numCards}}</td>
-		   		<td>{{result.Author}}</td>
-		   		<td>{{result.DateCreated}}</td>
+	        	<td><a href="" ng-click="redirectSearchCardUrl(result.setIdNum, result.Name)">{{set.Name}}</a></td>
+		   		<td>{{set.Category}}</td>
+		   		<td>{{set.numCards}}</td>
+		   		<td>{{set.Author}}</td>
+		   		<td>{{set.DateCreated}}</td>
 	        </tr>
 	        </tbody>
 	    </table>

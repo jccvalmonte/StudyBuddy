@@ -24,14 +24,13 @@ app.controller('card-set-controller', ['$scope', '$resource', '$http', '$locatio
 		});
 	}
 	
-	/*
 	$scope.getAllSets = function() {
-		var url = "/home";
+		var url = "/homeSets";
 		console.log(url);
 		$http.get(url).success(function(data){
 			$scope.sets = data;
 		});
-	}*/
+	}
 
 	$scope.getHomeurl = function() {
 		console.log('hello');
