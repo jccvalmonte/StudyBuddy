@@ -43,7 +43,34 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 
 		}
 
-		$scope.createAccount = function(email, firstName, lastName, password) {
+
+		$scope.initUserSignUp = function(email, firstName, lastName, password) {
+			console.log('new user signup');
+			var newUser = {};
+			newUser.email = email;
+			newUser.firstName = firstName;
+			newUser.lastName = lastName;
+			newUser.password = password;
+			
+			$scope.userSignUp = newUser;
+		}
+
+		$scope.writeUserSignUp = function() {
+			console.log($scope.set);
+			$http.post('/signup', $scope.userSignUp).success(function(data) {
+				$scope.results = data;
+				if($scope.results.length==0){
+					window.alert('Account creation failed');
+				}
+				else{
+					window.alert('Successfully created an account!');
+					//window.location.href = '/home.html';
+				}
+			});
+		}
+
+
+	/*	$scope.createAccount = function(email, firstName, lastName, password) {
 			console.log("Email: " + email);
 			console.log("First Name: " + firstName);
 			console.log("lastName: " + lastName);
@@ -64,17 +91,17 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 
 				console.log($scope.results);
 			});
-		}
+		}*/
 
-				//gethomepageurl 
-				$scope.getUsercardsetResults = function() {
+				
+		$scope.getUsercardsetResults = function() {
 
-					$scope.email = $routeParams.email;
+		$scope.email = $routeParams.email;
 
-					var url = "/getUserFlashcardsets/"+ $scope.email;
-					console.log(" getUserFlashcardsets url "+ url);
+			var url = "/getUserFlashcardsets/"+ $scope.email;
+			console.log(" getUserFlashcardsets url "+ url);
 
-					$http.get(url).success(function(data){
+			$http.get(url).success(function(data){
 						$scope.userresults = data;
 						console.log($scope.userresults);
 
