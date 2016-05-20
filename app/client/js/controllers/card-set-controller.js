@@ -50,6 +50,7 @@ app.controller('card-set-controller', ['$scope', '$resource', '$http', '$locatio
 	$scope.redirectSearchCardUrl = function(setIdNum, name) {
 		var url = "/card/"+setIdNum+ "/"+name;
 		console.log(url);
+		$scope.hideVar = true;
 		$location.path(url);
 	}
 
