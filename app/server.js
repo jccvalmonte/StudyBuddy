@@ -89,6 +89,7 @@ mongoose.connection.on('open', function(){
 app.get('/card', function (req, res){
 	res.sendfile(__dirname + '/client/views/card.html');
 });
+
 app.get('/home', function (req, res){
 	res.sendfile(__dirname + '/client/views/home.html');
 });
@@ -200,7 +201,7 @@ app.post('/createSet', function(req, res){
 
 //Handle all the http request that come in on port 3000
 app.listen(3000, function() {
-	console.log('I\'m Listening....');
+	console.log('Server listening on port 3000...');
 })
 
 /*module.exports.create = function(req, res){

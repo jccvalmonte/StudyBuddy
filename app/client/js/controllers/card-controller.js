@@ -1,5 +1,5 @@
 var app = angular.module('studybuddyApp');
-app.controller('cardsController', ['$scope', '$resource', '$http', '$location','$routeParams', 
+app.controller('card-controller', ['$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($scope, $resource, $http, $location, $routeParams, $mdDialog) {
 
 		 $scope.getcardResults = function() {

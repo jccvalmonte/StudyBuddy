@@ -1,8 +1,6 @@
 var app = angular.module('studybuddyApp');
-app.controller('accountController', ['$scope', '$resource', '$http', '$location','$routeParams', 
+app.controller('account-controller', ['$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($scope, $resource, $http, $location, $routeParams ) {
-
-		
 
 		$scope.getCreateUrl = function() {
 			//console.log(flashcardsetName);
@@ -40,7 +38,6 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 								$location.path(locationurl);			
 						}
 				});
-
 		}
 
 
@@ -93,34 +90,24 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 			});
 		}*/
 
-				
 		$scope.getUsercardsetResults = function() {
 
-		$scope.email = $routeParams.email;
+			$scope.email = $routeParams.email;
 
 			var url = "/getUserFlashcardsets/"+ $scope.email;
 			console.log(" getUserFlashcardsets url "+ url);
 
 			$http.get(url).success(function(data){
-						$scope.userresults = data;
-						console.log($scope.userresults);
-
-					});
-				}
-		//redirectUserCardUrl
+				$scope.userresults = data;
+				console.log($scope.userresults);
+			});
+		}
 
 		$scope.redirectUserCardUrl = function(setIdNum, name) {
 
 			var url = "/card/"+setIdNum+ "/"+name;
 			console.log(url);
 			$location.path(url);
-
 		}
-	/*	$scope.myflashcardsets = function() {
-			console.log("test here I am");
-			var url = "/getAccount/"+ email;
-				$location.path(url);
 
-			//console.log("getAccountfirst:" + url);
-		}*/
 	}]);
