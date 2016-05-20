@@ -30,7 +30,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/home">Study Buddy</a>
+				<a class="navbar-brand" href="#">Study Buddy</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
@@ -75,12 +75,11 @@
 			</div>
 		</div>
 	</div>
-	
 
 	<div class="main">
 	<!-- Content Here -->
 
-	<center class="container-fluid" ng-controller="card-set-controller">
+	<center class="container-fluid" ng-controller="card-set-controller" style="margin-top:150px">
 		<form class="form-search input-lg" role="search">
 			<input type="text" class="form-search" placeholder="Search" ng-model="flashcardsetName">
 			<button type="submit" ng-click="getFlashcardset(flashcardsetName)" class="btn btn-default">
@@ -90,6 +89,7 @@
 	</center>			
 		
 	<div ng-view=""></div>
+	
 	</div>
 
 	<!-- Import core angularjs and jquery dependencies -->
