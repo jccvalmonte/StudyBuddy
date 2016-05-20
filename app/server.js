@@ -96,7 +96,8 @@ app.get('/home', function (req, res){
 	});*/
 });
 
-app.get('/homeSets', function(req,res){
+app.get('/homeSets', function(req,res
+	){
 	Sets.find({}, function(err,found){
 		if(err)
 			res.send(err);
