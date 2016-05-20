@@ -1,6 +1,6 @@
 <!-- Search Flashcard  View-->
-<div ng-controller="flashcardsetsController" ng-init='getcardsetResults()' style="margin-top:50px">
-	<table class="table table-bordered table-striped table-hover"> 
+<div ng-controller="card-set-controller" ng-init='getcardsetResults()' style="margin-top:50px">
+	<table class="table table-bordered table-hover table-responsive"> 
 		<thead>
 			<th>Name</th>
 			<th>Category</th>
@@ -9,7 +9,7 @@
 			<th>Date Created</th>
 		</thead>
 		<tbody>
-   		<tr class="table-active" ng-repeat="result in results">
+   		<tr class="active" ng-repeat="result in results">
 	   		<td><a href="" ng-click="redirectSearchCardUrl(result.setIdNum, result.Name)">{{result.Name}}</a></td>
 	   		<td>{{result.Category}}</td>
 	   		<td>{{result.numCards}}</td>

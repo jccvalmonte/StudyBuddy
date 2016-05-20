@@ -1,12 +1,7 @@
 body {
-	background-image: url("/images/background.jpg");
-}
-
-.jumbotron{
-	background-image: url("/images/jumbotron.jpg");
-	color: white;
-	font-weight: bold;
-	letter-spacing: 3px;
-	-webkit-text-stroke-width: 2.5px;
-	-webkit-text-stroke-color: black;
+	background: url("/images/background.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }

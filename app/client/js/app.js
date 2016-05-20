@@ -7,38 +7,30 @@ var app= angular
   		])
   .config(function ($routeProvider) {
     $routeProvider
-      /*.when('/', {
-        templateUrl: '/index.html'
-	  })*/
-      .when('/home', {
-        templateUrl: '/home.html'
-      })
-      .when('/loginAccountPage', {
-        templateUrl: '/client/views/accountLogin.html'
-      })
-       .when('/signup', {
-        templateUrl: '/client/views/signUp.html'
-      })
-      .when('/searchFlashcard/:flashcardsetName', {
-        templateUrl: '/client/views/cardset.html',
-        controller: 'flashcardsetsController'
-      })
-      .when('/card/:setIdNum/:name', {
-        templateUrl: '/client/views/card.html',
-        controller: 'cardsController'
-      })
-      .when('/getAccount/:email', {
-        templateUrl: '/client/views/account.html',
-        controller: 'accountController'
-      })
-      .when('/getUserFlashcardsets/:email', {
-        templateUrl: '/client/views/displayUserFlashcards.html'
-      })
-      .when('/createset',{
-        templateUrl: '/client/views/createset.html',
-        controller: 'flashcardsetsController'
-      }) 
-      .otherwise({
-        redirectTo: '/'
-      });
+
+    .when('/home', {
+      templateUrl: '/home.html'
+    })
+    .when('/searchFlashcard/:flashcardsetName', {
+      templateUrl: '/client/views/card-set.html',
+      controller: 'card-set-controller'
+    })
+    .when('/card/:setIdNum/:name', {
+      templateUrl: '/client/views/card.html',
+      controller: 'card-controller'
+    })
+    .when('/getAccount/:email', {
+      templateUrl: '/client/views/account.html',
+      controller: 'account-controller'
+    })
+    .when('/getUserFlashcardsets/:email', {
+      templateUrl: '/client/views/user-flashcards.html'
+    })
+    .when('/createset',{
+      templateUrl: '/client/views/create-set.html',
+      controller: 'card-set-controller'
+    }) 
+    .otherwise({
+      redirectTo: '/'
+    });
   });

@@ -1,7 +1,7 @@
 .flip {
   -webkit-perspective: 800;
-   width: 400px;
-   height: 200px;
+   width: 550px;
+   height: 300px;
     position: relative;
     margin: 50px auto;
     text-align: center;
@@ -22,34 +22,36 @@
   position: absolute;
   -webkit-backface-visibility: hidden ;
   z-index: 2;
-    font-family: Georgia;
-    font-size: 3em;
-    text-align: center;
-    line-height: 200px;
+  font-family: Georgia;
+  font-size: 3em;
+  text-align: center;
+  line-height: 200px;
 }
+
 .flip .card .front {
   position: absolute;
   z-index: 1;
-    background: black;
-    color: white;
-    cursor: pointer;
-  	display: flex;
-  	align-items: center;
-  	justify-content: center;
+  background-image: url("/images/white index card.png");
+  color: black;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
+
 .flip .card .back {
   -webkit-transform: rotatex(-180deg);
-    background: green;
-    color: white;
+    background: white;
+    color: black;
     cursor: pointer;
     display: flex;
-  	align-items: center;
-  	justify-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .card {
-box-shadow: 10px 5px 5px gray;
-text-shadow: 1px 1px;
-
+  box-shadow: 10px 5px 5px gray;
+  text-shadow: 1px 1px;
 }
+

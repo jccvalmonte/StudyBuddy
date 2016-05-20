@@ -1,8 +1,6 @@
 var app = angular.module('studybuddyApp');
-app.controller('accountController', ['$scope', '$resource', '$http', '$location','$routeParams', 
+app.controller('account-controller', ['$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($scope, $resource, $http, $location, $routeParams ) {
-
-		
 
 		$scope.getCreateUrl = function() {
 			//console.log(flashcardsetName);
@@ -31,7 +29,7 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 				$scope.results = data;
 
 					if($scope.results.length==0){
-						window.alert('Not a valid user, Please Try again');
+						window.alert('Not a valid user. Please try again.');
 					}
 					else{
 							//window.location.href("myFlashcards.html");
@@ -40,16 +38,43 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 								$location.path(locationurl);			
 						}
 				});
-
 		}
 
-		$scope.createAccount = function(email, firstName, lastName, password) {
+
+		$scope.initUserSignUp = function(email, firstName, lastName, password) {
+			console.log('new user signup');
+			var newUser = {};
+			newUser.email = email;
+			newUser.firstName = firstName;
+			newUser.lastName = lastName;
+			newUser.password = password;
+			
+			$scope.userSignUp = newUser;
+		}
+
+		$scope.writeUserSignUp = function() {
+			console.log($scope.set);
+			$http.post('/signup', $scope.userSignUp).success(function(data) {
+				$scope.results = data;
+				if($scope.results.length==0){
+					window.alert('Account creation failed');
+				}
+				else{
+					window.alert('Successfully created an account!');
+					//window.location.href = '/home.html';
+				}
+			});
+		}
+
+
+	/*	$scope.createAccount = function(email, firstName, lastName, password) {
 			console.log("Email: " + email);
 			console.log("First Name: " + firstName);
 			console.log("lastName: " + lastName);
 			console.log("Password: " + password);
 
 			var url = "/createAccount/"+ email + "/" + firstName + "/" + lastName + "/" + password;
+			//instead of passing all the parameters we can use json object to pass the values in it
 
 			$http.post(url).success(function(data){
 				$scope.results = data;
@@ -63,36 +88,26 @@ app.controller('accountController', ['$scope', '$resource', '$http', '$location'
 
 				console.log($scope.results);
 			});
+		}*/
+
+		$scope.getUsercardsetResults = function() {
+
+			$scope.email = $routeParams.email;
+
+			var url = "/getUserFlashcardsets/"+ $scope.email;
+			console.log(" getUserFlashcardsets url "+ url);
+
+			$http.get(url).success(function(data){
+				$scope.userresults = data;
+				console.log($scope.userresults);
+			});
 		}
-
-				//gethomepageurl 
-				$scope.getUsercardsetResults = function() {
-
-					$scope.email = $routeParams.email;
-
-					var url = "/getUserFlashcardsets/"+ $scope.email;
-					console.log(" getUserFlashcardsets url "+ url);
-
-					$http.get(url).success(function(data){
-						$scope.userresults = data;
-						console.log($scope.userresults);
-
-					});
-				}
-		//redirectUserCardUrl
 
 		$scope.redirectUserCardUrl = function(setIdNum, name) {
 
 			var url = "/card/"+setIdNum+ "/"+name;
 			console.log(url);
 			$location.path(url);
-
 		}
-	/*	$scope.myflashcardsets = function() {
-			console.log("test here I am");
-			var url = "/getAccount/"+ email;
-				$location.path(url);
 
-			//console.log("getAccountfirst:" + url);
-		}*/
 	}]);
