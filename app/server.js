@@ -90,10 +90,6 @@ app.get('/card', function (req, res){
 	res.sendfile(__dirname + '/client/views/card.html');
 });
 
-app.get('/home', function (req, res){
-	res.sendfile(__dirname + '/client/views/home.html');
-});
-
 app.get('/signup', function (req, res){
 	res.sendfile(__dirname + '/client/views/signUp.html');
 }); */
@@ -101,6 +97,10 @@ app.get('/signup', function (req, res){
 
 //app.get('/api/flashcard_sets', flashcardsetsController.list);
 //app.post('/api/flashcard_sets', flashcardsetsController.create);
+
+app.get('/home', function (req, res){
+	res.sendfile(__dirname + '/home.html');
+});
 
 app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
 
