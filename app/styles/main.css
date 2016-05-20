@@ -120,36 +120,3 @@ nav.sidebar, .main{
 		opacity: 0;
 	}
 }
-
-/* .....NavBar: Fully showing nav bar..... */
-
-@media (min-width: 1330px) {
-
-	/*Allow main to be next to Nav*/
-	.main{
-		width: calc(100% - 200px); /*keeps 100% minus nav size*/
-		margin-left: 200px;
-	}
-
-	/*Show all nav*/
-	nav.sidebar{
-		margin-left: 0px;
-		float: left;
-	}
-	/*Show hidden items on nav*/
-	nav.sidebar .forAnimate{
-		opacity: 1;
-	}
-}
-
-nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
-	color: #CCC;
-	background-color: transparent;
-}
-
-nav:hover .forAnimate{
-	opacity: 1;
-}
-section{
-	padding-left: 15px;
-}
