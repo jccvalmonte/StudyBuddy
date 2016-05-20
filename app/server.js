@@ -88,7 +88,12 @@ app.get('/signup', function (req, res){
 
 app.get('/home', function (req, res){
 	res.sendfile(__dirname + '/home.html');
-	Sets.find({});
+	/*Sets.find({}, function(err, found) {
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
+	});*/
 });
 
 app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
