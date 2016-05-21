@@ -10,3 +10,12 @@ body {
 	-webkit-text-stroke-width: 2.5px;
 	-webkit-text-stroke-color: black;
 }
+
+.index{
+	background-image: url("/images/jumbotron.jpg");
+}
+
+.index .container{
+	opacity: .8;
+
+}

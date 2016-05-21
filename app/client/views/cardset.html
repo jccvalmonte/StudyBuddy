@@ -7,6 +7,7 @@
 			<th># Cards</th>
 			<th>Author</th>
 			<th>Date Created</th>
+			<th>Remove</th>
 		</thead>
 		<tbody>
    		<tr class="table-active" ng-repeat="result in results">
@@ -15,6 +16,7 @@
 	   		<td>{{result.numCards}}</td>
 	   		<td>{{result.Author}}</td>
 	   		<td>{{result.DateCreated}}</td>
+	   		<td> <input type='button' class='Remove' value = 'X'></td>
    		</tr>
 		 </tbody>
 	</table>
