@@ -8,8 +8,9 @@ var app= angular
   .config(function ($routeProvider) {
     $routeProvider
 
-    .when('/home', {
-      templateUrl: '/home.html'
+    .when('/homesearch', {
+      templateUrl: '/client/views/homesearch.html',
+      controller: 'card-set-controller'
     })
     .when('/searchFlashcard/:flashcardsetName', {
       templateUrl: '/client/views/card-set.html',
