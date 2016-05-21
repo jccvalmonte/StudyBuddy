@@ -1,21 +1,28 @@
-<!-- Search Flashcard  View-->
-<div ng-controller="card-set-controller" ng-init='getcardsetResults()' style="margin-top:50px">
-	<table class="table table-bordered table-hover table-responsive"> 
-		<thead>
+<center class="container" ng-controller="card-set-controller" ng-init="getAllSets()">
+    <form action="/home.html" method="get" style="margin-top:75px; margin-bottom:75px">
+        <div class="col-md-6 input-group has-feedback">
+            <input class="form-control" id="system-search" placeholder="Search Flashcard Sets">
+            <i class="glyphicon glyphicon-search form-control-feedback"></i>
+        </div>
+    </form>
+    <div class="container" style="height: 500px; overflow: auto">
+	<table class="table table-hover table-responsive table-list-search">
+        <thead>
 			<th>Name</th>
 			<th>Category</th>
 			<th># Cards</th>
 			<th>Author</th>
 			<th>Date Created</th>
-		</thead>
-		<tbody>
-   		<tr class="active" ng-repeat="result in results">
-	   		<td><a href="" ng-click="redirectSearchCardUrl(result.setIdNum, result.Name)">{{result.Name}}</a></td>
-	   		<td>{{result.Category}}</td>
-	   		<td>{{result.numCards}}</td>
-	   		<td>{{result.Author}}</td>
-	   		<td>{{result.DateCreated}}</td>
-   		</tr>
-		 </tbody>
-	</table>
-</div>
+        </thead>
+        <tbody>
+        <tr ng-repeat="set in sets">
+        	<td><a href="" ng-click="redirectSearchCardUrl(set.setIdNum, set.Name)">{{set.Name}}</a></td>
+	   		<td>{{set.Category}}</td>
+	   		<td>{{set.numCards}}</td>
+	   		<td>{{set.Author}}</td>
+	   		<td>{{set.DateCreated}}</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</center>
