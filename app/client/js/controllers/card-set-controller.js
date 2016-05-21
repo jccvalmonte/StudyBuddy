@@ -1,7 +1,7 @@
 var app = angular.module('studybuddyApp');
 
-app.controller('card-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams', 
-	function ($scope, $resource, $http, $location, $routeParams ) {
+app.controller('card-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
+	function ($scope, $resource, $http, $location, $routeParams) {
 
 	$scope.getFlashcardset = function(flashcardsetName) {
 		console.log(flashcardsetName);
@@ -19,6 +19,7 @@ app.controller('card-set-controller', ['$scope', '$resource', '$http', '$locatio
 
 			$http.get(url).success(function(data){
 			$scope.results = data;
+			//$scope.hideVar = true;
 			console.log($scope.results);
 			
 		});
@@ -29,15 +30,16 @@ app.controller('card-set-controller', ['$scope', '$resource', '$http', '$locatio
 		console.log(url);
 		$http.get(url).success(function(data){
 			$scope.sets = data;
+			//$scope.showVar = true;
 		});
 	}
 
-	$scope.getHomeurl = function() {
+	$scope.getHomeUrl = function() {
 		console.log('hello');
-		var url = "/home";
+		var url = "/homesearch";
 
 		console.log(url);
-		$http.get(url);
+		$location.path(url);
 	}
 
 	$scope.getSignurl = function() {
@@ -47,11 +49,13 @@ app.controller('card-set-controller', ['$scope', '$resource', '$http', '$locatio
 		$http.get(url);
 	}
 
+
 	$scope.redirectSearchCardUrl = function(setIdNum, name) {
 		var url = "/card/"+setIdNum+ "/"+name;
-		console.log(url);
 		$scope.hideVar = true;
 		$location.path(url);
+
+			
 	}
 
 	$scope.writeSet = function() {
