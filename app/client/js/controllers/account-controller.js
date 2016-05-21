@@ -28,16 +28,13 @@ app.controller('account-controller', ['$scope', '$resource', '$http', '$location
 			$http.get(url).success(function(data){
 				$scope.results = data;
 
-					if($scope.results.length==0){
-						window.alert('Not a valid user. Please try again.');
-					}
-					else{
-							//window.location.href("myFlashcards.html");
-									//$scope.setit = !$scope.setit;
-								var locationurl = "/getUserFlashcardsets/"+email;	
-								$location.path(locationurl);			
-						}
-				});
+				if ($scope.results.length==0){
+					window.alert('Not a valid user. Please try again.');
+				} else {
+					var locationurl = "/getUserFlashcardsets/"+email;	
+					$location.path(locationurl);			
+				}
+			});
 		}
 
 

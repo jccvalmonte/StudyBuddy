@@ -5,15 +5,15 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 		 $scope.getcardResults = function() {
 			$scope.setIdNum = $routeParams.setIdNum;
 			
-	    	var url = "/card/"+ $scope.setIdNum;
-			console.log(" cards url "+ url);
+	    	var url = "/card/" + $scope.setIdNum;
+			console.log(" cards url " + url);
 
 				$http.get(url).success(function(data){
 					var i=0;
 					$scope.i = i;
 					//$scope.hideVar= false;
 				$scope.resultCards = data[0];
-				console.log("resultcards: " +$scope.resultCards);
+				console.log("resultcards: " + $scope.resultCards);
 				
 			});
 		}
@@ -29,7 +29,7 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			{
 				$scope.endofcards = $routeParams.name;
 
-				window.alert("Done viewing all flashcards for "+ $scope.endofcards);
+				window.alert("Done viewing all flashcards for " + $scope.endofcards);
 				
 			}
 		}
@@ -44,7 +44,7 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 
 				$scope.firstcard = $routeParams.name;
 
-				window.alert("This is the First Card for "+ $scope.firstcard + " flashcard set");
+				window.alert("This is the First Card for " + $scope.firstcard + " flashcard set");
 				
 			}
 		}
