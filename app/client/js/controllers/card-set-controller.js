@@ -19,7 +19,6 @@ app.controller('card-set-controller', ['$scope', '$resource', '$http', '$locatio
 
 			$http.get(url).success(function(data){
 			$scope.results = data;
-			//$scope.hideVar = true;
 			console.log($scope.results);
 			
 		});
@@ -30,14 +29,11 @@ app.controller('card-set-controller', ['$scope', '$resource', '$http', '$locatio
 		console.log(url);
 		$http.get(url).success(function(data){
 			$scope.sets = data;
-			//$scope.showVar = true;
 		});
 	}
 
 	$scope.getHomeUrl = function() {
-		console.log('hello');
-		var url = "/homesearch";
-
+		var url = "/home";
 		console.log(url);
 		$location.path(url);
 	}
@@ -54,8 +50,6 @@ app.controller('card-set-controller', ['$scope', '$resource', '$http', '$locatio
 		var url = "/card/"+setIdNum+ "/"+name;
 		$scope.hideVar = true;
 		$location.path(url);
-
-			
 	}
 
 	$scope.writeSet = function() {

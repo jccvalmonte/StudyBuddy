@@ -18,7 +18,6 @@ var idGen = 5;
 
 app.use(bodyParser());
 app.use(express.static('./'));
-//app.use('/home', express.static('./client/views/home.html'));
 app.use('/js', express.static('./client/js/controllers'));
 app.use('/images', express.static('./images'));
 
@@ -80,24 +79,19 @@ app.get('/card', function (req, res){
 
 app.get('/signup', function (req, res){
 	res.sendfile(__dirname + '/client/views/signUp.html');
-}); */
+});
+
+app.get('/home', function (req, res){
+	res.sendfile(__dirname + '/home.html');
+});
+
+*/
 
 
 //app.get('/api/flashcard_sets', flashcardsetsController.list);
 //app.post('/api/flashcard_sets', flashcardsetsController.create);
 
-app.get('/home', function (req, res){
-	res.sendfile(__dirname + '/home.html');
-	/*Sets.find({}, function(err, found) {
-		if(err)
-			res.send(err);
-		else
-			res.json(found);
-	});*/
-});
-
-app.get('/homeSets', function(req,res
-	){
+app.get('/homeSets', function(req,res){
 	Sets.find({}, function(err,found){
 		if(err)
 			res.send(err);
