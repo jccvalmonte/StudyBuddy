@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="/styles/card.css">
 	<link rel="stylesheet" type="text/css" href="/styles/main.css">
 	<link rel="stylesheet" type="text/css" href="/styles/toolbar.css">
+	<link rel="stylesheet" type="text/css" href="/styles/login.css">
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -87,7 +88,7 @@
 	            <i class="glyphicon glyphicon-search form-control-feedback"></i>
 	        </div>
 	    </form>
-		
+
 		<table ng-hide="hideVar" class="table table-hover table-responsive table-list-search">
 	        <thead>
 				<th>Name</th>
@@ -97,13 +98,33 @@
 				<th>Date Created</th>
 	        </thead>
 	        <tbody>
-	        
-	        <tr class="active" ng-repeat="set in sets">
+	        <tr ng-repeat="set in sets">
 	        	<td><a href="" ng-click="redirectSearchCardUrl(set.setIdNum, set.Name)">{{set.Name}}</a></td>
 		   		<td>{{set.Category}}</td>
 		   		<td>{{set.numCards}}</td>
 		   		<td>{{set.Author}}</td>
 		   		<td>{{set.DateCreated}}</td>
+	        </tr>
+	        <tr>
+	        	<td>testName</td>
+	        	<td>testCategory</td>
+	        	<td>test</td>
+	        	<td>test</td>
+	        	<td>test</td>
+	        </tr>
+	        <tr>
+	        	<td>testName</td>
+	        	<td>testCategory</td>
+	        	<td>test</td>
+	        	<td>test</td>
+	        	<td>test</td>
+	        </tr>
+	        <tr>
+	        	<td>testName</td>
+	        	<td>testCategory</td>
+	        	<td>test</td>
+	        	<td>test</td>
+	        	<td>test</td>
 	        </tr>
 	        </tbody>
 	    </table>
