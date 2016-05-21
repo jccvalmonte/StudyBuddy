@@ -32,12 +32,12 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Study Buddy</a>
+				<a class="navbar-brand" href="/home.html">Study Buddy</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1" ng-controller="card-set-controller">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+					<li class="active"><a href="" ng-click="getHomeUrl()">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
 					<li ><a href="#loginModal" data-toggle="modal" data-target="#loginModal">Login<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-in"></span></a></li>
 					<li ><a href="#">Sign Up<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
 				</ul>
@@ -78,17 +78,17 @@
 		</div>
 	</div>
 
+<!-- Search Flashcard Sets -->
 	<center class="main">
-
-	<!-- Search Flashcard Sets -->
+	
     <div class="container" ng-controller="card-set-controller" ng-init="getAllSets()">
-	    <form action="#" method="get" style="margin-top:75px; margin-bottom:75px">
-	        <div ng-hide="hideVar" class="col-md-6 input-group has-feedback">
-	            <input class="form-control" id="system-search" placeholder="Search Flashcard Sets">
-	            <i class="glyphicon glyphicon-search form-control-feedback"></i>
+	    <form action="/home.html" method="get" style="margin-top:75px; margin-bottom:75px">
+	        <div class="col-md-6 input-group has-feedback">
+	            <input ng-hide ="hideVar" class="form-control" id="system-search" placeholder="Search Flashcard Sets">
+	            <i ng-hide ="hideVar" class="glyphicon glyphicon-search form-control-feedback"></i>
 	        </div>
 	    </form>
-
+	    
 		<table ng-hide="hideVar" class="table table-hover table-responsive table-list-search">
 	        <thead>
 				<th>Name</th>
