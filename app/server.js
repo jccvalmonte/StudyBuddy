@@ -56,7 +56,9 @@ mongoose.connection.on('open', function(){
 		email: String,
 		firstName: String,
 		lastName: String,
-		password: String
+		password: String,
+		username: String,
+		dob: String
 	},
 	{collection: 'accounts'}
 	);
@@ -138,21 +140,19 @@ app.get('/getAccount/:email/:password', function(req, res) {
     });
 });          
 
-app.post('/createAccount/:email/:firstName/:lastName/:password', function(req, res) {
+app.post('/signup', function(req, res) {
 
-	var email = req.params.email;
-	var firstName = req.params.firstName;
-	var lastName = req.params.lastName;
-	var password = req.params.password;
+	var jsonObj= req.body;
+	console.log(jsonObj);
 
-	Accounts.create({email: email, firstName: firstName, lastName: lastName, password: password}, function(err, found) {
-    	// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-     	if (err)
+	Accounts.create(jsonObj, function(err, found){
+		if (err)
      		res.send(err)
      	else
         //console.log(res.json);
-        res.json(found); // return all accounts in JSON format
-    });
+       // res.json(found); // return all accounts in JSON format
+        console.log("Res is"+res.json(found));
+	}); 
 });                 
 
 
