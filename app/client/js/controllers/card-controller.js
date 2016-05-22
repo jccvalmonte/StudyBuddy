@@ -16,21 +16,32 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			});
 		}
 
-		$scope.getSetDetails = function () {
-			var url = "/setDetails";
+		$scope.redirectRelatedSetUrl = function(setIdNum, name) {
+			var url = "/card/"+setIdNum+"/"+name;
+			$location.path(url);
+		}
+
+
+
+
+		$scope.getSetDetails = function (setIdNum) {
+			var url = "/setDetails/" + setIdNum;
 			console.log(url);
 			$http.get(url).success(function(data) {
 				$scope.setDetails = data;
 			});
 		}
 
-		$scope.getRelatedSets = function() {
-			var url = "/relatedSets";
+		$scope.getRelatedSets = function(category) {
+			var url = "/relatedSets/" + category;
 			console.log(url);
 			$http.get(url).success(function(data){
 				$scope.relatedSets = data;
 			});
 		}
+
+
+
 
 		$scope.updateCount = function () {
 			var len = $scope.resultCards.cards.length;
