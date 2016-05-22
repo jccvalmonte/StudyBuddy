@@ -1,7 +1,17 @@
-body {
+html, body {
 	background: url("/images/background.jpg") no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+}
+
+.modal {
+   position: absolute;
+   top: 200px;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   overflow: auto;
+   overflow-y: auto;
 }
