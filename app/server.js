@@ -21,8 +21,6 @@ app.use(express.static('./'));
 app.use('/js', express.static('./client/js/controllers'));
 app.use('/images', express.static('./images'));
 
-//mongoose.connect('mongodb://localhost:27017/studybuddy');
-
 mongoose.connection.on('open', function(){
 	console.log('DB connection established!');
 
@@ -92,6 +90,7 @@ app.get('/home', function (req, res){
 //app.post('/api/flashcard_sets', flashcardsetsController.create);
 
 app.get('/homeSets', function(req,res){
+	
 	Sets.find({}, function(err,found){
 		if(err)
 			res.send(err);
@@ -100,20 +99,15 @@ app.get('/homeSets', function(req,res){
 	});
 });
 
-app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
-
-	//var searchrequest = {'$regex': req.params.flashcardsetName};
-	var searchrequest = {'$regex': new RegExp('^' + req.params.flashcardsetName.toLowerCase(), 'i')};
-		//FlashcardSet.find({category: searchrequest},function(err, found) {
-			Sets.find({Category: searchrequest},function(err, found) {
-			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-			if (err)
-				res.send(err)
-			else
-			res.json(found); // return all todos in JSON format
+app.get('/relatedSets', function(req,res) {
+	
+	Sets.find({}, function(err,found){
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
 	});
-});	
-
+});
 
 app.get('/card/:setIdNum', function(req, res) {
 
@@ -122,15 +116,12 @@ app.get('/card/:setIdNum', function(req, res) {
 	Cards.find({setIdNum: searchrequest},function(err, found) {
 		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 		if (err)
-			res.send(err)
+			res.send(err);
 		else
 		//console.log(res.json);
 		res.json(found); // return all cards in JSON format
 	});
 });	
-
-
-//"/getAccount/"+ $scope.email + $scope.pswd; /getUserFlashcardsets/
 
 app.get('/getAccount/:email/:password', function(req, res) {
 

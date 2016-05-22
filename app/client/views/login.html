@@ -4,15 +4,16 @@
 
 <div class="col-md-4"></div>
 <div class="col-md-4 container-fluid" ng-controller="account-controller" style="margin-top:50px">
-	<div class="form-group">
-		<label for="inputEmail">Email address</label>
-		<input class="form-control" id="inputEmail" placeholder="Email" type="email" ng-model="email">
-	</div>
-	<div class="form-group">
-		<label for="inputPassword">Password</label>
-		<input class="form-control" id="inputPassword" placeholder="Password" type="password" ng-model="password">
-	</div>
-	<p class="text-mid">Not registered yet? <a ng-href="#/signup">Create an account</a></p>
+	<p class="lead">
+		Email Address
+		<input class="form-control input-lg" id="inputEmail" placeholder="Email" type="email" ng-model="email">
+
+		<br>
+
+		Password
+		<input class="form-control input-lg" id="inputPassword" placeholder="Password" type="password" ng-model="password">
+	</p>
+	<p class="text-center">Not registered yet? <a ng-href="#/signup">Create an account</a></p>
 
 	<button class="btn btn-lg btn-default btn-block" type="submit" ng-click="getAccountResults(email,password)">
 		Log In
