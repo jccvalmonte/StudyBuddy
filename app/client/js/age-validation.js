@@ -1,1 +1,1 @@
- $(document).ready(function() { $('.form-popup').modal({ show: true, }) }); 
+ $(document).ready(function() { $('.form-popup').modal({show: true, backdrop: 'static', keyboard: false}) }); 
