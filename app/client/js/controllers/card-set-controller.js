@@ -2,8 +2,8 @@
 
 var app = angular.module('studybuddyApp');
 
-app.controller('flashcardsetsController', ['$scope', '$resource', '$http', '$location','$routeParams', 
-	function ($scope, $resource, $http, $location, $routeParams ) {
+app.controller('card-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
+	function ($scope, $resource, $http, $location, $routeParams) {
 
 	$scope.getFlashcardset = function(flashcardsetName) {
 		console.log(flashcardsetName);
@@ -25,13 +25,19 @@ app.controller('flashcardsetsController', ['$scope', '$resource', '$http', '$loc
 			
 		});
 	}
-
-	$scope.getHomeurl = function() {
-		console.log('hello');
-		var url = "/home";
-
+	
+	$scope.getAllSets = function() {
+		var url = "/homeSets";
 		console.log(url);
-		$http.get(url);
+		$http.get(url).success(function(data){
+			$scope.sets = data;
+		});
+	}
+
+	$scope.getHomeUrl = function() {
+		var url = "/home";
+		console.log(url);
+		$location.path(url);
 	}
 
 	$scope.getSignurl = function() {
@@ -44,7 +50,7 @@ app.controller('flashcardsetsController', ['$scope', '$resource', '$http', '$loc
 
 	$scope.redirectSearchCardUrl = function(setIdNum, name) {
 		var url = "/card/"+setIdNum+ "/"+name;
-		console.log(url);
+		$scope.hideVar = true;
 		$location.path(url);
 	}
 
@@ -67,8 +73,6 @@ app.controller('flashcardsetsController', ['$scope', '$resource', '$http', '$loc
 		newSet.useremail = "";
 		$scope.set = newSet;
 	}
-}]);
-
 		/*	cardset.$save(function (result){
 				$scope.flashcard_sets.push(result);
 				$scope.flashcardsetName ='';

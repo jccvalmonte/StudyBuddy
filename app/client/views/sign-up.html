@@ -1,0 +1,36 @@
+<center>
+	<h2>Sign Up</h2>
+</center>
+
+<div class="col-md-4"></div>
+<div class="col-md-4 container-fluid" ng-controller="account-controller" style="margin-top:50px">
+	<div class="form-group">
+		<label for="inputEmail">Email address</label>
+		<input ng-model="email" class="form-control" id="email" placeholder="Email" type="email">
+	</div>
+	<div class="form-group">
+		<label for="inputEmail">First Name</label>
+		<input ng-model="firstName" class="form-control" id="firstName" placeholder="First Name" type="firstName">
+	</div>
+	<div class="form-group">
+		<label for="inputEmail">Last Name</label>
+		<input ng-model="lastName" class="form-control" id="lastName" placeholder="Last Name" type="lastName">
+	</div>
+	<div class="form-group">
+		<label for="inputDOB">Date of Birth</label>
+		<input ng-model="DOB" class="form-control" id="DOB" placeholder="MM/DD/YYYY" type="DOB">
+	</div>
+	<div class="form-group">
+		<label for="inputUsername">Username</label>
+		<input ng-model="userame" class="form-control" id="username" placeholder="Userame" type="userame">
+	</div>
+	<div class="form-group">
+		<label for="inputPassword">Password</label>
+		<input ng-model="password" class="form-control" id="password" placeholder="Password" type="password">
+	</div>
+
+	<button class="btn btn-lg btn-default btn-block" type="submit" ng-click="createAccount(email, firstName, lastName, password)">
+		Register
+	</button>
+</div>
+<div class="col-md-4"></div>

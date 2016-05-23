@@ -1,0 +1,21 @@
+<center>
+	<h2>Login</h2>
+</center>
+
+<div class="col-md-4"></div>
+<div class="col-md-4 container-fluid" ng-controller="account-controller" style="margin-top:50px">
+	<div class="form-group">
+		<label for="inputEmail">Email address</label>
+		<input class="form-control" id="inputEmail" placeholder="Email" type="email" ng-model="email">
+	</div>
+	<div class="form-group">
+		<label for="inputPassword">Password</label>
+		<input class="form-control" id="inputPassword" placeholder="Password" type="password" ng-model="password">
+	</div>
+	<p class="text-mid">Not registered yet? <a ng-href="#/signup">Create an account</a></p>
+
+	<button class="btn btn-lg btn-default btn-block" type="submit" ng-click="getAccountResults(email,password)">
+		Log In
+	</button>
+</div>
+<div class="col-md-4"></div>

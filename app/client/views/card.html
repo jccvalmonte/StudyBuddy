@@ -1,39 +1,39 @@
-<div ng-app="studybuddyApp" ng-controller="cardsController" ng-init='getcardResults()'>
+<div ng-app="studybuddyApp" ng-controller="card-controller" ng-init='getcardResults()'>
 	<div class="flip">
 		<div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
-				<div class="face front">		
-							<table> 
-						   		<tbody>
-							   		<tr >
-								   		<td>
-
-								   		{{resultCards.cards[i].front}}
-								   		</td>
-							   		</tr>
-						  		 </tbody>
-					   		</table>		  		
-				</div>
-				<div class="face back" s>
-							<table> 
-						   		<tbody>
-							   		<tr >
-								   		<td style="text-align: center;">
-								   		{{resultCards.cards[i].back}} 
-								   		</td>
-							   		</tr>
-						  		 </tbody>
-					   		</table>		
-				</div>
+			<div class="face front">		
+				<table> 
+			   		<tbody>
+				   		<tr >
+					   		<td>
+					   		{{resultCards.cards[i].front}}
+					   		</td>
+				   		</tr>
+			  		 </tbody>
+		   		</table>		  		
+			</div>
+			<div class="face back">
+				<table> 
+			   		<tbody>
+				   		<tr >
+					   		<td style="text-align: center;">
+					   		{{resultCards.cards[i].back}} 
+					   		</td>
+				   		</tr>
+			  		 </tbody>
+		   		</table>		
+			</div>
 		</div>	   		
 	</div>
 	<!-- <div ng-click="updateCount()">Next</div> -->
 	<div style="text-align: center;">
-		
-		<button type="submit" ng-click="reduceCount()" class="btn btn-default"> < </button>
-			<font size= "4" color="black" face="verdana">  Flashcards:  {{i+1}} / {{resultCards.cards.length}} </font>
-		<button type="submit" ng-click="updateCount()" class="btn btn-default"> > </button>
-
+		<button type="submit" ng-click="reduceCount()" class="btn btn-default btn-lg">
+			<i class="glyphicon glyphicon-arrow-left col-xs-2"></i>
+		</button>
+			<font size= "4" color="black" face="verdana">{{i+1}} / {{resultCards.cards.length}} Flashcards</font>
+		<button type="submit" ng-click="updateCount()" class="btn btn-default btn-lg">
+			<i class="glyphicon glyphicon-arrow-right col-xs-2"></i>
+		</button>
 	</div>
-
 </div>
 
