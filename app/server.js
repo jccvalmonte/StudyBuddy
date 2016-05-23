@@ -21,8 +21,6 @@ app.use(express.static('./'));
 app.use('/js', express.static('./client/js/controllers'));
 app.use('/images', express.static('./images'));
 
-//mongoose.connect('mongodb://localhost:27017/studybuddy');
-
 mongoose.connection.on('open', function(){
 	console.log('DB connection established!');
 
@@ -59,7 +57,9 @@ mongoose.connection.on('open', function(){
 		email: String,
 		firstName: String,
 		lastName: String,
-		password: String
+		password: String,
+		username: String,
+		dob: String
 	},
 	{collection: 'accounts'}
 	);
@@ -93,6 +93,7 @@ app.get('/home', function (req, res){
 //app.post('/api/flashcard_sets', flashcardsetsController.create);
 
 app.get('/homeSets', function(req,res){
+	
 	Sets.find({}, function(err,found){
 		if(err)
 			res.send(err);
@@ -101,20 +102,15 @@ app.get('/homeSets', function(req,res){
 	});
 });
 
-app.get('/searchFlashcard/:flashcardsetName', function(req, res) {
-
-	//var searchrequest = {'$regex': req.params.flashcardsetName};
-	var searchrequest = {'$regex': new RegExp('^' + req.params.flashcardsetName.toLowerCase(), 'i')};
-		//FlashcardSet.find({category: searchrequest},function(err, found) {
-			Sets.find({Category: searchrequest},function(err, found) {
-			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-			if (err)
-				res.send(err)
-			else
-			res.json(found); // return all todos in JSON format
+app.get('/relatedSets', function(req,res) {
+	
+	Sets.find({}, function(err,found){
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
 	});
-});	
-
+});
 
 app.get('/card/:setIdNum', function(req, res) {
 
@@ -123,15 +119,12 @@ app.get('/card/:setIdNum', function(req, res) {
 	Cards.find({setIdNum: searchrequest},function(err, found) {
 		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 		if (err)
-			res.send(err)
+			res.send(err);
 		else
 		//console.log(res.json);
 		res.json(found); // return all cards in JSON format
 	});
 });	
-
-
-//"/getAccount/"+ $scope.email + $scope.pswd; /getUserFlashcardsets/
 
 app.get('/getAccount/:email/:password', function(req, res) {
 
@@ -148,21 +141,19 @@ app.get('/getAccount/:email/:password', function(req, res) {
     });
 });          
 
-app.post('/createAccount/:email/:firstName/:lastName/:password', function(req, res) {
+app.post('/signup', function(req, res) {
 
-	var email = req.params.email;
-	var firstName = req.params.firstName;
-	var lastName = req.params.lastName;
-	var password = req.params.password;
+	var jsonObj= req.body;
+	console.log(jsonObj);
 
-	Accounts.create({email: email, firstName: firstName, lastName: lastName, password: password}, function(err, found) {
-    	// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-     	if (err)
+	Accounts.create(jsonObj, function(err, found){
+		if (err)
      		res.send(err)
      	else
         //console.log(res.json);
-        res.json(found); // return all accounts in JSON format
-    });
+       // res.json(found); // return all accounts in JSON format
+        console.log("Res is"+res.json(found));
+	}); 
 });                 
 
 

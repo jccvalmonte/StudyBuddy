@@ -1,10 +1,10 @@
 .flip {
   -webkit-perspective: 800;
-   width: 550px;
-   height: 300px;
-    position: relative;
-    margin: 50px auto;
-    text-align: center;
+   width: 450px;
+   height: 250px;
+  position: relative;
+  margin: 50px auto;
+  text-align: center;
 }
 .flip .card.flipped {
   -webkit-transform: rotatex(-180deg);
@@ -14,7 +14,7 @@
   height: 100%;
   text-align: center;
   -webkit-transform-style: preserve-3d;
-  -webkit-transition: 0.5s;
+  -webkit-transition: 0.4s;
 }
 .flip .card .face {
   width: 100%;
@@ -51,6 +51,5 @@
 
 .card {
   box-shadow: 10px 5px 5px gray;
-  text-shadow: 1px 1px;
 }
 

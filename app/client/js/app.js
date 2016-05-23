@@ -71,7 +71,7 @@ app.config(function ($routeProvider) {
   })
   .when('/createset', {
     templateUrl: '/client/views/create-set.html',
-    controller: 'card-set-controller'
+    controller: 'crud-set-controller'
   }) 
   .when('/signup', {
     templateUrl: '/client/views/sign-up.html',
