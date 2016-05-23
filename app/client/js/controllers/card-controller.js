@@ -37,12 +37,24 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			if ($scope.i < len-1) {
 				$scope.i = $scope.i + 1;
 			}
+			else
+			{
+				$scope.endofcards = $routeParams.name;
+				window.alert("Done vieiwing all flashcards for "+ $scope.endofcards);
+				
+			}
 		}
 
 		$scope.reduceCount = function () {
 			var len = $scope.resultCards.cards.length;
 			if ($scope.i > 0) {
 				$scope.i = $scope.i - 1;
+			}
+			else
+			{
+				$scope.firstcard = $routeParams.name;
+				window.alert("This is the First Card for "+ $scope.firstcard + " flashcard set");
+				
 			}
 		}
 
