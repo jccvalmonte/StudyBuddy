@@ -28,41 +28,42 @@ app.controller('account-controller', ['$scope', '$resource', '$http', '$location
 			$http.get(url).success(function(data){
 				$scope.results = data;
 
-					if($scope.results.length==0){
-						window.alert('Not a valid user. Please try again.');
-					}
-					else{
-							//window.location.href("myFlashcards.html");
-									//$scope.setit = !$scope.setit;
-								var locationurl = "/getUserFlashcardsets/"+email;	
-								$location.path(locationurl);			
-						}
-				});
+				if ($scope.results.length==0){
+					window.alert('Not a valid user. Please try again.');
+				} else {
+					var locationurl = "/getUserFlashcardsets/"+email;	
+					$location.path(locationurl);			
+				}
+			});
 		}
 
-
-		$scope.initUserSignUp = function(email, firstName, lastName, password) {
+	//initUserSignUp(email, firstName, lastName, DOB, username, password)
+		$scope.initUserSignUp = function(email, firstName, lastName, DOB, username, password) {
 			console.log('new user signup');
 			var newUser = {};
 			newUser.email = email;
 			newUser.firstName = firstName;
 			newUser.lastName = lastName;
+			newUser.dob = DOB;
+			newUser.username = username;
 			newUser.password = password;
 			
 			$scope.userSignUp = newUser;
+			$scope.writeUserSignUp();
 		}
 
 		$scope.writeUserSignUp = function() {
-			console.log($scope.set);
+
 			$http.post('/signup', $scope.userSignUp).success(function(data) {
 				$scope.results = data;
-				if($scope.results.length==0){
+
+				/*if($scope.results.length==0){
 					window.alert('Account creation failed');
 				}
 				else{
-					window.alert('Successfully created an account!');
+					window.alert('Successfully created an account, Please Login!');
 					//window.location.href = '/home.html';
-				}
+				}*/
 			});
 		}
 

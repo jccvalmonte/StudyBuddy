@@ -1,37 +1,76 @@
-<div ng-app="studybuddyApp" ng-controller="card-controller" ng-init='getcardResults()'>
+<div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults()">
+	
+	<center>
+		<p class="lead">
+			Set Name: <b>{{setDetails.Name}}</b><br>
+			Author: <b>{{setDetails.Author}}</b><br>
+			Category: <b>{{setDetails.Category}}</b>
+		</p>
+	</center>
+		
 	<div class="flip">
 		<div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
-				<div class="face front">		
-							<table> 
-						   		<tbody>
-							   		<tr >
-								   		<td>
-
-								   		{{resultCards.cards[i].front}}
-								   		</td>
-							   		</tr>
-						  		 </tbody>
-					   		</table>		  		
-				</div>
-				<div class="face back" s>
-							<table> 
-						   		<tbody>
-							   		<tr >
-								   		<td style="text-align: center;">
-								   		{{resultCards.cards[i].back}} 
-								   		</td>
-							   		</tr>
-						  		 </tbody>
-					   		</table>		
-				</div>
+			<div class="face front">		
+				<table> 
+		   		<tbody>
+			   		<tr >
+				   		<td>
+				   		{{resultCards.cards[i].front}}
+				   		</td>
+			   		</tr>
+		  		 </tbody>
+	   			</table>		  		
+			</div>
+			<div class="face back">
+				<table> 
+		   		<tbody>
+			   		<tr >
+				   		<td style="text-align: center;">
+				   		{{resultCards.cards[i].back}} 
+				   		</td>
+			   		</tr>
+		  		</tbody>
+		   		</table>		
+			</div>
 		</div>	   		
 	</div>
-	<!-- <div ng-click="updateCount()">Next</div> -->
-	<div style="text-align: center;">
-		<button type="submit" ng-click="reduceCount()" class="btn btn-default"> < </button>
-			<font size= "4" color="black" face="verdana">  Flashcards:  {{i+1}} / {{resultCards.cards.length}} </font>
-		<button type="submit" ng-click="updateCount()" class="btn btn-default"> > </button>
-	</div>
+		
+	<p class="lead text-center">
+		<button type="submit" ng-click="reduceCount()" class="btn btn-default btn-lg">
+			<i class="glyphicon glyphicon-arrow-left col-xs-2"></i>
+		</button>
+			{{i+1}} / {{resultCards.cards.length}} Flashcards
+		<button type="submit" ng-click="updateCount()" class="btn btn-default btn-lg">
+			<i class="glyphicon glyphicon-arrow-right col-xs-2"></i>
+		</button>
+	</p>
 
+	<br>
+	<center><a ng-href=""><button class="btn btn-success btn-lg">Quiz This Set</button></a></center>
+
+	<div class="col-lg-12" ng-init="getRelatedSets()">
+	<br><h3>Related Sets</h3><br>
+	<div class="container-fluid" style="height: 200px; overflow: auto">
+		<table class="table table-hover table-responsive">
+		<thead>
+			<th>Name</th>
+			<th>Category</th>
+			<th># Cards</th>
+			<th>Author</th>
+			<th>Date Created</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="relatedSet in relatedSets">
+	        	<td><b><a href="" ng-click="redirectSearchCardUrl(set.setIdNum, set.Name)">{{relatedSet.Name}}</a></b></td>
+		   		<td>{{relatedSet.Category}}</td>
+		   		<td>{{relatedSet.numCards}}</td>
+		   		<td>{{relatedSet.Author}}</td>
+		   		<td>{{relatedSet.DateCreated}}</td>
+        	</tr>
+		</tbody>
+		</table>
+	</div>
+	</div>
 </div>
 
+<script type = "text/javascript" src="/client/js/table.js"></script>
