@@ -22,7 +22,7 @@ app.config(function ($routeProvider) {
   })
   .when('/createset', {
     templateUrl: '/client/views/create-set.html',
-    controller: 'crud-set-controller'
+    controller: 'create-set-controller'
   }) 
   .when('/signup', {
     templateUrl: '/client/views/sign-up.html',
@@ -31,5 +31,9 @@ app.config(function ($routeProvider) {
   .when('/login', {
     templateUrl: '/client/views/login.html',
     controller: 'account-controller'
+  })
+  .when('/quiz/:setIdNum', {
+    templateUrl: 'client/views/quiz.html',
+    controller: 'quiz-controller'
   })
 });
