@@ -13,6 +13,7 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 				$scope.i = i;
 				$scope.resultCards = data[0];
 				console.log("resultcards: " + $scope.resultCards);	
+				$scope.getSetDetails($scope.resultCards.setIdNum);
 			});
 		}
 
