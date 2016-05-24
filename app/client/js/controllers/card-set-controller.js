@@ -12,12 +12,11 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 			});
 		}
 
-		$scope.redirectSearchCardUrl = function(setIdNum, name) {
-			var url = "/card/"+setIdNum+"/"+name;
-			$location.path(url);
-		}
+		$scope.redirectSearchCardUrl = function(setIdNum) {
 
-	/*	$scope.showUserButton = function(){
-			$scope.userVar = true;
-		}*/
+			var url = "/card/"+setIdNum;
+			$location.path(url);
+		}	
+
+
 }]);

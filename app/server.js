@@ -117,7 +117,7 @@ app.get('/relatedSets/:category', function(req, res) {
 	});
 });
 
-app.get('/setDetails/:setIdNum', function(req, res) {
+app.get('/setDet/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
 

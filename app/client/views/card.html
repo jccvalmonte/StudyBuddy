@@ -1,12 +1,13 @@
-<div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults()">
+<div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults(); getSetDetails()">
 	
-	<center ng-init="getSetDetails(resultCards.setIdNum)">
-		<p class="lead">
-			Set Name: <b>{{setDetails.Name}}</b><br>
-			Author: <b>{{setDetails.Author}}</b><br>
-			Category: <b>{{setDetails.Category}}</b>
-		</p>
-	</center>
+		<center>
+			<p class="lead" ng-repeat = "setDet in setDets">
+
+				Set Name: <b>{{setDet.Name}}</b><br>
+				Author:   <b>{{setDet.Author}}</b><br>
+				Category: <b>{{setDet.Category}}</b>
+			</p>
+		</center>
 		
 	<div class="flip">
 		<div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
