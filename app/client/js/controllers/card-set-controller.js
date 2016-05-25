@@ -1,8 +1,9 @@
 var app = angular.module('studybuddyApp');
 
-app.controller('card-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
-	function ($scope, $resource, $http, $location, $routeParams) {
+app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$http', '$location','$routeParams',
+	function ($rootScope, $scope, $resource, $http, $location, $routeParams) {
 		
+		$rootScope.userVar = false;
 		$scope.getAllSets = function() {
 			var url = "/homeSets";
 			console.log(url);
@@ -11,8 +12,11 @@ app.controller('card-set-controller', ['$scope', '$resource', '$http', '$locatio
 			});
 		}
 
-		$scope.redirectSearchCardUrl = function(setIdNum, name) {
-			var url = "/card/"+setIdNum+"/"+name;
+		$scope.redirectSearchCardUrl = function(setIdNum) {
+
+			var url = "/card/"+setIdNum;
 			$location.path(url);
-		}
+		}	
+
+
 }]);

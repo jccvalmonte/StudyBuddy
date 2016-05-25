@@ -1,6 +1,6 @@
 var app = angular.module('studybuddyApp');
-app.controller('account-controller', ['$scope', '$resource', '$http', '$location','$routeParams', 
-	function ($scope, $resource, $http, $location, $routeParams ) {
+app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$http', '$location','$routeParams', 
+	function ($rootScope, $scope, $resource, $http, $location, $routeParams ) {
 
 		$scope.getCreateUrl = function() {
 			//console.log(flashcardsetName);
@@ -9,29 +9,23 @@ app.controller('account-controller', ['$scope', '$resource', '$http', '$location
 			console.log("createset:" + url);
 		}
 
-		$scope.loginRedirectUrl = function() {
-			//console.log(flashcardsetName);
-			var url = "/loginAccountPage/";
-			$location.path(url);
-			console.log("getAccountfirst:" + url);
-		}
-
 		$scope.getAccountResults = function(email, password) {
-			$scope.setit = false;
-		//	$scope.email = $routeParams.email;
-		//	$scope.pswd = $routeParams.password;
 
 		var url = "/getAccount/"+ email + "/" + password;
 		console.log(" get Account url "+ url);
 
-			//$scope.myVar = false;
+			//$rootScope.userVar = false;
 			$http.get(url).success(function(data){
 				$scope.results = data;
+				
 
 				if ($scope.results.length==0){
 					window.alert('Not a valid user. Please try again.');
 				} else {
-					var locationurl = "/getUserFlashcardsets/"+email;	
+					//$scope.userVar = true;
+					var locationurl = "/getUserFlashcardsets/"+email;
+					$rootScope.userVar = !$rootScope.userVar;	
+
 					$location.path(locationurl);			
 				}
 			});
@@ -100,6 +94,8 @@ app.controller('account-controller', ['$scope', '$resource', '$http', '$location
 
 			$http.get(url).success(function(data){
 				$scope.userresults = data;
+				//$scope.userVar = true;
+
 				console.log($scope.userresults);
 			});
 		}
