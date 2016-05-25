@@ -205,6 +205,20 @@ app.post('/createSet', function(req, res){
 	idGen++;
 });
 
+app.delete('userSets/delete/:setId', function(req,res){
+	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
+		function(err,set){
+			if (err){
+				res.send(err);
+			}
+			else{
+				console.log("set deleted!");
+				res.send(set);
+			}
+
+		});
+});
+
 
 app.listen(3000, function() {
 	console.log('Server listening on port 3000...');

@@ -107,4 +107,10 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 			$location.path(url);
 		}
 
+		$scope.deleteSet = function(idNum){
+			var url = "/deleteSet/:" + idNum;
+			console.log(url);
+			$http.get(url);
+		}
+
 	}]);

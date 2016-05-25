@@ -1,11 +1,11 @@
 <div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults(); getSetDetails()">
 	
 		<center>
-			<p class="lead" ng-repeat = "setDet in setDets">
+			<p class="lead">
 
-				Set Name: <b>{{setDet.Name}}</b><br>
-				Author:   <b>{{setDet.Author}}</b><br>
-				Category: <b>{{setDet.Category}}</b>
+				Set Name: <b>{{setDets.Name}}</b><br>
+				Author:   <b>{{setDets.Author}}</b><br>
+				Category: <b>{{setDets.Category}}</b>
 			</p>
 		</center>
 		
