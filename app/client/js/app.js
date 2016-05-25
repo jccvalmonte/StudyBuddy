@@ -4,7 +4,6 @@ var app = angular.module ('studybuddyApp', ['ngResource','ngRoute']);
 
 app.config(function ($routeProvider) {
   $routeProvider
-
   .when('/', {
     templateUrl: '/client/views/card-set.html',
     controller: 'card-set-controller'
@@ -22,7 +21,7 @@ app.config(function ($routeProvider) {
   })
   .when('/createset', {
     templateUrl: '/client/views/create-set.html',
-    controller: 'create-set-controller'
+    controller: 'crudSetCntrl'
   }) 
   .when('/signup', {
     templateUrl: '/client/views/sign-up.html',
