@@ -30,7 +30,7 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			var url = "/setDet/" + $scope.setIdNum;
 			console.log("hello"+url);
 			$http.get(url).success(function(data) {
-				$scope.setDets = data;
+				$scope.setDets = data[0];
 			});
 		}
 
