@@ -1,0 +1,23 @@
+<!-- Search Flashcard  View-->
+<div ng-controller="flashcardsetsController" ng-init='getcardsetResults()' style="margin-top:50px">
+	<table class="table table-bordered table-striped table-hover"> 
+		<thead>
+			<th>Name</th>
+			<th>Category</th>
+			<th># Cards</th>
+			<th>Author</th>
+			<th>Date Created</th>
+			<th>Remove</th>
+		</thead>
+		<tbody>
+   		<tr class="table-active" ng-repeat="result in results">
+	   		<td><a href="" ng-click="redirectSearchCardUrl(result.setIdNum, result.Name)">{{result.Name}}</a></td>
+	   		<td>{{result.Category}}</td>
+	   		<td>{{result.numCards}}</td>
+	   		<td>{{result.Author}}</td>
+	   		<td>{{result.DateCreated}}</td>
+	   		<td> <input type='button' class='Remove' value = 'X'></td>
+   		</tr>
+		 </tbody>
+	</table>
+</div>
