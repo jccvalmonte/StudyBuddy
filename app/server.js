@@ -10,6 +10,8 @@ var mongoDBConnection = require('./db.config');
 mongoose.connect(mongoDBConnection.uri);
 console.log(mongoDBConnection.uri);
 
+//mongoose.connect('mongodb://anthony:absher@ds036069.mlab.com:36069/studybuddy');
+
 //global variables to access the schema models
 var Sets;
 var Cards;
@@ -117,7 +119,7 @@ app.get('/relatedSets/:category', function(req, res) {
 	});
 });
 
-app.get('/setDetails/:setIdNum', function(req, res) {
+app.get('/setDet/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
 
@@ -195,7 +197,7 @@ app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
-	Sets.create([jsonObj], function(err){
+	Sets.create({jsonObj}, function(err){
 		if(err)
 			res.send(err)
 	});

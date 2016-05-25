@@ -9,7 +9,7 @@ app.config(function ($routeProvider) {
     templateUrl: '/client/views/card-set.html',
     controller: 'card-set-controller'
   })
-  .when('/card/:setIdNum/:name', {
+  .when('/card/:setIdNum/', {
     templateUrl: '/client/views/card.html',
     controller: 'card-controller'
   })
