@@ -1,6 +1,6 @@
 var app = angular.module('studybuddyApp');
 
-app.controller('crud-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
+app.controller('crudSetCntrl', ['$scope', '$resource', '$http', '$location','$routeParams',
 	function ($scope, $resource, $http, $location, $routeParams) {
 
 		$scope.initNewSet = function() {
@@ -21,4 +21,5 @@ app.controller('crud-set-controller', ['$scope', '$resource', '$http', '$locatio
 				$scope.set.setIdNum = data.setIdNum;
 			});
 		}
+
 }]);
