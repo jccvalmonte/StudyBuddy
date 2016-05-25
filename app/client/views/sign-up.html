@@ -6,7 +6,7 @@
 <div class="col-md-6 container-fluid" ng-controller="account-controller" style="margin-top:50px; margin-bottom:50px">
 
 	<form action="#/login">
-	Email Address
+	<p class="lead">Email Address
 	<input ng-model="email" class="form-control input-lg" id="email" placeholder="Email" type="email">
 
 	<br>
@@ -35,6 +35,7 @@
 	<input ng-model="password" class="form-control input-lg" id="password" placeholder="Password" type="password">
 
 	<br>
+	</p>
 
 	<button class="btn btn-lg btn-default btn-block" type="submit" ng-click="initUserSignUp(email, firstName, lastName, DOB, username, password)">
 		Register
