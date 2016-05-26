@@ -16,7 +16,7 @@ Sets.insert(
 
 Sets.insert(
 {
-"setIdNum": "2",
+"setIdNum": 2,
 "Name": "Advanced Math",
 "Category": "Mathematics",
 "numCards": "2",
@@ -27,7 +27,7 @@ Sets.insert(
 )
 Sets.insert(
 {
-"setIdNum": "3",
+"setIdNum": 3,
 "Name": "Chemistry",
 "Category": "Science",
 "numCards": "5",
@@ -38,7 +38,7 @@ Sets.insert(
 )
 Sets.insert(
 {
-"setIdNum": "4",
+"setIdNum": 4,
 "Name": "Vocabulary",
 "Category": "English",
 "numCards": "6",
