@@ -21,7 +21,7 @@ app.config(function ($routeProvider) {
   })
   .when('/createset', {
     templateUrl: '/client/views/create-set.html',
-    controller: 'crudSetCntrl'
+    controller: 'create-set-controller'
   }) 
   .when('/signup', {
     templateUrl: '/client/views/sign-up.html',
