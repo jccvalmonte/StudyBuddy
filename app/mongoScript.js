@@ -1,5 +1,5 @@
-db = db.getSiblings('studybuddy')
-db.createCollection('lists')
+db = db.getSiblingDB('studybuddy')
+db.createCollection('sets')
 CardLists = db.getCollection("sets")
 CardLists.remove({})
 CardLists.insert(
@@ -9,7 +9,8 @@ CardLists.insert(
 "Category": "Mathematics",
 "numCards": "3",
 "Author": "A",
-"DateCreated": "04-29-2016"
+"DateCreated": "04-29-2016",
+"email":"dipali@gmail.com"
 }
 )
 
@@ -20,7 +21,8 @@ CardLists.insert(
 "Category": "Mathematics",
 "numCards": "2",
 "Author": "B",
-"DateCreated": "04-29-2016"
+"DateCreated": "04-29-2016",
+"email":"dipali@gmail.com"
 }
 )
 CardLists.insert(
@@ -30,7 +32,8 @@ CardLists.insert(
 "Category": "Science",
 "numCards": "5",
 "Author": "C",
-"DateCreated": "04-29-2016"
+"DateCreated": "04-29-2016",
+"email":"dipali@gmail.com"
 }
 )
 CardLists.insert(
@@ -40,7 +43,8 @@ CardLists.insert(
 "Category": "English",
 "numCards": "6",
 "Author": "D",
-"DateCreated": "04-29-2016"
+"DateCreated": "04-29-2016",
+"email":"dipali@gmail.com"
 }
 )
 CardLists.insert(
@@ -50,7 +54,8 @@ CardLists.insert(
 "Category": "Spanish",
 "numCards": "2",
 "Author": "E",
-"DateCreated": "04-29-2016"
+"DateCreated": "04-29-2016",
+"email":"dipali@gmail.com"
 }
 )
 CardLists.insert(
@@ -60,7 +65,8 @@ CardLists.insert(
 "Category": "Science",
 "numCards": "1",
 "Author": "F",
-"DateCreated": "04-29-2016"
+"DateCreated": "04-29-2016",
+"email":"dipali@gmail.com"
 }
 )
 db.createCollection('cards')
