@@ -199,13 +199,21 @@ app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
-	Sets.create({jsonObj}, function(err){
+	
+	/*Sets.create(jsonObj, function(err){
 		if(err)
 			res.send(err)
 	});
 	res.send(jsonObj);
-	idGen++;
+	idGen++;*/
 });
+
+app.post('/createset/cards', function(req,res){
+	var jsonObj = req.body;
+	jsonObj.setIdNum = idGen;
+	console.log(jsonObj);
+
+})
 
 app.delete('userSets/delete/:setId', function(req,res){
 	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
@@ -221,7 +229,8 @@ app.delete('userSets/delete/:setId', function(req,res){
 		});
 });
 
+var port = process.env.port || 3000;
 
-app.listen(3000, function() {
-	console.log('Server listening on port 3000...');
+app.listen(port, function() {
+	console.log('Server listening on port ' + port);
 })
