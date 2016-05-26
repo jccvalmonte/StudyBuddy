@@ -15,11 +15,27 @@ app.controller('crudSetCntrl', ['$scope', '$resource', '$http', '$location','$ro
 			$scope.set = newSet;
 		}
 
+
 		$scope.writeSet = function() {
 			console.log($scope.set);
 			$http.post('/createSet', $scope.set).success(function(data, status, headers, config) {
 				$scope.set.setIdNum = data.setIdNum;
 			});
+		}
+
+		$scope.initCards = function(){
+			console.log('new cards init');
+
+			var newCards = {};
+			newCards.setIdNum = 0;
+			newCards.cards = [];
+
+			for(var i=0; i<3; i++){
+				newCards.cards[i].cardId = i+1;
+				newCards.cards[i].front = '';
+				newCards.cards[i].back = '';
+			}
+			$scope.newCards = newCards;
 		}
 
 }]);

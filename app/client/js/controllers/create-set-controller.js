@@ -22,4 +22,26 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			});
 		}
 
+		$scope.initCards = function(){
+			console.log('new cards init');
+
+			var newCards = {
+				setIdNum: 0
+				cards:[]
+			};
+
+			for(var i=0; i<3; i++){
+				var id = i+1;
+
+				newCards.cards.push({
+				"cardId" : id,
+				"front" : "blank front",
+				"back" : "blank back"
+			});
+				
+			}
+
+			$scope.cards = newCards;
+		}
+
 }]);

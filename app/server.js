@@ -138,13 +138,9 @@ app.get('/setDet/:setIdNum', function(req, res) {
 app.get('/card/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
-<<<<<<< HEAD
 	console.log(searchrequest);
 	Cards.find({setIdNum: searchrequest},function(err, found) {
-=======
-	//console.log(searchrequest);
-	Cards.find({setIdNum: searchrequest}, function(err, found) {
->>>>>>> refs/remotes/origin/master
+
 		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 		if (err)
 			res.send(err);
