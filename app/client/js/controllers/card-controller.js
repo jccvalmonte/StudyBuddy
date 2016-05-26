@@ -19,28 +19,31 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 		}
 
 		$scope.redirectRelatedSetUrl = function(setIdNum, name) {
-			var url = "/card/"+setIdNum+"/"+name;
+			var url = "/card/" + setIdNum + "/" + name;
 			$location.path(url);
 		}
 
-
-		$scope.getSetDetails = function () {
+		$scope.getSetDetails = function() {
 			$scope.setIdNum = $routeParams.setIdNum;
 
 			var url = "/setDet/" + $scope.setIdNum;
-			console.log("hello"+url);
+			console.log(url);
 			$http.get(url).success(function(data) {
-				$scope.setDets = data[0];
+				$scope.setDetails = data[0];
 			});
 		}
 
-		/*$scope.getRelatedSets = function(category) {
-			var url = "/relatedSets/" + category;
+
+
+		$scope.getRelatedSets = function() {
+			$scope.Category = $routeParams.Category;
+
+			var url = "/relatedSets/" + $scope.Category;
 			console.log(url);
 			$http.get(url).success(function(data){
 				$scope.relatedSets = data;
 			});
-		}*/
+		}
 
 
 

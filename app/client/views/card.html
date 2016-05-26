@@ -1,11 +1,11 @@
-<div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults(); getSetDetails()">
+<div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults(); getSetDetails(); getRelatedSets();">
 	
 		<center>
 			<p class="lead">
 
-				Set Name: <b>{{setDets.Name}}</b><br>
-				Author:   <b>{{setDets.Author}}</b><br>
-				Category: <b>{{setDets.Category}}</b>
+				Set Name: <b>{{setDetails.Name}}</b><br>
+				Author:   <b>{{setDetails.Author}}</b><br>
+				Category: <b>{{setDetails.Category}}</b>
 			</p>
 		</center>
 		
@@ -49,7 +49,7 @@
 	<br>
 	<center><a ng-href=""><button class="btn btn-success btn-lg">Quiz This Set</button></a></center>
 
-	<div class="col-lg-12" ng-init="getRelatedSets(setDetails.Category)">
+	<div class="col-lg-12">
 	<br><h3>Related Sets</h3><br>
 	<div class="container-fluid" style="height: 200px; overflow: auto">
 		<table class="table table-hover table-responsive">

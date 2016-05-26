@@ -119,9 +119,12 @@ app.get('/relatedSets/:category', function(req, res) {
 	});
 });
 
-app.get('/setDet/:setIdNum', function(req, res) {
 
-	var searchrequest = req.params.setIdNum;
+
+
+app.get('/setDet/:setId', function(req, res) {
+
+	var searchrequest = req.params.setId
 
 	Sets.find({setIdNum: searchrequest}, function(err, found) {
 		if(err)
@@ -130,9 +133,6 @@ app.get('/setDet/:setIdNum', function(req, res) {
 			res.json(found);
 	});
 });
-
-
-
 
 app.get('/card/:setIdNum', function(req, res) {
 
@@ -203,20 +203,6 @@ app.post('/createSet', function(req, res){
 	});
 	res.send(jsonObj);
 	idGen++;
-});
-
-app.delete('userSets/delete/:setId', function(req,res){
-	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
-		function(err,set){
-			if (err){
-				res.send(err);
-			}
-			else{
-				console.log("set deleted!");
-				res.send(set);
-			}
-
-		});
 });
 
 
