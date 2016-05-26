@@ -65,6 +65,7 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'accounts'}
 	);
+	
 	Accounts = mongoose.model('Accounts', AccountSchema);
 	
 	console.log('Models Created!');
@@ -94,9 +95,9 @@ app.get('/home', function (req, res){
 //app.get('/api/flashcard_sets', flashcardsetsController.list);
 //app.post('/api/flashcard_sets', flashcardsetsController.create);
 
-app.get('/homeSets', function(req,res){
+app.get('/homeSets', function(req, res){
 	
-	Sets.find({}, function(err,found){
+	Sets.find({}, function(err, found){
 		if(err)
 			res.send(err);
 		else
@@ -104,21 +105,46 @@ app.get('/homeSets', function(req,res){
 	});
 });
 
-app.get('/relatedSets', function(req,res) {
+
+
+
+app.get('/relatedSets/:category', function(req, res) {
+
+	var searchrequest = req.params.category;
 	
-	Sets.find({}, function(err,found){
+	Sets.find({Category: searchrequest}, function(err, found){
 		if(err)
 			res.send(err);
 		else
 			res.json(found);
 	});
 });
+
+app.get('/setDet/:setIdNum', function(req, res) {
+
+	var searchrequest = req.params.setIdNum;
+
+	Sets.find({setIdNum: searchrequest}, function(err, found) {
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
+	});
+});
+
+
+
 
 app.get('/card/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
+<<<<<<< HEAD
 	console.log(searchrequest);
 	Cards.find({setIdNum: searchrequest},function(err, found) {
+=======
+	//console.log(searchrequest);
+	Cards.find({setIdNum: searchrequest}, function(err, found) {
+>>>>>>> refs/remotes/origin/master
 		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 		if (err)
 			res.send(err);
@@ -183,6 +209,20 @@ app.post('/createSet', function(req, res){
 	});
 	res.send(jsonObj);
 	idGen++;
+});
+
+app.delete('userSets/delete/:setId', function(req,res){
+	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
+		function(err,set){
+			if (err){
+				res.send(err);
+			}
+			else{
+				console.log("set deleted!");
+				res.send(set);
+			}
+
+		});
 });
 
 

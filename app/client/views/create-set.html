@@ -1,4 +1,6 @@
-<div class="container-fluid" ng-controller="crudSetCntrl" ng-init="initNewSet()" style="margin-bottom: 50px">
+
+<div class="container-fluid" id = "newSet" ng-controller='create-set-controller' ng-init='initNewSet()' style="margin-bottom: 50px">
+
 	<center><h2>Create a Flashcard Set</h2></center>
 
 	<div class="col-xs-2"></div>
@@ -12,30 +14,34 @@
 		<input ng-model="" id="Category" type="text" class="form-control input-lg" placeholder="Category"><br>
 		</p>
 
+		Author
+		<input ng-model="" id="Author" type="text" class="form-control input-lg" placeholder="Author"><br>
+		</p>
+
 		<div id="dynamicInput">
 			<p class="lead">
 			Card
 			<br>
-			<input ng-model="" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
-			<input ng-model="" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
+			<input ng-model="cardData[0].front" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
+			<input ng-model="cardData[0].back" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
 			<br>
 
 			Card
 			<br>
-			<input ng-model="" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
-			<input ng-model="" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
+			<input ng-model="cardData[1].front" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
+			<input ng-model="cardData[1].back" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
 			<br>
 
 			Card
 			<br>
-			<input ng-model="" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
-			<input ng-model="" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
+			<input ng-model="cardData[2].front" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
+			<input ng-model="cardData[2].back" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
 			</p>
 		</div>
 	     
 	    <button class="btn btn-default btn-md" onClick="addInput('dynamicInput');"><i class="glyphicon glyphicon-plus"></i></button>
 
-		<center><a class="btn btn-success btn-lg" ng-click='writeSet()' role="submit">Create</a></center>
+		<center><a class="btn btn-success btn-lg" ng-click='writeSet(); writeCards(myInputs)' role="submit">Create</a></center>
 	</div>
 	<div class="col-xs-2"></div>
 </div>
