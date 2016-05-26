@@ -4,7 +4,7 @@ Sets = db.getCollection("sets")
 Sets.remove({})
 Sets.insert(
 {
-"setIdNum": 1,
+"setIdNum": "1",
 "Name": "Beginners Math",
 "Category": "Mathematics",
 "numCards": "3",
