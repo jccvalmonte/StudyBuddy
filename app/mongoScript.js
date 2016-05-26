@@ -1,10 +1,10 @@
 db = db.getSiblingDB('studybuddy')
 db.createCollection('sets')
-CardLists = db.getCollection("sets")
-CardLists.remove({})
-CardLists.insert(
+Sets = db.getCollection("sets")
+Sets.remove({})
+Sets.insert(
 {
-"SetIdNum": "1",
+"setIdNum": "1",
 "Name": "Beginners Math",
 "Category": "Mathematics",
 "numCards": "3",
@@ -14,65 +14,43 @@ CardLists.insert(
 }
 )
 
-CardLists.insert(
+Sets.insert(
 {
-"SetIdNum": "2",
+"setIdNum": "2",
 "Name": "Advanced Math",
 "Category": "Mathematics",
 "numCards": "2",
 "Author": "B",
 "DateCreated": "04-29-2016",
-"email":"dipali@gmail.com"
+"email":"chris@gmail.com"
 }
 )
-CardLists.insert(
+Sets.insert(
 {
-"SetIdNum": "3",
+"setIdNum": "3",
 "Name": "Chemistry",
 "Category": "Science",
 "numCards": "5",
 "Author": "C",
 "DateCreated": "04-29-2016",
-"email":"dipali@gmail.com"
+"email":"anthony@gmail.com"
 }
 )
-CardLists.insert(
+Sets.insert(
 {
-"SetIdNum": "4",
+"setIdNum": "4",
 "Name": "Vocabulary",
 "Category": "English",
 "numCards": "6",
 "Author": "D",
 "DateCreated": "04-29-2016",
-"email":"dipali@gmail.com"
-}
-)
-CardLists.insert(
-{
-"SetIdNum": "5",
-"Name": "Vocabulario",
-"Category": "Spanish",
-"numCards": "2",
-"Author": "E",
-"DateCreated": "04-29-2016",
-"email":"dipali@gmail.com"
-}
-)
-CardLists.insert(
-{
-"SetIdNum": "6",
-"Name": "Astrology",
-"Category": "Science",
-"numCards": "1",
-"Author": "F",
-"DateCreated": "04-29-2016",
-"email":"dipali@gmail.com"
+"email":"lloyd@gmail.com"
 }
 )
 db.createCollection('cards')
-CardCollection = db.getCollection("cards")
-CardCollection.remove({})
-CardCollection.insert(
+Cards = db.getCollection("cards")
+Cards.remove({})
+Cards.insert(
 {
 "setIdNum": "1",
 "cards": [
@@ -95,7 +73,7 @@ CardCollection.insert(
 }
 )
 
-CardCollection.insert(
+Cards.insert(
 {
 "setIdNum": "2",
 "cards": [
@@ -113,7 +91,7 @@ CardCollection.insert(
 }
 )
 
-CardCollection.insert(
+Cards.insert(
 {
 "setIdNum": "3",
 "cards": [
@@ -146,7 +124,7 @@ CardCollection.insert(
 }
 )
 
-CardCollection.insert(
+Cards.insert(
 {
 "setIdNum": "4",
 "cards": [
@@ -183,34 +161,26 @@ CardCollection.insert(
 ]
 }
 )
-
-CardCollection.insert(
+db.createCollection('accounts')
+Accounts = db.getCollection("accounts")
+Accounts.remove({})
+Accounts.insert(
 {
-"setIdNum": "5",
-"cards": [
-{
-"cardId": "1",
-"front": "Hola",
-"back": "Hello"
-},
-{
-"cardId": "2",
-"front": "Pantalones",
-"back": "Pants"
-}
-]
+"email": "dipali@gmail.com",
+"firstName": "Dipali",
+"lastName": "Vagal",
+"dob": "10/19/1987",
+"username": "dips",
+"password": "test"
 }
 )
-
-CardCollection.insert(
+Accounts.insert(
 {
-"setIdNum": "6",
-"cards": [
-{
-"cardId": "1",
-"front": "The planet we live on",
-"back": "Earth"
-}
-]
+"email": "anthony@gmail.com",
+"firstName": "Anthony",
+"lastName": "Absher",
+"dob": "11/09/1998",
+"username": "anthony",
+"password": "test"
 }
 )

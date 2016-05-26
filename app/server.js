@@ -29,7 +29,7 @@ mongoose.connection.on('open', function(){
 	var Schema = mongoose.Schema;
 
 	var CardSetSchema = new Schema({
-		setIdNum: Number,
+		setIdNum: String,
 		Name : String,
 		Category: String,
 		numCards : Number,
