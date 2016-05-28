@@ -63,9 +63,9 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			
 
 			$scope.newCards = newCards;
-			console.log($scope.cards);
-			$http.post('/createset/cards', $scope.cards).success(function(data, status, headers, config) {
-				$scope.cards.setIdNum = data.setIdNum;
+			console.log($scope.newCards);
+			$http.post('/createset/cards', $scope.newCards).success(function(data, status, headers, config) {
+				$scope.newCards.setIdNum = data.setIdNum;
 			});
 		}
 

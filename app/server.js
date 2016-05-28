@@ -43,7 +43,7 @@ mongoose.connection.on('open', function(){
 	Sets = mongoose.model('Sets', CardSetSchema);
 	
 	var CardListSchema = new Schema({
-		setIdNum: Number,
+		setIdNum: String,
 		cards : [{
 			cardId: Number,
 			front : String,
