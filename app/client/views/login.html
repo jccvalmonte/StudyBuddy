@@ -5,9 +5,8 @@
 <div class="col-md-4"></div>
 <div class="col-md-4 container-fluid" ng-controller="account-controller" style="margin-top:50px">
 	<p class="lead">
-		Email Address
-		<input class="form-control input-lg" id="inputEmail" placeholder="Email" type="email" ng-model="email">
-
+		Username
+		<input class="form-control input-lg" id ="username" placeholder="User Id" type="text" ng-model="username">
 		<br>
 
 		Password
@@ -15,7 +14,7 @@
 	</p>
 	<p class="text-center">Not registered yet? <a ng-href="#/signup">Create an account</a></p>
 
-	<button class="btn btn-lg btn-default btn-block" type="submit" ng-click="getAccountResults(email,password)">
+	<button class="btn btn-lg btn-default btn-block" type="submit" ng-click="checklogin(username)">
 		Log In
 	</button>
 </div>
