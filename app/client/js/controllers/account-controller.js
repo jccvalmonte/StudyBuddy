@@ -114,4 +114,4 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 			$http.get(url);
 		}
 
-	}]);
+}]);
