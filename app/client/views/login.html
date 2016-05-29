@@ -6,19 +6,23 @@
 <div class="col-md-4 container-fluid" ng-controller="account-controller" style="margin-top:50px">
 	<p class="lead">
 		Username
-		<input class="form-control input-lg" id ="username" placeholder="User Id" type="text" ng-model="username">
+		<input class="form-control input-lg" id ="username" placeholder="Username" type="text" ng-model="username">
 		<br>
 
 		Password
 		<input class="form-control input-lg" id="inputPassword" placeholder="Password" type="password" ng-model="password">
 	</p>
-	<p class="text-center">Not registered yet? <a ng-href="#/signup">Create an account</a></p>
 
 	<button class="btn btn-lg btn-default btn-block" type="submit" ng-click="checklogin(username)">
 		Log In
 	</button>
 	<br>
-	<b>Instead login with your Facebook account</b> <br>
-	<a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span>Facebook Login</a>
+	<p class="text-center">
+		Not registered yet? <a ng-href="#/signup">Create an account</a>
+		<br><br>
+		OR
+		<br>
+	</p>
+	<center><a ng-href="/auth/facebook"><img class="img-responsive" src="/images/FB login.png" style="width: 90%; height: auto"></a></center>
 </div>
 <div class="col-md-4"></div>

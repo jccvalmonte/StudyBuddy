@@ -20,45 +20,47 @@ var FACEBOOK_APP_ID = "1754049368215587";
 var FACEBOOK_APP_SECRET = "1bcb148cf8e0867484a4ab2eab76a864"
 
 passport.serializeUser(function(user, done){
-		done(null, user);
-	});
+	done(null, user);
+});
 
-	passport.deserializeUser(function(id, done){
-		Accounts.findById(id, function(err, user){
-			done(err, user);
-		});
+passport.deserializeUser(function(id, done){
+	Accounts.findById(id, function(err, user){
+		done(err, user);
 	});
+});
 
 passport.use(new FacebookStrategy({
-	    clientID: FACEBOOK_APP_ID,
-	    clientSecret: FACEBOOK_APP_SECRET,
-	    callbackURL: "http://localhost:8080/index.html"
-	  },
-	  function(accessToken, refreshToken, profile, done) {
-	    	process.nextTick(function(){
-	    		Accounts.findOne({'facebook.id': profile.id}, function(err, user){
-	    			if(err)
-	    				return done(err);
-	    			if(user)
-	    				return done(null, user);
-	    			else {
-	    				var newUser = new User();
-	    				$scope.newUser.facebook.id = profile.id;
-	    				$scope.newUser.facebook.token = accessToken;
-	    				$scope.newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-	    				$scope.newUser.facebook.email = profile.emails[0].value;
 
-	    				newUser.save(function(err){
-	    					if(err)
-	    						throw err;
-	    					return done(null, newUser);
-	    				})
-	    				console.log(profile);
-	    			}
-	    		});
-	    	});
-	    }
-	));
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:8080/index.html"
+  },
+  
+  function(accessToken, refreshToken, profile, done) {
+    	process.nextTick(function(){
+    		Accounts.findOne({'facebook.id': profile.id}, function(err, user){
+    			if(err)
+    				return done(err);
+    			if(user)
+    				return done(null, user);
+    			else {
+    				var newUser = new User();
+    				$scope.newUser.facebook.id = profile.id;
+    				$scope.newUser.facebook.token = accessToken;
+    				$scope.newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+    				$scope.newUser.facebook.email = profile.emails[0].value;
+
+    				newUser.save(function(err){
+    					if(err)
+    						throw err;
+    					return done(null, newUser);
+    				})
+    				console.log(profile);
+    			}
+    		});
+    	});
+    }
+));
 
 //global variables to access the schema models
 var Sets;
@@ -77,8 +79,6 @@ console.log(mongoDBConnection.uri);
 
 var mongooseUri = uriUtil.formatMongoose(mongoDBConnection.uri);
 console.log("mongooseDB URI:" + mongooseUri);
-
-var idGen = 5;
 
 app.set('port', process.env.PORT || 8080); //3000);
 app.use(morgan('combined'));
@@ -117,7 +117,7 @@ mongoose.connection.on('error', function() {
 });
 
 mongoose.connection.on('open', function(){
-	console.log("After connecting to Mongo");
+	console.log("Connection to Mongo established.");
 
 	var Schema = mongoose.Schema;
 
@@ -180,6 +180,7 @@ app.get('/logout', function(req, res){
 	},
 	{collection: 'sets'}
 	);
+	
 	Sets = mongoose.model('Sets', CardSetSchema);
 	
 	var CardListSchema = new Schema({
@@ -195,7 +196,7 @@ app.get('/logout', function(req, res){
 	);
 	Cards = mongoose.model('Cards', CardListSchema);
 	
-	console.log('Models Created!');
+	console.log('Models created!');
 });
 
 function displayDBError(err){
@@ -210,7 +211,6 @@ function displayDBError(err){
 	}
 }
 
-
 function retrieveUserIdWithPwd(req, res, query) {
 	console.log("calling retrieve user Id");
 	var query = Accounts.findOne(query);
@@ -224,18 +224,6 @@ function retrieveUserIdWithPwd(req, res, query) {
 			//req.session.regenerate(function(){
 				var pwd = req.query.password;
 				console.log("pwd is: "+ pwd);
-
-			//	var hashedPwd = crypto.createHash('sha256').update(pwd).digest('base64').toString();
-				
-				/*if (hashedPwd === user.hashed_pwd) {
-				req.session.user = user.id.valueOf();
-				req.session.username = user.username;
-				req.session.email = user.email;
-				console.log('user information is correct');
-			}
-			else {
-				console.log('incorrect password');
-			}*/
 			
 		}
 		if (err) {
@@ -248,12 +236,6 @@ function retrieveUserIdWithPwd(req, res, query) {
 		}
 	});	
 }
-
-/*app.get('/', function(req, res){
-  res.render('index', { user: req.user });
-}); */
-
-
 
 app.get('/app/login/', function (req, res) {
 	console.log("making a login request to server via form");
@@ -290,7 +272,7 @@ app.post('/login', passport.authenticate('local-login', {
 		//failureFlash: true
 	}));
 
-app.get('/allusers', function(re, res){
+app.get('/allusers', function(req, res){
 
 	Sets.find({}, function(err, found){
 		if(err)
@@ -300,7 +282,6 @@ app.get('/allusers', function(re, res){
 		console.log(found);
 	});
 });
-
 
 app.post('/signup', function(req, res) {
 
@@ -324,8 +305,7 @@ app.post('/signup', passport.authenticate('local-signup', {
 	}));  
 
 app.get('/homeSets', function(req, res){
-	
-	
+
 	Sets.find({}, function(err, found){
 		if(err)
 			res.send(err);
@@ -346,9 +326,9 @@ app.get('/relatedSets/:category', function(req, res) {
 	});
 });
 
-app.get('/setDet/:setIdNum', function(req, res) {
+app.get('/setDetails/:setIdNum', function(req, res) {
 
-	var searchrequest = req.params.setIdNum;
+	var searchrequest = req.params.setIdNum
 
 	Sets.find({setIdNum: searchrequest}, function(err, found) {
 		if(err)
@@ -358,47 +338,52 @@ app.get('/setDet/:setIdNum', function(req, res) {
 	});
 });
 
-app.get('/card/:setIdNum', function(req, res) {
+app.get('/quiz/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
 	console.log(searchrequest);
-	Cards.find({setIdNum: searchrequest},function(err, found) {
+	Cards.find({setIdNum: searchrequest}, function(err, found) {
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
+	});
 
-		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+});
+
+app.get('/card/:setIdNum', function(req, res) {
+	
+	var searchrequest = req.params.setIdNum;
+	console.log(searchrequest);
+	Cards.find({setIdNum: searchrequest}, function(err, found) {
 		if (err)
 			res.send(err);
 		else
-		//console.log(res.json);
-		res.json(found); // return all cards in JSON format
+			res.json(found);
 	});
-});	                       
-
+});
 
 app.get('/getUserFlashcardsets/:email', function(req, res) {
  
     var email = req.params.email;
-    //var password = req.params.pswd;
  
     Sets.find({useremail: email}, function(err, found) {
-			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
         if (err)
             res.send(err)
-            else
-            res.json(found); // return all accounts in JSON format
+        else
+            res.json(found);
         });
     }); 
+
+
+
+
+var idGen = 5;
 
 app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
-	
-	/*Sets.create(jsonObj, function(err){
-		if(err)
-			res.send(err)
-	});
-	res.send(jsonObj);
-	idGen++;*/
 });
 
 app.post('/createset/cards', function(req,res){
@@ -407,6 +392,8 @@ app.post('/createset/cards', function(req,res){
 	console.log(jsonObj);
 
 })
+
+
 
 app.delete('userSets/delete/:setId', function(req,res){
 	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
@@ -424,11 +411,7 @@ app.delete('userSets/delete/:setId', function(req,res){
 
 var port = process.env.port || 3000;
 
-
-/*app.listen(3000, function() {
-	console.log('Server listening on port 3000...');
-})*/
 http.createServer(app).listen(app.get('port'), function(){
-	console.log("Express server listening on port " + app.get('port'));
+	console.log("Express server listening on port " + app.get('port') + "...");
 });	
-console.log("after callintg http: createServer");
+console.log("after calling http: createServer");

@@ -1,5 +1,4 @@
-    window.ParsleyValidator.addValidator('date',
-        function(value){
+window.ParsleyValidator.addValidator('date', function(value){
 
     if(moment(value, 'MM/DD/YYYY', true).isValid()){
         
@@ -12,4 +11,4 @@
     
     return false;
          
-    }).addMessage('en', 'date', 'Please enter a correct date (13+) in the specified format.');
+}).addMessage('en', 'date', 'Please enter a correct date (Age 13+) in the specified format.');
