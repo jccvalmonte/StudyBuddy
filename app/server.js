@@ -1,4 +1,5 @@
 var express           		= require ('express'),
+	passport                = require('passport'),
 	app    			 		= express(),
 	bodyParser              = require('body-parser'),
 	mongoose                = require('mongoose'),
@@ -11,7 +12,53 @@ var express           		= require ('express'),
 	methodOverride 			= require('method-override'),
 	session 				= require('express-session'),
 	MongoStore 				= require('connect-mongo')(session),
-	crypto 					= require('crypto');
+	crypto 					= require('crypto'),
+	LocalStrategy 			= require('passport-local').Strategy,
+	FacebookStrategy        = require('passport-facebook').Strategy;
+
+var FACEBOOK_APP_ID = "1754049368215587";
+var FACEBOOK_APP_SECRET = "1bcb148cf8e0867484a4ab2eab76a864"
+
+passport.serializeUser(function(user, done){
+		done(null, user.id);
+	});
+
+	passport.deserializeUser(function(id, done){
+		Accounts.findById(id, function(err, user){
+			done(err, user);
+		});
+	});
+
+passport.use(new FacebookStrategy({
+	    clientID: FACEBOOK_APP_ID,
+	    clientSecret: FACEBOOK_APP_SECRET,
+	    callbackURL: "http://localhost:8080/#"
+	  },
+	  function(accessToken, refreshToken, profile, done) {
+	    	process.nextTick(function(){
+	    		Accounts.findOne({'facebook.id': profile.id}, function(err, user){
+	    			if(err)
+	    				return done(err);
+	    			if(user)
+	    				return done(null, user);
+	    			else {
+	    				var newUser = new User();
+	    				newUser.facebook.id = profile.id;
+	    				newUser.facebook.token = accessToken;
+	    				newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+	    				newUser.facebook.email = profile.emails[0].value;
+
+	    				newUser.save(function(err){
+	    					if(err)
+	    						throw err;
+	    					return done(null, newUser);
+	    				})
+	    				console.log(profile);
+	    			}
+	    		});
+	    	});
+	    }
+	));
 
 //global variables to access the schema models
 var Sets;
@@ -70,16 +117,42 @@ mongoose.connection.on('open', function(){
 	var Schema = mongoose.Schema;
 
 	var AccountSchema = new Schema({
-		email: String,
-		firstName: String,
-		lastName: String,
+
+	local:	{
+			email: String,
+			firstName: String,
+			lastName: String,
+			dob: String,
 		//password: String,
-		username: String,
-		dob: String,
-		hashed_pwd: String
+			username: String,
+			hashed_pwd: String
+	},
+	facebook: {
+			id: String,
+			token: String,
+			email: String,
+			name: String
+	}
 	},
 	{collection: 'accounts'}
-	);	
+	);
+
+	app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
+
+	app.get('/auth/facebook/callback', 
+	  passport.authenticate('facebook', { successRedirect: '/profile',
+	                                      failureRedirect: '/' }));
+
+
+	/*AccountSchema.methods.generateHash = function(password){
+		return bcrypt.hashSync(password, bcrypt.genSaltSync(9));		
+	}
+
+	AccountSchema.methods.validPassword = function(password){
+	return bcrypt.compareSync(password, this.local.password);
+	}
+	*/
+
 	Accounts = mongoose.model('Accounts', AccountSchema);
 
 	var CardSetSchema = new Schema({
@@ -176,6 +249,33 @@ app.get('/checklogin/:username', function(req, res) {
 
 }); 
 
+app.post('/login', passport.authenticate('local-login', {
+		successRedirect: '/profile',
+		failureRedirect: '/login',
+		failureFlash: true
+	}));
+
+app.post('/signup', function(req, res) {
+
+	var jsonObj= req.body;
+	console.log(jsonObj);
+
+	Accounts.create(jsonObj, function(err, found){
+		if (err)
+     		res.send(err)
+     	else
+        //console.log(res.json);
+       // res.json(found); // return all accounts in JSON format
+        console.log("Res is"+res.json(found));
+	}); 
+}); 
+
+app.post('/signup', passport.authenticate('local-signup', {
+		successRedirect: '/',
+		failureRedirect: '/signup',
+		failureFlash: true
+	}));  
+
 app.get('/homeSets', function(req, res){
 	
 	Sets.find({}, function(err, found){
@@ -222,22 +322,7 @@ app.get('/card/:setIdNum', function(req, res) {
 		//console.log(res.json);
 		res.json(found); // return all cards in JSON format
 	});
-});	         
-
-app.post('/signup', function(req, res) {
-
-	var jsonObj= req.body;
-	console.log(jsonObj);
-
-	Accounts.create(jsonObj, function(err, found){
-		if (err)
-     		res.send(err)
-     	else
-        //console.log(res.json);
-       // res.json(found); // return all accounts in JSON format
-        console.log("Res is"+res.json(found));
-	}); 
-});                 
+});	                       
 
 
 app.get('/getUserFlashcardsets/:email', function(req, res) {
