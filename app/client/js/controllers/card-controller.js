@@ -1,14 +1,23 @@
-
 var app = angular.module('studybuddyApp');
+
 app.controller('card-controller', ['$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($scope, $resource, $http, $location, $routeParams, $mdDialog) {
 
+		$scope.getSetDetails = function() {
+			$scope.setIdNum = $routeParams.setIdNum;
+
+			var url = "/setDetails/" + $scope.setIdNum;
+			console.log(url);
+			$http.get(url).success(function(data) {
+				$scope.setDetails = data[0];
+			});
+		}
+
 		$scope.getcardResults = function() {
-			
 			$scope.setIdNum = $routeParams.setIdNum;
 
 	    	var url = "/card/" + $scope.setIdNum;
-			console.log("cards url " + url);
+			console.log(url);
 
 			$http.get(url).success(function(data){
 				var i = 0;
@@ -19,47 +28,47 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			});
 		}
 
-		$scope.redirectRelatedSetUrl = function(setIdNum, name) {
-			var url = "/card/" + setIdNum + "/" + name;
-			$location.path(url);
-		}
-
-		$scope.getSetDetails = function() {
-			$scope.setIdNum = $routeParams.setIdNum;
-
-			var url = "/setDet/" + $scope.setIdNum;
-			console.log(url);
-			$http.get(url).success(function(data) {
-				$scope.setDetails = data[0];
-			});
-		}
-
-
-
-		$scope.getRelatedSets = function() {
-			$scope.Category = $routeParams.Category;
-
-			var url = "/relatedSets/" + $scope.Category;
-			console.log(url);
-			$http.get(url).success(function(data){
-				$scope.relatedSets = data;
-			});
-		}
-
-
-
-		$scope.updateCount = function () {
+		$scope.updateCount = function() {
 			var len = $scope.resultCards.cards.length;
 			if ($scope.i < len-1) {
 				$scope.i = $scope.i + 1;
 			}
 		}
 
-		$scope.reduceCount = function () {
+		$scope.reduceCount = function() {
 			var len = $scope.resultCards.cards.length;
 			if ($scope.i > 0) {
 				$scope.i = $scope.i - 1;
 			}
 		}
 
+		$scope.redirectQuizUrl = function(setIdNum) {
+			var url = "/quiz/" + setIdNum;
+			$location.path(url);
+		}
+
+
+
+
+		$scope.getRelatedSets = function(/*category*/) {
+			
+			var url = "/homeSets";
+			console.log(url);
+			$http.get(url).success(function(data) {
+				$scope.sets = data;
+			});
+			/*var url = "/relatedSets/" + category;
+			console.log(url);
+			$http.get(url).success(function(data){
+				$scope.relatedSets = data;
+			});*/
+		}
+
+
+
+
+		$scope.redirectRelatedSetUrl = function(setIdNum) {
+			var url = "/card/" + setIdNum;
+			$location.path(url);
+		}
 }]);

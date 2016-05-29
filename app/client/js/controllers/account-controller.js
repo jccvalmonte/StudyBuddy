@@ -1,4 +1,5 @@
 var app = angular.module('studybuddyApp');
+
 app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($rootScope, $scope, $resource, $http, $location, $routeParams ) {
 
