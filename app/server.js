@@ -170,7 +170,7 @@ app.get('/logout', function(req, res){
 	Accounts = mongoose.model('Accounts', AccountSchema);
 
 	var CardSetSchema = new Schema({
-		setIdNum: Number,
+		setIdNum: String,
 		Name : String,
 		Category: String,
 		numCards : Number,
