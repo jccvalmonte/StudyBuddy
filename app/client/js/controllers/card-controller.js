@@ -1,3 +1,4 @@
+
 var app = angular.module('studybuddyApp');
 app.controller('card-controller', ['$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($scope, $resource, $http, $location, $routeParams, $mdDialog) {

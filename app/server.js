@@ -29,12 +29,13 @@ mongoose.connection.on('open', function(){
 	var Schema = mongoose.Schema;
 
 	var CardSetSchema = new Schema({
-		setIdNum: String,
+		setIdNum: Number,
 		Name : String,
 		Category: String,
 		numCards : Number,
 		Author: String,
-		DateCreated: Date
+		DateCreated: Date,
+		useremail: String
 	},
 	{collection: 'sets'}
 	);
@@ -137,8 +138,9 @@ app.get('/setDet/:setIdNum', function(req, res) {
 app.get('/card/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
-	//console.log(searchrequest);
-	Cards.find({setIdNum: searchrequest}, function(err, found) {
+	console.log(searchrequest);
+	Cards.find({setIdNum: searchrequest},function(err, found) {
+
 		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 		if (err)
 			res.send(err);
@@ -197,13 +199,21 @@ app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
-	Sets.create({jsonObj}, function(err){
+	
+	/*Sets.create(jsonObj, function(err){
 		if(err)
 			res.send(err)
 	});
 	res.send(jsonObj);
-	idGen++;
+	idGen++;*/
 });
+
+app.post('/createset/cards', function(req,res){
+	var jsonObj = req.body;
+	jsonObj.setIdNum = idGen;
+	console.log(jsonObj);
+
+})
 
 app.delete('userSets/delete/:setId', function(req,res){
 	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
@@ -219,7 +229,9 @@ app.delete('userSets/delete/:setId', function(req,res){
 		});
 });
 
+var port = process.env.port || 3000;
 
-app.listen(3000, function() {
-	console.log('Server listening on port 3000...');
+
+app.listen(port, function() {
+	console.log('Server listening on port ' + port);
 })
