@@ -4,11 +4,11 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 	function ($rootScope, $scope, $resource, $http, $location, $routeParams) {
 		
 	$scope.getAllSets = function() {
-			var url = "/homeSets";
-			console.log(url);
-			$http.get(url).success(function(data) {
-				$scope.sets = data;
-			});
+		var url = "/homeSets";
+		console.log(url);
+		$http.get(url).success(function(data) {
+			$scope.sets = data;
+		});
 	}
 	
 	$scope.initNewSet = function() {
@@ -30,7 +30,7 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 
 	$scope.redirectSearchCardUrl = function(setIdNum) {
 
-		var url = "/card/"+setIdNum;
+		var url = "/card/" + setIdNum;
 		$location.path(url);
 	}	
 

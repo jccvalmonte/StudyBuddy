@@ -80,8 +80,6 @@ console.log(mongoDBConnection.uri);
 var mongooseUri = uriUtil.formatMongoose(mongoDBConnection.uri);
 console.log("mongooseDB URI:" + mongooseUri);
 
-var idGen = 5;
-
 app.set('port', process.env.PORT || 8080); //3000);
 app.use(morgan('combined'));
 //app.use(bodyParser());
@@ -119,7 +117,7 @@ mongoose.connection.on('error', function() {
 });
 
 mongoose.connection.on('open', function(){
-	console.log("After connecting to Mongo");
+	console.log("Connection to Mongo established.");
 
 	var Schema = mongoose.Schema;
 
@@ -182,6 +180,7 @@ app.get('/logout', function(req, res){
 	},
 	{collection: 'sets'}
 	);
+	
 	Sets = mongoose.model('Sets', CardSetSchema);
 	
 	var CardListSchema = new Schema({
@@ -197,7 +196,7 @@ app.get('/logout', function(req, res){
 	);
 	Cards = mongoose.model('Cards', CardListSchema);
 	
-	console.log('Models Created!');
+	console.log('Models created!');
 });
 
 function displayDBError(err){
@@ -273,7 +272,7 @@ app.post('/login', passport.authenticate('local-login', {
 		//failureFlash: true
 	}));
 
-app.get('/allusers', function(re, res){
+app.get('/allusers', function(req, res){
 
 	Sets.find({}, function(err, found){
 		if(err)
@@ -283,7 +282,6 @@ app.get('/allusers', function(re, res){
 		console.log(found);
 	});
 });
-
 
 app.post('/signup', function(req, res) {
 
@@ -328,9 +326,9 @@ app.get('/relatedSets/:category', function(req, res) {
 	});
 });
 
-app.get('/setDet/:setId', function(req, res) {
+app.get('/setDetails/:setIdNum', function(req, res) {
 
-	var searchrequest = req.params.setId
+	var searchrequest = req.params.setIdNum
 
 	Sets.find({setIdNum: searchrequest}, function(err, found) {
 		if(err)
@@ -340,19 +338,30 @@ app.get('/setDet/:setId', function(req, res) {
 	});
 });
 
-app.get('/card/:setIdNum', function(req, res) {
+app.get('/quiz/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
 	console.log(searchrequest);
-	Cards.find({setIdNum: searchrequest},function(err, found) {
+	Cards.find({setIdNum: searchrequest}, function(err, found) {
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
+	});
 
+});
+
+app.get('/card/:setIdNum', function(req, res) {
+	
+	var searchrequest = req.params.setIdNum;
+	console.log(searchrequest);
+	Cards.find({setIdNum: searchrequest}, function(err, found) {
 		if (err)
 			res.send(err);
 		else
 			res.json(found);
 	});
-});	                       
-
+});
 
 app.get('/getUserFlashcardsets/:email', function(req, res) {
  
@@ -366,6 +375,11 @@ app.get('/getUserFlashcardsets/:email', function(req, res) {
         });
     }); 
 
+
+
+
+var idGen = 5;
+
 app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
@@ -378,6 +392,8 @@ app.post('/createset/cards', function(req,res){
 	console.log(jsonObj);
 
 })
+
+
 
 app.delete('userSets/delete/:setId', function(req,res){
 	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
@@ -396,6 +412,6 @@ app.delete('userSets/delete/:setId', function(req,res){
 var port = process.env.port || 3000;
 
 http.createServer(app).listen(app.get('port'), function(){
-	console.log("Express server listening on port " + app.get('port'));
+	console.log("Express server listening on port " + app.get('port') + "...");
 });	
 console.log("after calling http: createServer");

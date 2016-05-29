@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults(); getSetDetails(); getRelatedSets();">
+<div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults(); getSetDetails();">
 	
 		<center>
 			<p class="lead">
@@ -46,9 +46,11 @@
 	</p>
 
 	<br>
-	<center><a ng-href=""><button class="btn btn-success btn-lg">Quiz This Set</button></a></center>
+	<center><a href="" ng-click="redirectQuizUrl(setDetails.setIdNum)"><button class="btn btn-success btn-lg">Quiz This Set</button></a></center>
 
-	<div class="col-lg-12">
+	<br><br>
+
+	<div class="col-lg-12" ng-init="getRelatedSets()">
 	<br><h3>Related Sets</h3><br>
 	<div class="container-fluid" style="height: 200px; overflow: auto">
 		<table class="table table-hover table-responsive">
@@ -60,8 +62,8 @@
 			<th>Date Created</th>
 		</thead>
 		<tbody>
-			<tr ng-repeat="relatedSet in relatedSets">
-	        	<td><b><a href="" ng-click="redirectRelatedSetUrl(relatedSet.setIdNum, relatedSet.Name)">{{relatedSet.Name}}</a></b></td>
+			<tr ng-repeat="relatedSet in sets">
+	        	<td><b><a href="" ng-click="redirectRelatedSetUrl(relatedSet.setIdNum)">{{relatedSet.Name}}</a></b></td>
 		   		<td>{{relatedSet.Category}}</td>
 		   		<td>{{relatedSet.numCards}}</td>
 		   		<td>{{relatedSet.Author}}</td>
