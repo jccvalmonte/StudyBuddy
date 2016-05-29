@@ -20,7 +20,7 @@ var FACEBOOK_APP_ID = "1754049368215587";
 var FACEBOOK_APP_SECRET = "1bcb148cf8e0867484a4ab2eab76a864"
 
 passport.serializeUser(function(user, done){
-		done(null, user.id);
+		done(null, user);
 	});
 
 	passport.deserializeUser(function(id, done){
@@ -32,7 +32,7 @@ passport.serializeUser(function(user, done){
 passport.use(new FacebookStrategy({
 	    clientID: FACEBOOK_APP_ID,
 	    clientSecret: FACEBOOK_APP_SECRET,
-	    callbackURL: "http://localhost:8080/#"
+	    callbackURL: "http://localhost:8080/index.html"
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	    	process.nextTick(function(){
@@ -43,10 +43,10 @@ passport.use(new FacebookStrategy({
 	    				return done(null, user);
 	    			else {
 	    				var newUser = new User();
-	    				newUser.facebook.id = profile.id;
-	    				newUser.facebook.token = accessToken;
-	    				newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-	    				newUser.facebook.email = profile.emails[0].value;
+	    				$scope.newUser.facebook.id = profile.id;
+	    				$scope.newUser.facebook.token = accessToken;
+	    				$scope.newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+	    				$scope.newUser.facebook.email = profile.emails[0].value;
 
 	    				newUser.save(function(err){
 	    					if(err)
@@ -86,6 +86,10 @@ app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({extend: false}));
 app.use(bodyParser.json());
 app.use(methodOverride());
+app.use(session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.Router());
 
 //app.use('/js', express.static('./client/js/controllers'));
 //app.use('/images', express.static('./images'));
@@ -98,13 +102,14 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } } }; 
 mongoose.createConnection(mongooseUri, options);
 
-app.use(session({ 
+/*app.use(session({ 
 		secret: 'keyboard cat',
 		store: new MongoStore({ 
 			mongooseConnection: mongoose.connection,
 			collection: 'sessions'
 		})
-}));
+}));*/
+
 
 console.log('Sending connecting request with Mongo db');
 mongoose.connection.on('error', function() {
@@ -139,10 +144,19 @@ mongoose.connection.on('open', function(){
 
 	app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
 
-	app.get('/auth/facebook/callback', 
-	  passport.authenticate('facebook', { successRedirect: '/profile',
-	                                      failureRedirect: '/' }));
+	/*app.get('/auth/facebook/callback', 
+	  passport.authenticate('facebook', { successRedirect: '/client/views/homesearch.html',
+	                                      failureRedirect: '/client/views/login.html' })); */
+	app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });                                      
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 	/*AccountSchema.methods.generateHash = function(password){
 		return bcrypt.hashSync(password, bcrypt.genSaltSync(9));		
@@ -211,9 +225,9 @@ function retrieveUserIdWithPwd(req, res, query) {
 				var pwd = req.query.password;
 				console.log("pwd is: "+ pwd);
 
-				var hashedPwd = crypto.createHash('sha256').update(pwd).digest('base64').toString();
+			//	var hashedPwd = crypto.createHash('sha256').update(pwd).digest('base64').toString();
 				
-				if (hashedPwd == user.hashed_pwd) {
+				/*if (hashedPwd === user.hashed_pwd) {
 				req.session.user = user.id.valueOf();
 				req.session.username = user.username;
 				req.session.email = user.email;
@@ -221,7 +235,7 @@ function retrieveUserIdWithPwd(req, res, query) {
 			}
 			else {
 				console.log('incorrect password');
-			}
+			}*/
 			
 		}
 		if (err) {
@@ -235,6 +249,27 @@ function retrieveUserIdWithPwd(req, res, query) {
 	});	
 }
 
+/*app.get('/', function(req, res){
+  res.render('index', { user: req.user });
+}); */
+
+
+
+app.get('/app/login/', function (req, res) {
+	console.log("making a login request to server via form");
+	console.log(req);
+	var id = req.query.username;
+	console.log("id is:"+ id);
+	retrieveUserIdWithPwd(req, res, {username: id});
+});
+
+function isLoggedIn(req, res, next) {
+	if(req.isAuthenticated()){
+		return next();
+	}
+
+	res.redirect('/login');
+}
 
 console.log("before defining app static route");
 app.use(express.static('./'));
@@ -242,7 +277,7 @@ app.use(express.static('./'));
 
 app.get('/checklogin/:username', function(req, res) {
 	console.log("making a login request to server");
-	console.log(req);
+	//console.log(req);
 	var id = req.params.username;
 
 	retrieveUserIdWithPwd(req, res, {username: id});
@@ -250,10 +285,22 @@ app.get('/checklogin/:username', function(req, res) {
 }); 
 
 app.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/profile',
+		successRedirect: '/allusers',
 		failureRedirect: '/login',
-		failureFlash: true
+		//failureFlash: true
 	}));
+
+app.get('/allusers', function(re, res){
+
+	Sets.find({}, function(err, found){
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
+		console.log(found);
+	});
+});
+
 
 app.post('/signup', function(req, res) {
 
@@ -277,6 +324,7 @@ app.post('/signup', passport.authenticate('local-signup', {
 	}));  
 
 app.get('/homeSets', function(req, res){
+	
 	
 	Sets.find({}, function(err, found){
 		if(err)
