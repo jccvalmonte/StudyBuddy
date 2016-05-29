@@ -12,4 +12,4 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 				$scope.setDetails = data[0];
 			});
 		}
-	}]);
+}]);

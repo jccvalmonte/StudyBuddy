@@ -62,4 +62,4 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			}
 		}
 
-	}]);
+}]);

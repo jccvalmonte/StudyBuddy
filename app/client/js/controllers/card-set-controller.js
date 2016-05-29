@@ -1,12 +1,9 @@
-
-
 var app = angular.module('studybuddyApp');
 
 app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$http', '$location','$routeParams',
 	function ($rootScope, $scope, $resource, $http, $location, $routeParams) {
 		
-		$rootScope.userVar = false;
-		$scope.getAllSets = function() {
+	$scope.getAllSets = function() {
 			var url = "/homeSets";
 			console.log(url);
 			$http.get(url).success(function(data) {
@@ -31,12 +28,11 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 				$scope.flashcardsetName ='';
 			}); */
 
+	$scope.redirectSearchCardUrl = function(setIdNum) {
 
-		$scope.redirectSearchCardUrl = function(setIdNum) {
-
-			var url = "/card/"+setIdNum;
-			$location.path(url);
-		}	
+		var url = "/card/"+setIdNum;
+		$location.path(url);
+	}	
 
 
 }]);
