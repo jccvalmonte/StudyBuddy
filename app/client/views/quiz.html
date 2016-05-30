@@ -1,12 +1,16 @@
-<div class="container-fluid" ng-controller="quiz-controller" ng-init="getcardResults(); getSetDetails();">
+<div class="container-fluid" ng-controller="quiz-controller" ng-init="getQuizQuestions(); getSetDetails();">
 	<div class="col-md-4"></div>
 	<div class="col-md-4">
 		<center>
-			<h2>Quiz in session...</h2>
 			<p class="lead">
 				Set Name: <b>{{setDetails.Name}}</b><br>
 				Author:   <b>{{setDetails.Author}}</b><br>
 				Category: <b>{{setDetails.Category}}</b>
+			</p>
+			<br>
+			<h2>Quiz in session...</h2>
+			<p ng-repeat="question in questions">
+				{{question.front}} <br>
 			</p>
 		</center>
 

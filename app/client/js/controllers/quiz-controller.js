@@ -8,6 +8,7 @@ app.controller('quiz-controller', ['$scope', '$resource', '$http', '$location','
 
 			var url = "/setDetails/" + $scope.setIdNum;
 			console.log(url);
+			
 			$http.get(url).success(function(data) {
 				$scope.setDetails = data[0];
 			});
@@ -20,10 +21,7 @@ app.controller('quiz-controller', ['$scope', '$resource', '$http', '$location','
 			console.log(url);
 
 			$http.get(url).success(function(data){
-				var i = 0;
-				$scope.i = i;
-				$scope.questions = data[0];
-				
+				$scope.questions = data;
 				console.log("questions: " + $scope.questions);	
 			});
 		}
