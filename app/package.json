@@ -5,6 +5,7 @@
     "body-parser": "^1.15.0",
     "connect-mongo": "^1.2.0",
     "cookie-parser": "^1.4.3",
+    "cors": "^2.7.1",
     "crypto": "0.0.3",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
