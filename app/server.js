@@ -184,8 +184,10 @@ app.get('/logout', function(req, res){
 	Sets = mongoose.model('Sets', CardSetSchema);
 	
 	var CardListSchema = new Schema({
+
 		setIdNum: String,
 		Author: String,
+
 		cards : [{
 			cardId: Number,
 			front : String,
@@ -384,6 +386,17 @@ app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
+
+
+	
+	Sets.create(jsonObj, function(err, found){
+		if(err)
+			res.send(err)
+		else
+			res.json(found);
+	});
+	
+
 });
 
 app.post('/createset/cards', function(req,res){
@@ -391,11 +404,19 @@ app.post('/createset/cards', function(req,res){
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
 
+	Cards.create(jsonObj, function(err, found){
+		if(err)
+			res.send(err)
+		else
+			res.json(found);
+	});
+	
+	idGen++;
 })
 
 
+app.delete('/delete/:setId', function(req,res){
 
-app.delete('userSets/delete/:setId', function(req,res){
 	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
 		function(err,set){
 			if (err){
@@ -403,7 +424,7 @@ app.delete('userSets/delete/:setId', function(req,res){
 			}
 			else{
 				console.log("set deleted!");
-				res.send(set);
+				
 			}
 
 		});
