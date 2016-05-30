@@ -170,35 +170,13 @@ mongoose.createConnection(mongooseUri, options);
 
 console.log('Sending connecting request with Mongo db');
 mongoose.connection.on('error', function() {
-	console.log("problems connecting to the MongoDB server");
+	console.log("Problem connecting to the MongoDB server.");
 });
 
 mongoose.connection.on('open', function(){
+	
 	console.log("Connection to Mongo established.");
-
 	var Schema = mongoose.Schema;
-
-	/*var AccountSchema = new Schema({
-
-	local:	{
-			email: String,
-			firstName: String,
-			lastName: String,
-			dob: String,
-			password: String,
-			username: String,
-			hashed_pwd: String
-	},
-	facebook: {
-			id: String,
-			token: String,
-			email: String,
-			name: String
-	}
-	},
-	{collection: 'accounts'}
-	);
-	*/
 
 	var AccountSchema = new Schema({
 		email: String,
@@ -217,46 +195,52 @@ mongoose.connection.on('open', function(){
 	);	
 	Accounts = mongoose.model('Accounts', AccountSchema);
 	
-	/*AccountSchema.methods.generateHash = function(password){
-		return bcrypt.hashSync(password, bcrypt.genSaltSync(9));		
-	}
+	app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
 
-	AccountSchema.methods.validPassword = function(password){
-	return bcrypt.compareSync(password, this.local.password);
-	}
-	*/
+		/*app.get('/auth/facebook/callback', 
+		  passport.authenticate('facebook', { successRedirect: '/client/views/homesearch.html',
+		                                      failureRedirect: '/client/views/login.html' })); */
+	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function(req, res) {
+	    res.redirect('/');
+	});                                      
+
+	app.get('/logout', function(req, res){
+		req.logout();
+		res.redirect('/');
+	});
+
 
 	//Accounts = mongoose.model('Accounts', AccountSchema);
 
 	var CardSetSchema = new Schema({
 		setIdNum: String,
-		Name : String,
+		Name: String,
 		Category: String,
-		numCards : Number,
+		numCards: Number,
 		Author: String,
 		DateCreated: Date,
 		email: String
-	},
-	{collection: 'sets'}
+		}, {collection: 'sets'}
 	);
-	
+
 	Sets = mongoose.model('Sets', CardSetSchema);
-	
+
 	var CardListSchema = new Schema({
 		setIdNum: String,
 		Author: String,
-		cards : [{
+		cards: [{
 			cardId: Number,
-			front : String,
-			back : String
+			front: String,
+			back: String
 		}]
-	},
-	{collection: 'cards'}
+		
+		}, {collection: 'cards'}
 	);
 	Cards = mongoose.model('Cards', CardListSchema);
 	
 	console.log('Models created!');
-});
+
+}); // mongoose connection
 
 function displayDBError(err){
 	if (err) { 
@@ -423,6 +407,24 @@ app.get('/setDetails/:setIdNum', function(req, res) {
 	});
 });
 
+
+/*var CardListSchema = new Schema({
+	setIdNum: String,
+	Author: String,
+	cards : [{
+		cardId: Number,
+		front: String,
+		back: String
+	}]
+	
+	}, {collection: 'cards'}
+);
+	Cards = mongoose.model('Cards', CardListSchema);
+	
+	console.log('Models created!');
+});*/
+
+
 app.get('/quiz/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
@@ -430,8 +432,11 @@ app.get('/quiz/:setIdNum', function(req, res) {
 	Cards.find({setIdNum: searchrequest}, function(err, found) {
 		if(err)
 			res.send(err);
-		else
+		else {
 			res.json(found);
+			console.log(found);
+		}
+
 	});
 
 });
@@ -454,6 +459,17 @@ app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
+
+
+	
+	Sets.create(jsonObj, function(err, found){
+		if(err)
+			res.send(err)
+		else
+			res.json(found);
+	});
+	
+
 });
 
 app.post('/createset/cards', function(req,res){
@@ -461,11 +477,19 @@ app.post('/createset/cards', function(req,res){
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
 
+	Cards.create(jsonObj, function(err, found){
+		if(err)
+			res.send(err)
+		else
+			res.json(found);
+	});
+	
+	idGen++;
 })
 
 
+app.delete('/delete/:setId', function(req,res){
 
-app.delete('userSets/delete/:setId', function(req,res){
 	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
 		function(err,set){
 			if (err){
@@ -473,7 +497,7 @@ app.delete('userSets/delete/:setId', function(req,res){
 			}
 			else{
 				console.log("set deleted!");
-				res.send(set);
+				
 			}
 
 		});

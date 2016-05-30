@@ -28,11 +28,19 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 				$scope.flashcardsetName ='';
 			}); */
 
-	$scope.redirectSearchCardUrl = function(setIdNum) {
+	
 
-		var url = "/card/" + setIdNum;
-		$location.path(url);
-	}	
+
+		$scope.redirectSearchCardUrl = function(setIdNum) {
+
+			var url = "/card/"+setIdNum;
+			$location.path(url);
+		}
+
+		$scope.deleteSet = function(setIdNum){
+			var url = "/delete/:" + setIdNum;
+			$http.delete(url);
+		}	
 
 
 }]);
