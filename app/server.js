@@ -14,7 +14,41 @@ var express           		= require ('express'),
 	MongoStore 				= require('connect-mongo')(session),
 	crypto 					= require('crypto'),
 	LocalStrategy 			= require('passport-local').Strategy,
-	FacebookStrategy        = require('passport-facebook').Strategy;
+	FacebookStrategy        = require('passport-facebook').Strategy,
+	cors                    = require('cors');
+
+app.use(cors());
+
+/*var whitelist = ('http://localhost:8080');
+var corsOptionsDelegate = function(req, callback){
+  var corsOptions;
+  if(whitelist.indexOf(req.header('Origin')) !== -1){
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response 
+  }else{
+    corsOptions = { origin: false }; // disable CORS for this request 
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options 
+};
+var corsOptions = {
+  allowedHeaders: "X-Key, X-Singature, Content-Type",
+  origin: true
+};*/
+
+console.log("before defining app static route");
+app.use(express.static('./'));
+
+app.use(morgan('combined'));
+app.use(bodyParser());
+app.use(bodyParser.urlencoded({extend: false}));
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.Router());
+
+
+app.set('port', process.env.PORT || 8080); //3000);
 
 var FACEBOOK_APP_ID = "1754049368215587";
 var FACEBOOK_APP_SECRET = "1bcb148cf8e0867484a4ab2eab76a864"
@@ -29,13 +63,26 @@ passport.deserializeUser(function(id, done){
 	});
 });
 
+app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
+	function(req,res){
+
+	});
+
+	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/client/views/login.html' }),
+		function(req, res){
+			res.redirect('/client/views/profile.html');
+			//res.json(newUser);
+			//console.log("new user det"+ newUser);
+		});
+
+
 passport.use(new FacebookStrategy({
 
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:8080/index.html"
+    callbackURL: "http://localhost:8080/auth/facebook/callback",
+    profileFields: ['email']
   },
-  
   function(accessToken, refreshToken, profile, done) {
     	process.nextTick(function(){
     		Accounts.findOne({'facebook.id': profile.id}, function(err, user){
@@ -44,11 +91,13 @@ passport.use(new FacebookStrategy({
     			if(user)
     				return done(null, user);
     			else {
-    				var newUser = new User();
-    				$scope.newUser.facebook.id = profile.id;
-    				$scope.newUser.facebook.token = accessToken;
-    				$scope.newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-    				$scope.newUser.facebook.email = profile.emails[0].value;
+    				var newUser = new Accounts();
+    				newUser.facebookid = profile.id;
+    				newUser.facebooktoken = accessToken;
+    				newUser.facebookname = profile.familyName;
+    				console.log("test1 here pls first.. 1 ..");
+    				newUser.facebookemail = profile.emails[0].value;
+    				//newUser.facebook.photo = 'https://graph.facebook.com/v2.3/' + profile.id + '/picture?type=large';
 
     				newUser.save(function(err){
     					if(err)
@@ -61,6 +110,24 @@ passport.use(new FacebookStrategy({
     	});
     }
 ));
+
+//app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
+
+	/*app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });        */                              
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+/*app.get('/auth/facebook/index', function(req, res){
+  
+  res.redirect('/client/views/sign-up.html');
+});*/
 
 //global variables to access the schema models
 var Sets;
@@ -80,16 +147,6 @@ console.log(mongoDBConnection.uri);
 var mongooseUri = uriUtil.formatMongoose(mongoDBConnection.uri);
 console.log("mongooseDB URI:" + mongooseUri);
 
-app.set('port', process.env.PORT || 8080); //3000);
-app.use(morgan('combined'));
-//app.use(bodyParser());
-app.use(bodyParser.urlencoded({extend: false}));
-app.use(bodyParser.json());
-app.use(methodOverride());
-app.use(session({ secret: 'keyboard cat' }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(express.Router());
 
 //app.use('/js', express.static('./client/js/controllers'));
 //app.use('/images', express.static('./images'));
@@ -121,14 +178,14 @@ mongoose.connection.on('open', function(){
 
 	var Schema = mongoose.Schema;
 
-	var AccountSchema = new Schema({
+	/*var AccountSchema = new Schema({
 
 	local:	{
 			email: String,
 			firstName: String,
 			lastName: String,
 			dob: String,
-		//password: String,
+			password: String,
 			username: String,
 			hashed_pwd: String
 	},
@@ -141,23 +198,25 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'accounts'}
 	);
+	*/
 
-	app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
-
-	/*app.get('/auth/facebook/callback', 
-	  passport.authenticate('facebook', { successRedirect: '/client/views/homesearch.html',
-	                                      failureRedirect: '/client/views/login.html' })); */
-	app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });                                      
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
+	var AccountSchema = new Schema({
+		email: String,
+		firstName: String,
+		lastName: String,
+		password: String,
+		username: String,
+		dob: String,
+		hashed_pwd: String,
+		facebookid: String,
+		facebookemail: String,
+		facebooktoken: String,
+		facebookname: String
+	},
+	{collection: 'accounts'}
+	);	
+	Accounts = mongoose.model('Accounts', AccountSchema);
+	
 	/*AccountSchema.methods.generateHash = function(password){
 		return bcrypt.hashSync(password, bcrypt.genSaltSync(9));		
 	}
@@ -167,7 +226,7 @@ app.get('/logout', function(req, res){
 	}
 	*/
 
-	Accounts = mongoose.model('Accounts', AccountSchema);
+	//Accounts = mongoose.model('Accounts', AccountSchema);
 
 	var CardSetSchema = new Schema({
 		setIdNum: String,
@@ -221,9 +280,20 @@ function retrieveUserIdWithPwd(req, res, query) {
 			return;
 		}
 		else {
-			//req.session.regenerate(function(){
-				var pwd = req.query.password;
-				console.log("pwd is: "+ pwd);
+
+				var userusername = user.username;
+				var userpwd = user.password;
+				var hashedPwd = crypto.createHash('sha256').update(userpwd).digest('base64').toString();
+				console.log("had pwd is: "+hashedPwd);
+
+				if(hashedPwd == user.hashed_pwd){
+					req.session.userid = user._id.valueOf();
+					console.log("user session is: "+ req.session.userid);
+					req.session.username = user.username;
+					req.session.email = user.email;
+					console.log('user information is correct');
+				}
+				console.log("dipali username userpass is: "+ userusername + " " + userpwd);
 			
 		}
 		if (err) {
@@ -231,8 +301,10 @@ function retrieveUserIdWithPwd(req, res, query) {
 		}
 		else {
 			console.log("----------->user info:" + user);
-			res.sendStatus(200);
-			//res.json(req.session.user);
+			var userusername = user.username;
+			console.log("else username is: "+ userusername);
+			//res.sendStatus(200);
+			res.json(req.session.userid);
 		}
 	});	
 }
@@ -253,9 +325,6 @@ function isLoggedIn(req, res, next) {
 	res.redirect('/login');
 }
 
-console.log("before defining app static route");
-app.use(express.static('./'));
-
 
 app.get('/checklogin/:username', function(req, res) {
 	console.log("making a login request to server");
@@ -265,6 +334,21 @@ app.get('/checklogin/:username', function(req, res) {
 	retrieveUserIdWithPwd(req, res, {username: id});
 
 }); 
+
+
+app.get('/getUsersets/:userid', function(req, res) {
+ 
+    var useridfield = req.params.userid;
+    console.log("useridfield: "+ useridfield);
+ 
+    Sets.find({Author: useridfield}, function(err, found) {
+        if (err)
+            res.send(err)
+        else
+            res.json(found);
+        });
+    }); 
+
 
 app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/allusers',
@@ -285,6 +369,7 @@ app.get('/allusers', function(req, res){
 
 app.post('/signup', function(req, res) {
 
+
 	var jsonObj= req.body;
 	console.log(jsonObj);
 
@@ -298,11 +383,11 @@ app.post('/signup', function(req, res) {
 	}); 
 }); 
 
-app.post('/signup', passport.authenticate('local-signup', {
+/*app.post('/signup', passport.authenticate('local-signup', {
 		successRedirect: '/',
 		failureRedirect: '/signup',
 		failureFlash: true
-	}));  
+	}));  */
 
 app.get('/homeSets', function(req, res){
 
@@ -362,21 +447,6 @@ app.get('/card/:setIdNum', function(req, res) {
 			res.json(found);
 	});
 });
-
-app.get('/getUserFlashcardsets/:email', function(req, res) {
- 
-    var email = req.params.email;
- 
-    Sets.find({useremail: email}, function(err, found) {
-        if (err)
-            res.send(err)
-        else
-            res.json(found);
-        });
-    }); 
-
-
-
 
 var idGen = 5;
 

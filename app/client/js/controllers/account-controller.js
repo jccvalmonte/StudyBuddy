@@ -17,19 +17,40 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 
 			//$rootScope.userVar = false;
 			$http.get(url).success(function(data){
-				$scope.results = data;
+				$scope.userid = data;
 				
 
-				if ($scope.results.length==0){
+				if ($scope.userid.length==0){
 					window.alert('Not a valid user. Please try again.');
 				} else {
-					console.log("login out is:"+ $scope.results);
+					console.log("login out is:"+ $scope.userid);
+					var user_id = JSON.parse($scope.userid);
+					
+						var user_url = "/userSetsurl/"+ user_id;
+						console.log("user url is: "+ user_url);
+						$location.path(user_url);
+
 					//$scope.userVar = true;
 					//var locationurl = "/getUserFlashcardsets/"+email;
 					//$rootScope.userVar = !$rootScope.userVar;	
 
 					//$location.path(locationurl);			
 				}
+			});
+		}
+
+		$scope.getUsercardsetResults = function() {
+
+			$scope.userid = $routeParams.user_id;
+
+			var url = "/getUsersets/"+ $scope.userid;
+			console.log(" get url "+ url);
+
+			$http.get(url).success(function(data){
+				$scope.userresults = data;
+				//$scope.userVar = true;
+
+				console.log("userresults"+ $scope.userresults);
 			});
 		}
 
@@ -87,20 +108,7 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 			});
 		}*/
 
-		$scope.getUsercardsetResults = function() {
-
-			$scope.email = $routeParams.email;
-
-			var url = "/getUserFlashcardsets/"+ $scope.email;
-			console.log(" getUserFlashcardsets url "+ url);
-
-			$http.get(url).success(function(data){
-				$scope.userresults = data;
-				//$scope.userVar = true;
-
-				console.log($scope.userresults);
-			});
-		}
+		
 
 		$scope.redirectUserCardUrl = function(setIdNum, name) {
 
@@ -115,4 +123,16 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 			$http.get(url);
 		}
 
+		$scope.loginUserSets = function(){
+			var loginurl = "/auth/facebook";
+			console.log("loginurl: "+ loginurl);
+			//$location.path(loginurl);
+			$http.get(loginurl).success(function(data){
+				$scope.results = data;
+				console.log("login results back"+ $scope.results);
+				var user_token = $scope.results.token;
+				var newuserpageurl = "/userSets"+ user_token;
+				$location.path(newuserpageurl);
+			});
+		}
 }]);
