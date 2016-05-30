@@ -12,6 +12,10 @@ app.config(function ($routeProvider) {
     templateUrl: '/client/views/card.html',
     controller: 'card-controller'
   })
+  .when('/quiz/:setIdNum/', {
+    templateUrl: '/client/views/quiz.html',
+    controller: 'quiz-controller'
+  })
   .when('/getAccount/:email', {
     templateUrl: '/client/views/account.html',
     controller: 'account-controller'
@@ -30,9 +34,5 @@ app.config(function ($routeProvider) {
   .when('/login', {
     templateUrl: '/client/views/login.html',
     controller: 'account-controller'
-  })
-  .when('/quiz/:setIdNum', {
-    templateUrl: 'client/views/quiz.html',
-    controller: 'quiz-controller'
   })
 });

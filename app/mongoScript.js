@@ -1,4 +1,33 @@
 db = db.getSiblingDB('studybuddy')
+db.createCollection('accounts')
+Accounts = db.getCollection("accounts")
+Accounts.remove({})
+Accounts.insert(
+{
+"email": "dipali@gmail.com",
+"firstName": "Dipali",
+"lastName": "Vagal",
+"dob": "10/19/1987",
+"username": "user1",
+"hashed_pwd": "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=",
+}
+)
+Accounts.insert(
+{
+"email": "anthony@gmail.com",
+"firstName": "Anthony",
+"lastName": "Absher",
+"dob": "11/09/1998",
+"username": "user2",
+"hashed_pwd": "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg="
+}
+)
+
+user1 = Accounts.findOne({username: 'user1'})
+user1Id = user1._id.valueOf();
+user2 = Accounts.findOne({username: 'user2'})
+user2Id = user2._id.valueOf();
+
 db.createCollection('sets')
 Sets = db.getCollection("sets")
 Sets.remove({})
@@ -8,7 +37,7 @@ Sets.insert(
 "Name": "Beginners Math",
 "Category": "Mathematics",
 "numCards": "3",
-"Author": "A",
+"Author": "user1Id",
 "DateCreated": "04-29-2016",
 "email":"dipali@gmail.com"
 }
@@ -20,9 +49,9 @@ Sets.insert(
 "Name": "Advanced Math",
 "Category": "Mathematics",
 "numCards": "2",
-"Author": "B",
+"Author": "user1Id",
 "DateCreated": "04-29-2016",
-"email":"chris@gmail.com"
+"email":"dipali@gmail.com"
 }
 )
 Sets.insert(
@@ -31,7 +60,7 @@ Sets.insert(
 "Name": "Chemistry",
 "Category": "Science",
 "numCards": "5",
-"Author": "C",
+"Author": "user2Id",
 "DateCreated": "04-29-2016",
 "email":"anthony@gmail.com"
 }
@@ -42,17 +71,19 @@ Sets.insert(
 "Name": "Vocabulary",
 "Category": "English",
 "numCards": "6",
-"Author": "D",
+"Author": "user2Id",
 "DateCreated": "04-29-2016",
-"email":"lloyd@gmail.com"
+"email":"anthony@gmail.com"
 }
 )
+
 db.createCollection('cards')
 Cards = db.getCollection("cards")
 Cards.remove({})
 Cards.insert(
 {
 "setIdNum": "1",
+"Author": "user1Id",
 "cards": [
 {
 "cardId": "1",
@@ -76,6 +107,7 @@ Cards.insert(
 Cards.insert(
 {
 "setIdNum": "2",
+"Author": "user1Id",
 "cards": [
 {
 "cardId": "1",
@@ -94,6 +126,7 @@ Cards.insert(
 Cards.insert(
 {
 "setIdNum": "3",
+"Author": "user2Id",
 "cards": [
 {
 "cardId": "1",
@@ -127,6 +160,7 @@ Cards.insert(
 Cards.insert(
 {
 "setIdNum": "4",
+"Author": "user2Id",
 "cards": [
 {
 "cardId": "1",
@@ -159,28 +193,5 @@ Cards.insert(
 "back": "in the open air"
 }
 ]
-}
-)
-db.createCollection('accounts')
-Accounts = db.getCollection("accounts")
-Accounts.remove({})
-Accounts.insert(
-{
-"email": "dipali@gmail.com",
-"firstName": "Dipali",
-"lastName": "Vagal",
-"dob": "10/19/1987",
-"username": "dips",
-"password": "test"
-}
-)
-Accounts.insert(
-{
-"email": "anthony@gmail.com",
-"firstName": "Anthony",
-"lastName": "Absher",
-"dob": "11/09/1998",
-"username": "anthony",
-"password": "test"
 }
 )
