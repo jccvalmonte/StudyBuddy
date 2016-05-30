@@ -36,6 +36,11 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 
 			var url = "/card/"+setIdNum;
 			$location.path(url);
+		}
+
+		$scope.deleteSet = function(setIdNum){
+			var url = "/delete/:" + setIdNum;
+			$http.delete(url);
 		}	
 
 

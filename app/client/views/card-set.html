@@ -16,6 +16,8 @@
     			<th># Cards</th>
     			<th>Author</th>
     			<th>Date Created</th>
+                <th>Modify</th>
+                <th>Delete</th>
             </thead>
             <tbody>
             <tr ng-repeat="set in sets">
@@ -24,6 +26,12 @@
     	   		<td>{{set.numCards}}</td>
     	   		<td>{{set.Author}}</td>
     	   		<td>{{set.DateCreated}}</td>
+                <td><button type="button" class="btn btn-default" ng-click = "modifySet(set.setIdNum)">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                </button></td>
+                <td><button type="button" class="btn btn-default" ng-click="deleteSet(set.setIdNum)">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button></td>
             </tr>
             </tbody>
         </table>

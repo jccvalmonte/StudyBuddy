@@ -12,6 +12,7 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			newSet.Category = "test";
 			newSet.numCards = 3;
 			newSet.dateCreated = new Date();
+			newSet.userEmail = "";
 			$scope.set = newSet;
 		}
 
@@ -41,13 +42,13 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			});
 			newCards.cards.push({
 				"cardId" : 2,
-				"front" : front1,
-				"back" : back1
+				"front" : front2,
+				"back" : back2
 			});
 			newCards.cards.push({
 				"cardId" : 3,
-				"front" : front1,
-				"back" : back1
+				"front" : front3,
+				"back" : back3
 			});
 
 			/*for(var i=0; i<3; i++){
