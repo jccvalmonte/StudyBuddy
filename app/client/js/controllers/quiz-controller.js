@@ -14,15 +14,12 @@ app.controller('quiz-controller', ['$scope', '$resource', '$http', '$location','
 			});
 		}
 
-		$scope.getQuizQuestions = function() {
+		$scope.getQuestions = function() {
 			$scope.setIdNum = $routeParams.setIdNum;
-
-	    	var url = "/quiz/" + $scope.setIdNum;
+			var url = "/quiz/" + $scope.setIdNum;
 			console.log(url);
-
 			$http.get(url).success(function(data){
 				$scope.questions = data;
-				console.log("questions: " + $scope.questions);	
 			});
 		}
 }]);

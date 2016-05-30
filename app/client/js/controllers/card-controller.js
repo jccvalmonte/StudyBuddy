@@ -50,19 +50,14 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 
 
 
-		$scope.getRelatedSets = function(/*category*/) {
-			
-			var url = "/homeSets";
-			console.log(url);
-			$http.get(url).success(function(data) {
-				$scope.sets = data;
-			});
-			/*var url = "/relatedSets/" + category;
+		$scope.getRelatedSets = function(category) {
+			var url = "/relatedSets/" + category;
 			console.log(url);
 			$http.get(url).success(function(data){
 				$scope.relatedSets = data;
-			});*/
+			});
 		}
+
 
 
 
