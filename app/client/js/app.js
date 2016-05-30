@@ -35,4 +35,12 @@ app.config(function ($routeProvider) {
     templateUrl: '/client/views/login.html',
     controller: 'account-controller'
   })
+  .when('/loginUserSets', {
+    templateUrl: '/client/views/user-flashcards.html',
+    controller: 'account-controller'
+  })
+  .when('/userSetsurl/:user_id', {
+    templateUrl: '/client/views/user-flashcards.html',
+    controller: 'account-controller'
+  })
 });
