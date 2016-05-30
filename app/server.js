@@ -407,24 +407,6 @@ app.get('/setDetails/:setIdNum', function(req, res) {
 	});
 });
 
-
-/*var CardListSchema = new Schema({
-	setIdNum: String,
-	Author: String,
-	cards : [{
-		cardId: Number,
-		front: String,
-		back: String
-	}]
-	
-	}, {collection: 'cards'}
-);
-	Cards = mongoose.model('Cards', CardListSchema);
-	
-	console.log('Models created!');
-});*/
-
-
 app.get('/quiz/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
@@ -434,7 +416,6 @@ app.get('/quiz/:setIdNum', function(req, res) {
 			res.send(err);
 		else {
 			res.json(found);
-			console.log(found);
 		}
 
 	});
@@ -487,7 +468,6 @@ app.post('/createset/cards', function(req,res){
 	idGen++;
 })
 
-
 app.delete('/delete/:setId', function(req,res){
 
 	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
@@ -502,8 +482,6 @@ app.delete('/delete/:setId', function(req,res){
 
 		});
 });
-
-//var port = process.env.port || 3000;
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port') + "...");
