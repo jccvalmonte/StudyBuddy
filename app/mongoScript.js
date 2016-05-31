@@ -9,7 +9,8 @@ Accounts.insert(
 "lastName": "Vagal",
 "dob": "10/19/1987",
 "username": "user1",
-"hashed_pwd": "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=",
+"password": "dipali",
+"hashed_pwd": "q/paLCaN5zlOth/yf7GtevIUOqKbspJsu2kKpmLzLrM=",
 }
 )
 Accounts.insert(
@@ -19,7 +20,8 @@ Accounts.insert(
 "lastName": "Absher",
 "dob": "11/09/1998",
 "username": "user2",
-"hashed_pwd": "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg="
+"password": "anthony",
+"hashed_pwd": "UCkTv91J6rVkKC3/EB5tFnMhI37uxm7tsqQ47YD96qA="
 }
 )
 
@@ -37,7 +39,7 @@ Sets.insert(
 "Name": "Beginners Math",
 "Category": "Mathematics",
 "numCards": "3",
-"Author": "user1Id",
+"Author": user1Id,
 "DateCreated": "04-29-2016",
 "email":"dipali@gmail.com"
 }
@@ -49,7 +51,7 @@ Sets.insert(
 "Name": "Advanced Math",
 "Category": "Mathematics",
 "numCards": "2",
-"Author": "user1Id",
+"Author": user1Id,
 "DateCreated": "04-29-2016",
 "email":"dipali@gmail.com"
 }
@@ -60,7 +62,7 @@ Sets.insert(
 "Name": "Chemistry",
 "Category": "Science",
 "numCards": "5",
-"Author": "user2Id",
+"Author": user2Id,
 "DateCreated": "04-29-2016",
 "email":"anthony@gmail.com"
 }
@@ -71,7 +73,7 @@ Sets.insert(
 "Name": "Vocabulary",
 "Category": "English",
 "numCards": "6",
-"Author": "user2Id",
+"Author": user2Id,
 "DateCreated": "04-29-2016",
 "email":"anthony@gmail.com"
 }
@@ -83,7 +85,7 @@ Cards.remove({})
 Cards.insert(
 {
 "setIdNum": "1",
-"Author": "user1Id",
+"Author": user1Id,
 "cards": [
 {
 "cardId": "1",
@@ -107,7 +109,7 @@ Cards.insert(
 Cards.insert(
 {
 "setIdNum": "2",
-"Author": "user1Id",
+"Author": user1Id,
 "cards": [
 {
 "cardId": "1",
@@ -126,7 +128,7 @@ Cards.insert(
 Cards.insert(
 {
 "setIdNum": "3",
-"Author": "user2Id",
+"Author": user2Id,
 "cards": [
 {
 "cardId": "1",
@@ -160,7 +162,7 @@ Cards.insert(
 Cards.insert(
 {
 "setIdNum": "4",
-"Author": "user2Id",
+"Author": user2Id,
 "cards": [
 {
 "cardId": "1",
