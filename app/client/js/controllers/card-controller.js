@@ -10,7 +10,12 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			console.log(url);
 			$http.get(url).success(function(data) {
 				$scope.setDetails = data[0];
+				$scope.getRelatedSets($scope.setDetails.Category);
+
+				console.log("set details: " + $scope.setDetails);
 			});
+
+
 		}
 
 		$scope.getcardResults = function() {
@@ -24,7 +29,7 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 				$scope.i = i;
 				$scope.resultCards = data[0];
 				
-				console.log("resultcards: " + $scope.resultCards);	
+				console.log("result cards: " + $scope.resultCards);	
 			});
 		}
 
@@ -42,13 +47,10 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			}
 		}
 
-		$scope.redirectQuizUrl = function(setIdNum) {
-			var url = "/quiz/" + setIdNum;
+		$scope.redirectQuizUrl = function() {
+			var url = "/quiz/" + $scope.setIdNum;
 			$location.path(url);
 		}
-
-
-
 
 		$scope.getRelatedSets = function(category) {
 			var url = "/relatedSets/" + category;
@@ -57,10 +59,6 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 				$scope.relatedSets = data;
 			});
 		}
-
-
-
-
 
 		$scope.redirectRelatedSetUrl = function(setIdNum) {
 			var url = "/card/" + setIdNum;
