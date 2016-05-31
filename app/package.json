@@ -1,6 +1,7 @@
 {
   "name": "StudyBuddy",
   "version": "0.0.1",
+  "main": "./server.js",
   "dependencies": {
     "body-parser": "^1.15.0",
     "connect-mongo": "^1.2.0",
