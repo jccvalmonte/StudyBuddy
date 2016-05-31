@@ -236,6 +236,7 @@ mongoose.connection.on('open', function(){
 		
 		}, {collection: 'cards'}
 	);
+	
 	Cards = mongoose.model('Cards', CardListSchema);
 	
 	console.log('Models created!');
@@ -390,8 +391,10 @@ app.get('/relatedSets/:category', function(req, res) {
 	Sets.find({Category: searchrequest}, function(err, found){
 		if(err)
 			res.send(err);
-		else
+		else {
+			console.log(found);
 			res.json(found);
+		}
 	});
 });
 
