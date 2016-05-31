@@ -1,12 +1,10 @@
 <div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults(); getSetDetails();">
-	
-		<center>
-			<p class="lead">
-				Set Name: <b>{{setDetails.Name}}</b><br>
-				Author:   <b>{{setDetails.Author}}</b><br>
-				Category: <b>{{setDetails.Category}}</b>
-			</p>
-		</center>
+
+	<p class="lead" style="margin-left:11%">
+		Set Name: <b>{{setDetails.Name}}</b><br>
+		Author:   <b>{{setDetails.Author}}</b><br>
+		Category: <b>{{setDetails.Category}}</b>
+	</p>
 		
 	<div class="flip">
 		<div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
@@ -50,29 +48,30 @@
 
 	<br><br>
 
-	<div class="col-lg-12" ng-init="getRelatedSets()">
-	<br><h3>Related Sets</h3><br>
-	<div class="container-fluid" style="height: 200px; overflow: auto">
-		<table class="table table-hover table-responsive">
-		<thead>
-			<th>Name</th>
-			<th>Category</th>
-			<th># Cards</th>
-			<th>Author</th>
-			<th>Date Created</th>
-		</thead>
-		<tbody>
-			<tr ng-repeat="relatedSet in sets">
-	        	<td><b><a href="" ng-click="redirectRelatedSetUrl(relatedSet.setIdNum)">{{relatedSet.Name}}</a></b></td>
-		   		<td>{{relatedSet.Category}}</td>
-		   		<td>{{relatedSet.numCards}}</td>
-		   		<td>{{relatedSet.Author}}</td>
-		   		<td>{{relatedSet.DateCreated}}</td>
-        	</tr>
-		</tbody>
-		</table>
+	<div class="col-lg-12" ng-init="getRelatedSets(setDetails.Category)">
+		<br><h3>Related Sets</h3><br>
+		<div class="container-fluid" style="height: 200px; overflow: auto">
+			<table class="table table-hover table-responsive">
+			<thead>
+				<th>Name</th>
+				<th>Category</th>
+				<th># Cards</th>
+				<th>Author</th>
+				<th>Date Created</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="relatedSet in relatedSets">
+		        	<td><b><a href="" ng-click="redirectRelatedSetUrl(relatedSet.setIdNum)">{{relatedSet.Name}}</a></b></td>
+			   		<td>{{relatedSet.Category}}</td>
+			   		<td>{{relatedSet.numCards}}</td>
+			   		<td>{{relatedSet.Author}}</td>
+			   		<td>{{relatedSet.DateCreated}}</td>
+	        	</tr>
+			</tbody>
+			</table>
+		</div>
 	</div>
-	</div>
+
 </div>
 
 <script type = "text/javascript" src="/client/js/table.js"></script>
