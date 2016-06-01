@@ -48,7 +48,7 @@ app.use(passport.session());
 app.use(express.Router());
 
 
-app.set('port', process.env.PORT || 80); //3000);
+app.set('port', process.env.PORT || 8080); //3000);
 
 var FACEBOOK_APP_ID = "1754049368215587";
 var FACEBOOK_APP_SECRET = "1bcb148cf8e0867484a4ab2eab76a864"
@@ -399,7 +399,7 @@ app.get('/setDetails/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum
 
-	Sets.find({setIdNum: searchrequest}, function(err, found) {
+	Sets.findOne({setIdNum: searchrequest}, function(err, found) {
 		if(err)
 			res.send(err);
 		else
@@ -411,7 +411,7 @@ app.get('/quiz/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
 	console.log(searchrequest);
-	Cards.find({setIdNum: searchrequest}, function(err, found) {
+	Cards.findOne({setIdNum: searchrequest}, function(err, found) {
 		if(err)
 			res.send(err);
 		else {
@@ -426,7 +426,7 @@ app.get('/card/:setIdNum', function(req, res) {
 	
 	var searchrequest = req.params.setIdNum;
 	console.log(searchrequest);
-	Cards.find({setIdNum: searchrequest}, function(err, found) {
+	Cards.findOne({setIdNum: searchrequest}, function(err, found) {
 		if (err)
 			res.send(err);
 		else

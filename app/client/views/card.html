@@ -1,6 +1,6 @@
-<div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults(); getSetDetails();">
+<div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults()">
 
-	<p class="lead" style="margin-left:11%">
+	<p class="lead" style="margin-left:11%" ng-init="getSetDetails()">
 		Set Name: <b>{{setDetails.Name}}</b><br>
 		Author:   <b>{{setDetails.Author}}</b><br>
 		Category: <b>{{setDetails.Category}}</b>
