@@ -63,6 +63,49 @@ passport.deserializeUser(function(id, done){
 	});
 });
 
+passport.use(new FacebookStrategy({
+
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+   //callbackURL: "http://localhost:8080/auth/facebook/callback",
+    callbackURL: "http://localhost:80/auth/facebook/callback",
+    profileFields: ['email', 'name']
+  },
+  function(accessToken, refreshToken, profile, done) {
+    	process.nextTick(function(){
+    		Accounts.findOne({email: profile.emails[0].value}, function(err, user){
+    			if(err)
+    				return done(err);
+    			if(user)
+    				{
+    				console.log("found user is: "+ user);
+    				return done(null, user);
+    				}
+    			else {
+    				var newUser = new Accounts();
+    				newUser.facebookid = profile.id;
+    				//newUser.facebooktoken = accessToken;
+    				//newUser.firstName = profile.familyName;
+    				newUser.firstName = profile.name.givenName;
+            		newUser.lastName  = profile.name.familyName;
+            		//newUser.dob = profile.birthday;
+    				console.log("test1 here pls first.. 1 ..");
+    				newUser.email = profile.emails[0].value;
+    				//newUser.facebook.photo = 'https://graph.facebook.com/v2.3/' + profile.id + '/picture?type=large';
+
+    				newUser.save(function(err){
+    					if(err)
+    						throw err;
+    					console.log("newuser is: "+ newUser);
+    					return done(null, newUser);
+    				})
+    				console.log("profile is: "+ profile);
+    			}
+    		});
+    	});
+    }
+));
+
 app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 	function(req,res){
 
@@ -70,64 +113,44 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 
 	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/client/views/login.html' }),
 		function(req, res){
-			res.redirect('/client/views/profile.html');
+			console.log("auth newuser is: "+ req.user.email);
+			console.log("is auth: ? "+ req.isAuthenticated());
+			/*if(req.isAuthenticated()){
+				var isloogedin = true;
+			}*/
+			res.redirect('/';
+			//res.json(newUser.email);
 			//res.json(newUser);
-			//console.log("new user det"+ newUser);
+			
 		});
-
-
-passport.use(new FacebookStrategy({
-
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:8080/auth/facebook/callback",
-    profileFields: ['email']
-  },
-  function(accessToken, refreshToken, profile, done) {
-    	process.nextTick(function(){
-    		Accounts.findOne({'facebook.id': profile.id}, function(err, user){
-    			if(err)
-    				return done(err);
-    			if(user)
-    				return done(null, user);
-    			else {
-    				var newUser = new Accounts();
-    				newUser.facebookid = profile.id;
-    				newUser.facebooktoken = accessToken;
-    				newUser.facebookname = profile.familyName;
-    				console.log("test1 here pls first.. 1 ..");
-    				newUser.facebookemail = profile.emails[0].value;
-    				//newUser.facebook.photo = 'https://graph.facebook.com/v2.3/' + profile.id + '/picture?type=large';
-
-    				newUser.save(function(err){
-    					if(err)
-    						throw err;
-    					return done(null, newUser);
-    				})
-    				console.log(profile);
-    			}
-    		});
-    	});
-    }
-));
-
-//app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
-
-	/*app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });        */                              
 
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
 
-/*app.get('/auth/facebook/index', function(req, res){
-  
-  res.redirect('/client/views/sign-up.html');
-});*/
+app.get('/getmysets', function(req,res){
+	console.log("Before getmysets:" + req.isAuthenticated());
+
+	if(req.isAuthenticated()){
+		console.log("After getmysets:" + req.isAuthenticated());
+
+		if(req.user.email !=null){
+			var user_email = req.user.email;
+			Sets.find({email: user_email}, function(err, found) {
+		        if (err)
+		            res.send(err)
+		        else
+		            res.json(found);
+		        });
+		}
+	}
+	else{
+		console.log("redirecting to login page");
+		//res.redirect("/");
+		//res.redirect("./#/login.html");
+	}
+})
 
 //global variables to access the schema models
 var Sets;
@@ -193,16 +216,7 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'accounts'}
 	);	
-	Accounts = mongoose.model('Accounts', AccountSchema);
-	
-	app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
-
-		/*app.get('/auth/facebook/callback', 
-		  passport.authenticate('facebook', { successRedirect: '/client/views/homesearch.html',
-		                                      failureRedirect: '/client/views/login.html' })); */
-	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function(req, res) {
-	    res.redirect('/');
-	});                                      
+	Accounts = mongoose.model('Accounts', AccountSchema);                                    
 
 	app.get('/logout', function(req, res){
 		req.logout();
@@ -326,7 +340,7 @@ app.get('/getUsersets/:userid', function(req, res) {
     var useridfield = req.params.userid;
     console.log("useridfield: "+ useridfield);
  
-    Sets.find({Author: useridfield}, function(err, found) {
+    Sets.find({owner: useridfield}, function(err, found) {
         if (err)
             res.send(err)
         else
@@ -334,23 +348,6 @@ app.get('/getUsersets/:userid', function(req, res) {
         });
     }); 
 
-
-app.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/allusers',
-		failureRedirect: '/login',
-		//failureFlash: true
-	}));
-
-app.get('/allusers', function(req, res){
-
-	Sets.find({}, function(err, found){
-		if(err)
-			res.send(err);
-		else
-			res.json(found);
-		console.log(found);
-	});
-});
 
 app.post('/signup', function(req, res) {
 
@@ -443,8 +440,6 @@ app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
-
-
 	
 	Sets.create(jsonObj, function(err, found){
 		if(err)

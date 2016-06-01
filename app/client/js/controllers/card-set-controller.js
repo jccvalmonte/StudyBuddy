@@ -28,9 +28,6 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 				$scope.flashcardsetName ='';
 			}); */
 
-	
-
-
 		$scope.redirectSearchCardUrl = function(setIdNum) {
 
 			var url = "/card/"+setIdNum;
@@ -42,5 +39,20 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 			$http.delete(url);
 		}	
 
+		/*$scope.mysets = function() {
+			var url ="/mysets";
+			$location.path(url);
+		}*/
+
+		$scope.getmysets = function(){
+			var my_set_url = "/getmysets";
+			$http.get(my_set_url).success(function(data) {
+				
+				$scope.results = data;
+				
+				if($scope.results.length == 0)
+					window.alert("No flashcard sets found, please create new sets !");
+			});
+		}
 
 }]);
