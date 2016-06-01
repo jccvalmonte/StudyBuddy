@@ -1,4 +1,4 @@
-<div class="container-fluid" id="newSet" ng-controller='create-set-controller' style="margin-bottom: 50px">
+<div class="container-fluid" id = "newSet" ng-controller='create-set-controller' ng-init='initNewSet()' style="margin-bottom: 50px">
 
 	<center><h2>Create a Flashcard Set</h2></center>
 
@@ -7,57 +7,44 @@
 
 		<p class="lead">
 		Set Name
-		<input ng-model = "set.Name" id="Name" type="text" class="form-control input-lg" placeholder="Name"><br>
+		<input ng-model = "name" id="Name" type="text" class="form-control input-lg" placeholder="Name"><br>
 
 		Category
-		<input ng-model = "set.Category" id="Category" type="text" class="form-control input-lg" placeholder="Category"><br>
+		<input ng-model = "category" id="Category" type="text" class="form-control input-lg" placeholder="Category"><br>
+		</p>
 
-		
 		Author
-		<input ng-model = "set.Author" id="Author" type="text" class="form-control input-lg" placeholder="Author"><br>
+		<input ng-model = "author" id="Author" type="text" class="form-control input-lg" placeholder="Author"><br>
+		</p>
+
+		User email
+		<input ng-model = "email" id="email" type="text" class="form-control input-lg" placeholder="Facebook Email ID"><br>
 		</p>
 
 		<div id="dynamicInput">
 			<p class="lead">
 			Card
 			<br>
-			<input ng-model = "card1.front" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
-			<input ng-model = "card1.back" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
+			<input ng-model = "front1" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
+			<input ng-model = "back1" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
 			<br>
 
 			Card
 			<br>
-			<input ng-model = "card2.front" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
-			<input ng-model = "card2.back" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
+			<input ng-model = "front2" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
+			<input ng-model = "back2" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
 			<br>
 
 			Card
 			<br>
-			<input ng-model = "card3.front" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
-			<input ng-model = "card3.back" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
+			<input ng-model = "front3" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Front">
+			<input ng-model = "back3" class="form-control input-lg" type="text" name="myInputs[]" placeholder="Back">
 			</p>
 		</div>
-		
-		<pre>{{set | json}}</pre>
-		<pre>{{card1 | json}}</pre>
-		<pre>{{card2 | json}}</pre>
-		<pre>{{card3 | json}}</pre>
 	     
 	    <button class="btn btn-default btn-md" onClick="addInput('dynamicInput');"><i class="glyphicon glyphicon-plus"></i></button>
 
-		<center><a class="btn btn-success btn-lg" ng-click='writeSet(name,category,author); initCards(front1,front2,front3,back1,back2,back3)' role="submit">Create</a></center>
-
-<!--
-		<form ng-submit="submitSet()">
-			<input type='text' ng-model='set.Name' placeholder='Name'><br>
-			<input type='text' ng-model='set.Category' placeholder='Category'><br>
-			<input ng-repeat="card in set.cards track by $index" type='text' ng-model='set.cards[$index]' placeholder='Card'><br>
-			<div>
-				<button type='submit'>Submit</button>
-				<button ng-click="addCard()">Add</button>
-			</div>
-			<pre>{{ set | json }}</pre>
-		</form> -->
+		<center><a class="btn btn-success btn-lg" ng-click='writeSet(name,category,author,email); initCards(front1,front2,front3,back1,back2,back3)' role="submit">Create</a></center>
 	</div>
 	<div class="col-xs-2"></div>
 </div>
