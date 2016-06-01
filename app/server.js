@@ -402,7 +402,7 @@ app.get('/setDetails/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum
 
-	Sets.find({setIdNum: searchrequest}, function(err, found) {
+	Sets.findOne({setIdNum: searchrequest}, function(err, found) {
 		if(err)
 			res.send(err);
 		else
@@ -414,7 +414,7 @@ app.get('/quiz/:setIdNum', function(req, res) {
 
 	var searchrequest = req.params.setIdNum;
 	console.log(searchrequest);
-	Cards.find({setIdNum: searchrequest}, function(err, found) {
+	Cards.findOne({setIdNum: searchrequest}, function(err, found) {
 		if(err)
 			res.send(err);
 		else {
@@ -429,7 +429,7 @@ app.get('/card/:setIdNum', function(req, res) {
 	
 	var searchrequest = req.params.setIdNum;
 	console.log(searchrequest);
-	Cards.find({setIdNum: searchrequest}, function(err, found) {
+	Cards.findOne({setIdNum: searchrequest}, function(err, found) {
 		if (err)
 			res.send(err);
 		else
