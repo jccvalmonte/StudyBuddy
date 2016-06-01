@@ -43,4 +43,8 @@ app.config(function ($routeProvider) {
     templateUrl: '/client/views/user-flashcards.html',
     controller: 'account-controller'
   })
+  .when('/mysets', {
+    templateUrl: '/client/views/my-sets.html',
+    controller: 'card-set-controller'
+  })
 });
