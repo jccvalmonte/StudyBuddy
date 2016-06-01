@@ -5,18 +5,26 @@
 <div class="col-md-4"></div>
 <div class="col-md-4 container-fluid" ng-controller="account-controller" style="margin-top:50px">
 	<p class="lead">
-		Email Address
-		<input class="form-control input-lg" id="inputEmail" placeholder="Email" type="email" ng-model="email">
-
+		Username
+		<input class="form-control input-lg" id ="username" placeholder="Username" type="text" ng-model="username">
 		<br>
 
 		Password
 		<input class="form-control input-lg" id="inputPassword" placeholder="Password" type="password" ng-model="password">
 	</p>
-	<p class="text-center">Not registered yet? <a ng-href="#/signup">Create an account</a></p>
 
-	<button class="btn btn-lg btn-default btn-block" type="submit" ng-click="getAccountResults(email,password)">
+	<button class="btn btn-lg btn-default btn-block" type="submit" ng-click="checklogin(username)">
 		Log In
 	</button>
+	<br>
+	<p class="text-center">
+		Not registered yet? <a ng-href="#/signup">Create an account</a>
+		<br><br>
+		OR
+		<br>
+	</p>
+	<center><a href="/auth/facebook"><img class="img-responsive" src="/images/FB login.png" style="width: 90%; height: auto"></a></center>
+	<!--<center><button ng-click="loginUserSets()"><img class="img-responsive" src="/images/FB login.png" style="width: 90%; height: auto"></button></center>-->
 </div>
 <div class="col-md-4"></div>
+<script type = "text/javascript" src="/client/js/controllers/account-controller.js"></script>

@@ -42,11 +42,9 @@
 					<li><a ng-href="#/signup">Sign Up<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
 					<li><a ng-href="#/login">Login<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-in"></span></a></li>
 
-
-					<li><a ng-href="#">My Flashcards<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-					<li><a ng-href="#">Study Groups<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-heart-empty"></span></a></li>
+					<li><a ng-href="#/mysets">My Flashcards<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
 					<li><a ng-href="#/createset">Create<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
-					<li><a ng-href="#/">Logout<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
+					<li><a ng-href="/logout">Logout<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
 
 
 				</ul>
@@ -64,8 +62,8 @@
 				<div class="modal-body">
 					<center><p class="lead">Are you over 13?</p></center>
 					<div class="btn-group btn-group-justified" role="group">
-						<a href = "" data-dismiss="modal" class="btn btn-primary btn-lg">Yes</a>
-						<a href = "http://disneychannel.disney.com" class="btn btn-primary btn-lg">No</a>
+						<a ng-href = "" data-dismiss="modal" class="btn btn-primary btn-lg modal-check" name="modal-check">Yes</a>
+						<a ng-href = "http://disneychannel.disney.com" class="btn btn-primary btn-lg">No</a>
 					</div>
 				</div>
 			</div>
@@ -84,13 +82,14 @@
 	<script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
     <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
     <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
-
-   <!-- <script type = "text/javascript" src="/path/to/jquery.cookie.js"></script>-->
+    <script type = "text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
     <script type = "text/javascript" src="/client/js/app.js"></script>
     <script type = "text/javascript" src="/client/js/toolbar.js"></script>
     <script type = "text/javascript" src="/client/js/age-validation.js"></script>
 	<script type = "text/javascript" src="/client/js/card-input.js"></script>
+	
+	<script type = "text/javascript" src="/client/js/controllers/quiz-controller.js"></script>
 	<script type = "text/javascript" src="/client/js/controllers/card-set-controller.js"></script>
 	<script type = "text/javascript" src="/client/js/controllers/card-controller.js"></script>
 	<script type = "text/javascript" src="/client/js/controllers/account-controller.js"></script>

@@ -12,6 +12,10 @@ app.config(function ($routeProvider) {
     templateUrl: '/client/views/card.html',
     controller: 'card-controller'
   })
+  .when('/quiz/:setIdNum/', {
+    templateUrl: '/client/views/quiz.html',
+    controller: 'quiz-controller'
+  })
   .when('/getAccount/:email', {
     templateUrl: '/client/views/account.html',
     controller: 'account-controller'
@@ -31,8 +35,16 @@ app.config(function ($routeProvider) {
     templateUrl: '/client/views/login.html',
     controller: 'account-controller'
   })
-  .when('/quiz/:setIdNum', {
-    templateUrl: 'client/views/quiz.html',
-    controller: 'quiz-controller'
+  .when('/loginUserSets', {
+    templateUrl: '/client/views/user-flashcards.html',
+    controller: 'account-controller'
+  })
+  .when('/userSetsurl/:user_id', {
+    templateUrl: '/client/views/user-flashcards.html',
+    controller: 'account-controller'
+  })
+  .when('/mysets', {
+    templateUrl: '/client/views/my-sets.html',
+    controller: 'card-set-controller'
   })
 });
