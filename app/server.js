@@ -118,7 +118,7 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 			/*if(req.isAuthenticated()){
 				var isloogedin = true;
 			}*/
-			res.redirect('/';
+			res.redirect('/');
 			//res.json(newUser.email);
 			//res.json(newUser);
 			
