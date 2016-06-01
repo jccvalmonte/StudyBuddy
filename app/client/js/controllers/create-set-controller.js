@@ -3,6 +3,8 @@ var app = angular.module('studybuddyApp');
 app.controller('create-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
 	function ($scope, $resource, $http, $location, $routeParams) {
 
+		$scope.set={};
+
 		$scope.initNewSet = function() {
 			console.log('new set init');
 			var newSet = {};
@@ -82,6 +84,19 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 				$scope.cards.setIdNum = data.setIdNum;
 			});
 
+		}*/
+
+
+/*
+		$scope.set = { cards: [] };
+
+		$scope.addCard = function() {
+			var br = document.createElement('br');
+			$scope.set.cards.push("");
+		}
+
+		$scope.submitSet = function() {
+			console.log($scope.set);
 		}*/
 
 }]);

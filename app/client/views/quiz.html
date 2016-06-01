@@ -1,14 +1,23 @@
-<div class="container-fluid" ng-controller="quiz-controller" ng-init="getcardResults(); getSetDetails();">
-	
-	<p class="lead" style="margin-left:11%">
-		Set Name: <b>{{setDetails.Name}}</b><br>
-		Author:   <b>{{setDetails.Author}}</b><br>
-		Category: <b>{{setDetails.Category}}</b>
-	</p>
+<div class="container-fluid" ng-controller="quiz-controller" style="margin-bottom: 35px">
 
-	<center>
-		<h2>Quiz in session...</h2>
-	</center>
+	<center><h2>Quiz in session...</h2></center>
+	<br><br><br>
+	<div class="col-md-4"></div>
+	<div class="col-md-4" ng-init="getQuestions()">
+		<form class="form-group" ng-repeat="question in questions" ng-submit="getStatistics()">
+			<p class="lead">{{question.front}}
+			<input class="form-control input-lg" type="text" placeholder="Your answer" ng-model="question.input" />
+			</p>
+			{{question}}
+		</form>
+
+		<br>
+		<center><input class="btn btn-lg btn-success" type="submit" value="Submit Quiz" /></center>
+
+		{{numAnsweredCorrect}}
+
+	</div>
+	<div class="col-md-4"></div>
 
 	
 	

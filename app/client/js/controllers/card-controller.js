@@ -9,7 +9,7 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			var url = "/setDetails/" + $scope.setIdNum;
 			console.log(url);
 			$http.get(url).success(function(data) {
-				$scope.setDetails = data[0];
+				$scope.setDetails = data;
 				$scope.getRelatedSets($scope.setDetails.Category);
 
 				console.log("set details: " + $scope.setDetails);
@@ -27,7 +27,7 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			$http.get(url).success(function(data){
 				var i = 0;
 				$scope.i = i;
-				$scope.resultCards = data[0];
+				$scope.resultCards = data;
 				
 				console.log("result cards: " + $scope.resultCards);	
 			});
@@ -41,7 +41,6 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 		}
 
 		$scope.reduceCount = function() {
-			var len = $scope.resultCards.cards.length;
 			if ($scope.i > 0) {
 				$scope.i = $scope.i - 1;
 			}
