@@ -85,7 +85,6 @@ passport.use(new FacebookStrategy({
     				var newUser = new Accounts();
     				newUser.facebookid = profile.id;
     				//newUser.facebooktoken = accessToken;
-    				//newUser.firstName = profile.familyName;
     				newUser.firstName = profile.name.givenName;
             		newUser.lastName  = profile.name.familyName;
             		//newUser.dob = profile.birthday;
@@ -118,7 +117,7 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 			/*if(req.isAuthenticated()){
 				var isloogedin = true;
 			}*/
-			res.redirect('/');
+			res.redirect('http://localhost/#/mysets');
 			//res.json(newUser.email);
 			//res.json(newUser);
 			
@@ -131,6 +130,7 @@ app.get('/logout', function(req, res){
 
 app.get('/getmysets', function(req,res){
 	console.log("Before getmysets:" + req.isAuthenticated());
+	//console.log("jsom email val: "+ req.profile.emails[0].value);
 
 	if(req.isAuthenticated()){
 		console.log("After getmysets:" + req.isAuthenticated());
@@ -147,7 +147,7 @@ app.get('/getmysets', function(req,res){
 	}
 	else{
 		console.log("redirecting to login page");
-		//res.redirect("/");
+		res.redirect("/");
 		//res.redirect("./#/login.html");
 	}
 })
@@ -155,9 +155,6 @@ app.get('/getmysets', function(req,res){
 //global variables to access the schema models
 var Sets;
 var Cards;
-
-/*const hmac = crypto.createHmac('sha256', 'a secret');
-console.log("hash is"+ hmac);*/
 
 //initializing mongoose connection to the MongoDB database
 //route to database held in 'db.config'
@@ -181,15 +178,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } } }; 
 mongoose.createConnection(mongooseUri, options);
-
-/*app.use(session({ 
-		secret: 'keyboard cat',
-		store: new MongoStore({ 
-			mongooseConnection: mongoose.connection,
-			collection: 'sessions'
-		})
-}));*/
-
 
 console.log('Sending connecting request with Mongo db');
 mongoose.connection.on('error', function() {
@@ -440,7 +428,7 @@ app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
-	
+
 	Sets.create(jsonObj, function(err, found){
 		if(err)
 			res.send(err)
@@ -448,7 +436,6 @@ app.post('/createSet', function(req, res){
 			res.json(found);
 	});
 	
-
 });
 
 app.post('/createset/cards', function(req,res){

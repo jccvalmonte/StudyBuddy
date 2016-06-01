@@ -3,8 +3,6 @@ var app = angular.module('studybuddyApp');
 app.controller('create-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
 	function ($scope, $resource, $http, $location, $routeParams) {
 
-		$scope.set={};
-
 		$scope.initNewSet = function() {
 			console.log('new set init');
 			var newSet = {};
@@ -18,10 +16,11 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			$scope.set = newSet;
 		}
 
-		$scope.writeSet = function(name, author, category) {
+		$scope.writeSet = function(name,category,author,email) {
 			$scope.set.Name = name;
 			$scope.set.Author = author;
 			$scope.set.Category = category;
+			$scope.set.email = email;
 
 			console.log($scope.set);
 			$http.post('/createSet', $scope.set).success(function(data, status, headers, config) {
@@ -55,7 +54,6 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 
 			/*for(var i=0; i<3; i++){
 				var id = i+1;
-
 				newCards.cards.push({
 				"cardId" : id,
 				"front" : "blank front",
@@ -83,20 +81,6 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			$http.post('/createset/cards', $scope.cards).success(function(data, status, headers, config) {
 				$scope.cards.setIdNum = data.setIdNum;
 			});
-
-		}*/
-
-
-/*
-		$scope.set = { cards: [] };
-
-		$scope.addCard = function() {
-			var br = document.createElement('br');
-			$scope.set.cards.push("");
-		}
-
-		$scope.submitSet = function() {
-			console.log($scope.set);
 		}*/
 
 }]);
