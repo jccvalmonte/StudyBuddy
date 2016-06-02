@@ -4,17 +4,6 @@ Accounts = db.getCollection("accounts")
 Accounts.remove({})
 Accounts.insert(
 {
-"email": "dipali@gmail.com",
-"firstName": "Dipali",
-"lastName": "Vagal",
-"dob": "10/19/1987",
-"username": "user1",
-"password": "dipali",
-"hashed_pwd": "q/paLCaN5zlOth/yf7GtevIUOqKbspJsu2kKpmLzLrM=",
-}
-)
-Accounts.insert(
-{
 "email": "anthony@gmail.com",
 "firstName": "Anthony",
 "lastName": "Absher",
@@ -22,6 +11,17 @@ Accounts.insert(
 "username": "user2",
 "password": "anthony",
 "hashed_pwd": "UCkTv91J6rVkKC3/EB5tFnMhI37uxm7tsqQ47YD96qA="
+}
+)
+Accounts.insert(
+{
+"email": "vagal.dipali@gmail.com",
+"firstName": "Dipali",
+"lastName": "Kaluskar",
+"dob": "10/19/1987",
+"username": "user1",
+"password": "dipali",
+"hashed_pwd": "q/paLCaN5zlOth/yf7GtevIUOqKbspJsu2kKpmLzLrM=",
 }
 )
 
@@ -39,9 +39,10 @@ Sets.insert(
 "Name": "Beginners Math",
 "Category": "Mathematics",
 "numCards": "3",
-"Author": user1Id,
+"Author": "Dipali",
+"owner": user1Id,
 "DateCreated": "04-29-2016",
-"email":"dipali@gmail.com"
+"email":"vagal.dipali@gmail.com"
 }
 )
 
@@ -51,9 +52,10 @@ Sets.insert(
 "Name": "Advanced Math",
 "Category": "Mathematics",
 "numCards": "2",
-"Author": user1Id,
+"Author": "Dipali",
+"owner": user1Id,
 "DateCreated": "04-29-2016",
-"email":"dipali@gmail.com"
+"email":"vagal.dipali@gmail.com"
 }
 )
 Sets.insert(
@@ -62,7 +64,8 @@ Sets.insert(
 "Name": "Chemistry",
 "Category": "Science",
 "numCards": "5",
-"Author": user2Id,
+"Author": "Anthony",
+"owner": user2Id,
 "DateCreated": "04-29-2016",
 "email":"anthony@gmail.com"
 }
@@ -73,7 +76,8 @@ Sets.insert(
 "Name": "Vocabulary",
 "Category": "English",
 "numCards": "6",
-"Author": user2Id,
+"Author": "Anthony",
+"owner": user2Id,
 "DateCreated": "04-29-2016",
 "email":"anthony@gmail.com"
 }
@@ -85,7 +89,6 @@ Cards.remove({})
 Cards.insert(
 {
 "setIdNum": "1",
-"Author": user1Id,
 "cards": [
 {
 "cardId": "1",
@@ -109,7 +112,6 @@ Cards.insert(
 Cards.insert(
 {
 "setIdNum": "2",
-"Author": user1Id,
 "cards": [
 {
 "cardId": "1",
@@ -128,7 +130,6 @@ Cards.insert(
 Cards.insert(
 {
 "setIdNum": "3",
-"Author": user2Id,
 "cards": [
 {
 "cardId": "1",
@@ -162,7 +163,6 @@ Cards.insert(
 Cards.insert(
 {
 "setIdNum": "4",
-"Author": user2Id,
 "cards": [
 {
 "cardId": "1",
