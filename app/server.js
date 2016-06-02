@@ -425,7 +425,7 @@ app.get('/card/:setIdNum', function(req, res) {
 
 var idGen = 5;
 
-app.post('/createSet', function(req, res){
+app.post('/createset', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
@@ -437,22 +437,8 @@ app.post('/createSet', function(req, res){
 			res.json(found);
 	});
 	
-});
-
-app.post('/createset/cards', function(req,res){
-	var jsonObj = req.body;
-	jsonObj.setIdNum = idGen;
-	console.log(jsonObj);
-
-	Cards.create(jsonObj, function(err, found){
-		if(err)
-			res.send(err)
-		else
-			res.json(found);
-	});
-	
 	idGen++;
-})
+});
 
 app.delete('/delete/:setId', function(req,res){
 
