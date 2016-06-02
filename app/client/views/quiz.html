@@ -4,7 +4,7 @@
 	<br><br><br>
 	<div class="col-md-4"></div>
 	<div class="col-md-4" ng-init="getQuestions()">
-		<form class="form-group" ng-repeat="question in questions" ng-submit="getStatistics()">
+		<form class="form-group" ng-repeat="question in questions" ng-submit="getStatistics(questions)">
 			<p class="lead">{{question.front}}
 			<input class="form-control input-lg" type="text" placeholder="Your answer" ng-model="question.input" />
 			</p>
@@ -13,8 +13,6 @@
 
 		<br>
 		<center><input class="btn btn-lg btn-success" type="submit" value="Submit Quiz" /></center>
-
-		{{numAnsweredCorrect}}
 
 	</div>
 	<div class="col-md-4"></div>

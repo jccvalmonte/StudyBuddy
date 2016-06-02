@@ -3,6 +3,8 @@ var app = angular.module('studybuddyApp');
 app.controller('quiz-controller', ['$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($scope, $resource, $http, $location, $routeParams, $mdDialog) {
 
+		$scope.answers={};
+
 		$scope.getQuestions = function() {
 			$scope.setIdNum = $routeParams.setIdNum;
 			var url = "/quiz/" + $scope.setIdNum;
@@ -21,6 +23,8 @@ app.controller('quiz-controller', ['$scope', '$resource', '$http', '$location','
 					numCorrect++;
 			}
 
-			$scope.numAnsweredCorrect = numCorrect;
+			$scope.numQuestions = numQuestions;
+
+			$scope.numAnsweredCorrect = 5;
 		}
 }]);

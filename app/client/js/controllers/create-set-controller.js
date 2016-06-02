@@ -3,26 +3,7 @@ var app = angular.module('studybuddyApp');
 app.controller('create-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
 	function ($scope, $resource, $http, $location, $routeParams) {
 
-		$scope.set={};
-
-		$scope.initNewSet = function() {
-			console.log('new set init');
-			var newSet = {};
-			newSet.setIdNum = 0;
-			newSet.Name = "lalala";
-			newSet.Author = "Chris";
-			newSet.Category = "test";
-			newSet.numCards = 3;
-			newSet.dateCreated = new Date();
-			newSet.userEmail = "";
-			$scope.set = newSet;
-		}
-
 		$scope.writeSet = function(name, author, category) {
-			$scope.set.Name = name;
-			$scope.set.Author = author;
-			$scope.set.Category = category;
-
 			console.log($scope.set);
 			$http.post('/createSet', $scope.set).success(function(data, status, headers, config) {
 				$scope.set.setIdNum = data.setIdNum;
