@@ -4,7 +4,7 @@
 
 	<div class="col-xs-2"></div>
 	<div class="col-lg-8" style="margin-top:50px">
-		<form ng-submit="createSet(); redirectUserSetsUrl()">
+		<form>
 			<p class="lead">
 			Set Name
 			<input class="form-control input-lg" type="text" ng-model="set.Name" placeholder="Name"><br>
@@ -27,19 +27,20 @@
 				<button class="btn btn-primary btn-lg" ng-click="add(card)">Add to Set</button>
 				</p>
 			</div>
-
-			<p class="lead">
-			<button class="btn btn-default btn-md" ng-click="addNew()"><i class="glyphicon glyphicon-plus"></i></button>
-			</p>
-
-			<center>
-				<b>NOTE: You must click "Add to Set" to add a card to the set.</b>
-				<br><br><br>
-				<input class="btn btn-default btn-lg" type="submit" role="submit" value="Create" />
-			</center>
 		</form>
 
-		<br><br><pre>{{set | json}}</pre>
+		<p class="lead">
+		<button class="btn btn-default btn-md" ng-click="addNew()"><i class="glyphicon glyphicon-plus"></i></button>
+		</p>
+
+		<center>
+			<b>NOTE: You must click "Add to Set" to add a card to the set.</b>
+			<br><br><br>
+			<button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="createSet()">Create</button>
+		</center>
+
+		<br><br><pre>set{{set | json}}</pre>
+		<br><br><pre>cardList{{cardList | json}}</pre>
 	</div>
 	<div class="col-xs-2"></div>
 </div>
