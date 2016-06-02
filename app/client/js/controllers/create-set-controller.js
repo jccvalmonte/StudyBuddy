@@ -3,85 +3,68 @@ var app = angular.module('studybuddyApp');
 app.controller('create-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
 	function ($scope, $resource, $http, $location, $routeParams) {
 
-		$scope.initNewSet = function() {
-			console.log('new set init');
-			var newSet = {};
-			newSet.setIdNum = 0;
-			newSet.Name = "lalala";
-			newSet.Author = "Chris";
-			newSet.Category = "test";
-			newSet.numCards = 3;
-			newSet.dateCreated = new Date();
-			newSet.userEmail = "";
-			$scope.set = newSet;
+		var id = 3; // Incremented as more cards are added
+  
+		$scope.cardList={cards:[]};
+
+		$scope.cardsToAdd = [
+			{
+				cardId: 1,
+				front: '',
+				back: ''
+			},
+			{
+				cardId: 2,
+				front: '',
+				back: ''
+			},
+			{
+				cardId: 3,
+				front: '',
+				back: ''
+			}
+		];
+
+		$scope.add = function(cardToAdd) {
+			var index = $scope.cardsToAdd.indexOf(cardToAdd);
+			$scope.cardsToAdd.splice(index, 1);
+			$scope.cardList.cards.push(angular.copy(cardToAdd));
 		}
 
-		$scope.writeSet = function(name,category,author,email) {
-			$scope.set.Name = name;
-			$scope.set.Author = author;
-			$scope.set.Category = category;
-			$scope.set.email = email;
+		$scope.addNew = function() {
+			id++;
+			$scope.cardsToAdd.push({
+				cardId: id,
+				front: '',
+				back: ''
+			})
+		}
 
+		$scope.createSet = function() {
+			
+			// # Cards
+			$scope.set.numCards = $scope.cardList.cards.length;
+			
+			// # Date created
+			var date = new Date();
+			var month = date.getUTCMonth() + 1; // months from 1-12
+			var day = date.getUTCDate();
+			var year = date.getUTCFullYear();
+			$scope.set.DateCreated = month + "-" + day + "-" + year;
 
-			console.log($scope.set);
-			$http.post('/createSet', $scope.set).success(function(data, status, headers, config) {
+			// CREATE SET
+			$http.post('/createSet', $scope.set).success(function(data) {
 				$scope.set.setIdNum = data.setIdNum;
 			});
-		}
 
-		$scope.initCards = function(front1, front2, front3, back1, back2, back3){
-			console.log('new cards init');
-
-			var newCards = {
-				setIdNum: 0,
-				cards:[]
-			};
-
-			newCards.cards.push({
-				"cardId" : 1,
-				"front" : front1,
-				"back" : back1
-			});
-			newCards.cards.push({
-				"cardId" : 2,
-				"front" : front2,
-				"back" : back2
-			});
-			newCards.cards.push({
-				"cardId" : 3,
-				"front" : front3,
-				"back" : back3
-			});
-
-			/*for(var i=0; i<3; i++){
-				var id = i+1;
-				newCards.cards.push({
-				"cardId" : id,
-				"front" : "blank front",
-				"back" : "blank back"
-			});*/
-				
-
-			
-
-			$scope.newCards = newCards;
-			console.log($scope.newCards);
-			$http.post('/createset/cards', $scope.newCards).success(function(data, status, headers, config) {
-				$scope.newCards.setIdNum = data.setIdNum;
+			// CREATE CARDS
+			$http.post('/createCards', $scope.cardList).success(function(data) {
+				$scope.cardList.setIdNum = data.setIdNum;
 			});
 		}
 
-		/*$scope.writeCards = function(front1, front2, front3, back1, back2, back3){
-			$scope.newCards.cards[0].front = front1;
-			$scope.newCards.cards[0].back = back1;
-			$scope.newCards.cards[1].front = front2;
-			$scope.newCards.cards[1].back = back2;
-			$scope.newCards.cards[2].front = front3;
-			$scope.newCards.cards[2].back = back3;
-			console.log($scope.cards);
-			$http.post('/createset/cards', $scope.cards).success(function(data, status, headers, config) {
-				$scope.cards.setIdNum = data.setIdNum;
-			});
-		}*/
-
+		$scope.redirectUserFlashcardsUrl = function() {
+			var url = "/mysets";
+			$location.path(url);
+		}
 }]);

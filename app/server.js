@@ -68,7 +68,7 @@ passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
    //callbackURL: "http://localhost:8080/auth/facebook/callback",
-    callbackURL: "http://localhost:80/auth/facebook/callback",
+    callbackURL: "http://localhost:8080/auth/facebook/callback",
     profileFields: ['email', 'name']
   },
   function(accessToken, refreshToken, profile, done) {
@@ -117,7 +117,7 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 			/*if(req.isAuthenticated()){
 				var isloogedin = true;
 			}*/
-			res.redirect('http://localhost:80/#/mysets');
+			res.redirect('http://localhost:8080/#/mysets');
 
 			//res.json(newUser.email);
 			//res.json(newUser);
@@ -221,7 +221,7 @@ mongoose.connection.on('open', function(){
 		Category: String,
 		numCards: Number,
 		Author: String,
-		DateCreated: Date,
+		DateCreated: String,
 		email: String
 		}, {collection: 'sets'}
 	);
@@ -230,13 +230,11 @@ mongoose.connection.on('open', function(){
 
 	var CardListSchema = new Schema({
 		setIdNum: String,
-		Author: String,
 		cards: [{
 			cardId: Number,
 			front: String,
 			back: String
 		}]
-		
 		}, {collection: 'cards'}
 	);
 	
@@ -423,7 +421,7 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 5;
+var idGen = 20;
 
 app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
@@ -436,10 +434,9 @@ app.post('/createSet', function(req, res){
 		else
 			res.json(found);
 	});
-	
 });
 
-app.post('/createset/cards', function(req,res){
+app.post('/createCards', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
@@ -450,9 +447,9 @@ app.post('/createset/cards', function(req,res){
 		else
 			res.json(found);
 	});
-	
+
 	idGen++;
-})
+});
 
 app.delete('/delete/:setId', function(req,res){
 
