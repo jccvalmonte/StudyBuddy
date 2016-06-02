@@ -5,7 +5,7 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 
 		var id = 3; // Incremented as more cards are added
   
-		$scope.set={cards:[]};
+		$scope.cardList={cards:[]};
 
 		$scope.cardsToAdd = [
 			{
@@ -28,7 +28,7 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 		$scope.add = function(cardToAdd) {
 			var index = $scope.cardsToAdd.indexOf(cardToAdd);
 			$scope.cardsToAdd.splice(index, 1);
-			$scope.set.cards.push(angular.copy(cardToAdd));
+			$scope.cardList.cards.push(angular.copy(cardToAdd));
 		}
 
 		$scope.addNew = function() {
@@ -41,16 +41,29 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 		}
 
 		$scope.createSet = function() {
-			newSet = $scope.set;
+			
+			// # Cards
+			$scope.set.numCards = $scope.cardList.cards.length;
+			
+			// # Date created
+			var date = new Date();
+			var month = date.getUTCMonth() + 1; // months from 1-12
+			var day = date.getUTCDate();
+			var year = date.getUTCFullYear();
+			$scope.set.DateCreated = month + "-" + day + "-" + year;
 
-			console.log(newSet);
+			// CREATE SET
+			$http.post('/createSet', $scope.set).success(function(data) {
+				$scope.set.setIdNum = data.setIdNum;
+			});
 
-			$http.post('/createset', newSet).success(function(data) {
-				newSet.setIdNum = data.setIdNum;
+			// CREATE CARDS
+			$http.post('/createCards', $scope.cardList).success(function(data) {
+				$scope.cardList.setIdNum = data.setIdNum;
 			});
 		}
 
-		$scope.redirectUserSetsUrl = function() {
+		$scope.redirectUserFlashcardsUrl = function() {
 			var url = "/mysets";
 			$location.path(url);
 		}
