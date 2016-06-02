@@ -29,7 +29,6 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 			}); */
 
 		$scope.redirectSearchCardUrl = function(setIdNum) {
-
 			var url = "/card/"+setIdNum;
 			$location.path(url);
 		}
