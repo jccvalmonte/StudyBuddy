@@ -48,7 +48,7 @@ app.use(passport.session());
 app.use(express.Router());
 
 
-app.set('port', process.env.PORT || 80); //3000);
+app.set('port', process.env.PORT || 8080); //3000);
 
 var FACEBOOK_APP_ID = "1754049368215587";
 var FACEBOOK_APP_SECRET = "1bcb148cf8e0867484a4ab2eab76a864"

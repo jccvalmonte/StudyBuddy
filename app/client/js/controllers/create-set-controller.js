@@ -22,6 +22,7 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			$scope.set.Category = category;
 			$scope.set.email = email;
 
+
 			console.log($scope.set);
 			$http.post('/createSet', $scope.set).success(function(data, status, headers, config) {
 				$scope.set.setIdNum = data.setIdNum;
