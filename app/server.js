@@ -68,7 +68,7 @@ passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
    //callbackURL: "http://localhost:8080/auth/facebook/callback",
-    callbackURL: "http://localhost:80/auth/facebook/callback",
+    callbackURL: "http://su-studybuddy.azurewebsites.net/auth/facebook/callback",
     profileFields: ['email', 'name']
   },
   function(accessToken, refreshToken, profile, done) {
@@ -117,7 +117,7 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 			/*if(req.isAuthenticated()){
 				var isloogedin = true;
 			}*/
-			res.redirect('http://localhost/#/mysets');
+			res.redirect('http://su-studybuddy.azurewebsites.net/#/mysets');
 			//res.json(newUser.email);
 			//res.json(newUser);
 			
