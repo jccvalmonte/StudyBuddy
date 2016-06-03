@@ -42,7 +42,12 @@ app.use(bodyParser());
 app.use(bodyParser.urlencoded({extend: false}));
 app.use(bodyParser.json());
 app.use(methodOverride());
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'keyboard cat', 
+	store: new MongoStore({ 
+			mongooseConnection: mongoose.connection,
+			collection: 'sessions'
+		}) 
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.Router());
@@ -79,13 +84,17 @@ passport.use(new FacebookStrategy({
     			if(user)
     				{
     				console.log("found user is: "+ user);
+    				
     				return done(null, user);
+
     				}
     			else {
     				var newUser = new Accounts();
-    				newUser.facebookid = profile.id;
-    				//newUser.facebooktoken = accessToken;
+    				//newUser.facebookid = profile.id;
+
+    				newUser.facebooktoken = accessToken;
     				newUser.firstName = profile.name.givenName;
+    				console.log("newUser.firstName "+ newUser.firstName);
             		newUser.lastName  = profile.name.familyName;
             		//newUser.dob = profile.birthday;
     				console.log("test1 here pls first.. 1 ..");
@@ -93,8 +102,9 @@ passport.use(new FacebookStrategy({
     				//newUser.facebook.photo = 'https://graph.facebook.com/v2.3/' + profile.id + '/picture?type=large';
 
     				newUser.save(function(err){
-    					if(err)
+    					if(err){
     						throw err;
+    					}
     					console.log("newuser is: "+ newUser);
     					return done(null, newUser);
     				})
@@ -113,6 +123,8 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/client/views/login.html' }),
 		function(req, res){
 			console.log("auth newuser is: "+ req.user.email);
+			console.log("req.session.passport.user: "+ req.session.passport.user._id);
+
 			console.log("is auth: ? "+ req.isAuthenticated());
 			/*if(req.isAuthenticated()){
 				var isloogedin = true;
@@ -123,6 +135,17 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 			//res.json(newUser);
 			
 		});
+
+	app.get('/fbsessionurl', function(req, res){
+		console.log("Inside server side fb session call url !!!");
+
+		Accounts.find({_id: req.session.passport.user._id}, function(err, found){
+			if(err)
+				res.send(err);
+			else
+				res.json(found);
+		});
+	});
 
 app.get('/logout', function(req, res){
   req.logout();
@@ -239,6 +262,29 @@ mongoose.connection.on('open', function(){
 	);
 	
 	Cards = mongoose.model('Cards', CardListSchema);
+
+		var SessionSchema = new Schema({
+		session: {
+			cookie: {
+				originalMaxAge: String,
+				expires: String,
+				httpOnly: Boolean,
+				path: String
+			},
+			passport: {
+				user: {
+					email: String,
+					lastName: String,
+					firstName: String,
+					facebookid: Number
+				}
+			}
+		},
+		expires: String
+		}, {collection: 'sessions'}
+	);
+	
+	Session = mongoose.model('Session', SessionSchema);
 	
 	console.log('Models created!');
 

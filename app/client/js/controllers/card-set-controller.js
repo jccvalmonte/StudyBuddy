@@ -2,6 +2,18 @@ var app = angular.module('studybuddyApp');
 
 app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$http', '$location','$routeParams',
 	function ($rootScope, $scope, $resource, $http, $location, $routeParams) {
+
+	$scope.getFBsessionDetails = function() {
+
+		var fbsessionurl = "/fbsessionurl";
+		console.log("fbsessionurl is: "+fbsessionurl);
+
+		$http.get(fbsessionurl).success(function(data){
+			$scope.fbdetails = data[0];
+			//var fbdet = JSON.parse($scope.fbdetails);
+			console.log("$scope.fbdetails: "+ $scope.fbdetails.email);
+		});
+	}	
 		
 	$scope.getAllSets = function() {
 		var url = "/homeSets";
@@ -49,8 +61,8 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 				
 				$scope.results = data;
 				
-				if($scope.results.length == 0)
-					window.alert("No flashcard sets found, please create new sets !");
+			/*	if($scope.results.length == 0)
+					window.alert("No flashcard sets found, please create new sets !");*/
 			});
 		}
 
