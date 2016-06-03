@@ -150,6 +150,7 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
+
 });
 
 app.get('/getmysets', function(req,res){
@@ -228,15 +229,7 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'accounts'}
 	);	
-	Accounts = mongoose.model('Accounts', AccountSchema);                                    
-
-	app.get('/logout', function(req, res){
-		req.logout();
-		res.redirect('/');
-	});
-
-
-	//Accounts = mongoose.model('Accounts', AccountSchema);
+	Accounts = mongoose.model('Accounts', AccountSchema);
 
 	var CardSetSchema = new Schema({
 		setIdNum: String,
