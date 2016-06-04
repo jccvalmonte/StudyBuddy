@@ -1,20 +1,54 @@
-<div class="container-fluid" ng-controller="quiz-controller" style="margin-bottom: 35px">
+<div class="container-fluid" ng-controller="quiz-controller" ng-init="getSetDetails()" style="margin-bottom: 50px">
 
-	<center><h2>Quiz in session...</h2></center>
-	<br><br><br>
+	<p class="lead" style="margin-left:11%" ng-init="getSetDetails()">
+		Set Name: <b>{{setDetails.Name}}</b><br>
+		Author:   <b>{{setDetails.Author}}</b><br>
+		Category: <b>{{setDetails.Category}}</b>
+	</p>
+
 	<div class="col-md-4"></div>
 	<div class="col-md-4" ng-init="getQuestions()">
-		<form class="form-group" ng-repeat="question in questions" ng-submit="getStatistics()">
-			<p class="lead">{{question.front}}
-			<input class="form-control input-lg" type="text" placeholder="Your answer" ng-model="question.input" />
+		
+		<div ng-hide="clicked">
+			<br>
+			<center><h2>Quiz in session...</h2></center>
+			<br><br><br>
+
+			<form class="form-group" ng-repeat="question in questions">
+				<p class="lead">
+					{{question.front}}
+					<input class="form-control input-lg" type="text" placeholder="Your answer" ng-model="question.input" />
+				</p>
+			</form>
+
+			<br>
+
+			<center><input ng-click="getStatistics(); clicked=true;" class="btn btn-lg btn-success" type="submit" value="Submit Quiz" /></center>
+		</div>
+
+
+		<div ng-show="clicked">
+			<br>
+			<center><h2>Quiz Performance</h2></center>
+			<br><br><br>
+
+			<p class="lead" text-align="middle">
+				You answered <b>{{numAnsweredCorrect}}</b> out of <b>{{questions.length}}</b> correctly. ({{percentage}}%)<br><br>
+				Grade: <b>{{grade}}</b><br><br>
 			</p>
-			{{question}}
-		</form>
 
-		<br>
-		<center><input class="btn btn-lg btn-success" type="submit" value="Submit Quiz" /></center>
-
-		{{numAnsweredCorrect}}
+			<div ng-repeat="answer in questions">
+				<p class="lead">
+					<b>{{answer.front}}</b><br>
+					Solution: <b>{{answer.back}}</b><br>
+					You entered: <b>{{answer.input}}</b><br>
+				</p>
+			</div>
+			<br><br>
+			<center>
+				<button class="btn btn-lg btn-primary" ng-click="redirectCardUrl()">Return to Set</button>
+			</center>
+		</div>
 
 	</div>
 	<div class="col-md-4"></div>
@@ -22,3 +56,4 @@
 	
 	
 </div>
+<script type = "text/javascript" src="/client/js/controllers/quiz-controller.js"></script>

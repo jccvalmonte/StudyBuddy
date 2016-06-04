@@ -84,10 +84,6 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 			});
 		}
 
-
-
-		
-
 		$scope.redirectUserCardUrl = function(setIdNum, name) {
 
 			var url = "/card/"+setIdNum+ "/"+name;

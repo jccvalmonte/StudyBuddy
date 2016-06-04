@@ -2,6 +2,18 @@ var app = angular.module('studybuddyApp');
 
 app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$http', '$location','$routeParams',
 	function ($rootScope, $scope, $resource, $http, $location, $routeParams) {
+
+	$scope.getFBsessionDetails = function() {
+
+		var fbsessionurl = "/fbsessionurl";
+		console.log("fbsessionurl is: "+fbsessionurl);
+
+		$http.get(fbsessionurl).success(function(data){
+			$scope.fbdetails = data[0];
+			//var fbdet = JSON.parse($scope.fbdetails);
+			console.log("$scope.fbdetails: "+ $scope.fbdetails.email);
+		});
+	}	
 		
 	$scope.getAllSets = function() {
 		var url = "/homeSets";
@@ -18,6 +30,7 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 		$location.path(url);
 	}
 
+
 	$scope.deleteSet = function(setIdNum){
 		var url = "/delete/:" + setIdNum;
 		$http.delete(url);
@@ -27,6 +40,7 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 			var url ="/mysets";
 			$location.path(url);
 		}*/
+
 
 	$scope.getmysets = function(){
 		var my_set_url = "/getmysets";
@@ -50,6 +64,7 @@ app.controller('card-set-controller', ['$rootScope','$scope', '$resource', '$htt
 			var url = '/modifyCards/:' + setID;
 
 			$location.path(url);
+
 		}
 
 }]);
