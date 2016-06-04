@@ -55,11 +55,13 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			// CREATE SET
 			$http.post('/createSet', $scope.set).success(function(data) {
 				$scope.set.setIdNum = data.setIdNum;
+				console.log($scope.set);
 			});
 
 			// CREATE CARDS
 			$http.post('/createCards', $scope.cardList).success(function(data) {
 				$scope.cardList.setIdNum = data.setIdNum;
+				console.log($scope.cardList);
 			});
 		}
 

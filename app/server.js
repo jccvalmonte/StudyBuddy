@@ -95,7 +95,7 @@ passport.use(new FacebookStrategy({
     				newUser.save(function(err){
     					if(err)
     						throw err;
-    					console.log("newuser is: "+ newUser);
+    					console.log("new user is: "+ newUser);
     					return done(null, newUser);
     				})
     				console.log("profile is: "+ profile);
@@ -110,23 +110,22 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 
 	});
 
-	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/client/views/login.html' }),
-		function(req, res){
-			console.log("auth newuser is: "+ req.user.email);
-			console.log("is auth: ? "+ req.isAuthenticated());
-			/*if(req.isAuthenticated()){
-				var isloogedin = true;
-			}*/
-			res.redirect('http://localhost:8080/#/mysets');
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/client/views/login.html' }),
+	function(req, res){
+	console.log("auth new user is: "+ req.user.email);
+	console.log("is auth: ? "+ req.isAuthenticated());
+	/*if(req.isAuthenticated()){
+		var isloogedin = true;
+	}*/
+	res.redirect('http://localhost:8080/#/mysets');
 
-			//res.json(newUser.email);
-			//res.json(newUser);
-			
-		});
+	//res.json(newUser.email);
+	//res.json(newUser);
+});
 
 app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
+	req.logout();
+	res.redirect('/');
 });
 
 app.get('/getmysets', function(req,res){
@@ -136,7 +135,7 @@ app.get('/getmysets', function(req,res){
 	if(req.isAuthenticated()){
 		console.log("After getmysets:" + req.isAuthenticated());
 
-		if(req.user.email !=null){
+		if(req.user.email != null){
 			var user_email = req.user.email;
 			Sets.find({email: user_email}, function(err, found) {
 		        if (err)
@@ -264,28 +263,24 @@ function retrieveUserIdWithPwd(req, res, query) {
 			req.session.user = undefined;
 			res.sendStatus(404);
 			return;
-		}
-		else {
+		} else {
+			var userusername = user.username;
+			var userpwd = user.password;
+			var hashedPwd = crypto.createHash('sha256').update(userpwd).digest('base64').toString();
+			console.log("had pwd is: "+hashedPwd);
 
-				var userusername = user.username;
-				var userpwd = user.password;
-				var hashedPwd = crypto.createHash('sha256').update(userpwd).digest('base64').toString();
-				console.log("had pwd is: "+hashedPwd);
-
-				if(hashedPwd == user.hashed_pwd){
-					req.session.userid = user._id.valueOf();
-					console.log("user session is: "+ req.session.userid);
-					req.session.username = user.username;
-					req.session.email = user.email;
-					console.log('user information is correct');
-				}
-				console.log("dipali username userpass is: "+ userusername + " " + userpwd);
-			
+			if(hashedPwd == user.hashed_pwd){
+				req.session.userid = user._id.valueOf();
+				console.log("user session is: "+ req.session.userid);
+				req.session.username = user.username;
+				req.session.email = user.email;
+				console.log('user information is correct');
+			}
+			console.log("dipali username userpass is: "+ userusername + " " + userpwd);
 		}
 		if (err) {
 			console.log("errors accessing users");
-		}
-		else {
+		} else {
 			console.log("----------->user info:" + user);
 			var userusername = user.username;
 			console.log("else username is: "+ userusername);
@@ -421,7 +416,7 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 20;
+var idGen = 30;
 
 app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
