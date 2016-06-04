@@ -14,8 +14,6 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 
 				console.log("set details: " + $scope.setDetails);
 			});
-
-
 		}
 
 		$scope.getcardResults = function() {

@@ -42,13 +42,18 @@ app.use(bodyParser());
 app.use(bodyParser.urlencoded({extend: false}));
 app.use(bodyParser.json());
 app.use(methodOverride());
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'keyboard cat', 
+	store: new MongoStore({ 
+			mongooseConnection: mongoose.connection,
+			collection: 'sessions'
+		}) 
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.Router());
 
 
-app.set('port', process.env.PORT || 80); //3000);
+app.set('port', process.env.PORT || 8080); //3000);
 
 var FACEBOOK_APP_ID = "1754049368215587";
 var FACEBOOK_APP_SECRET = "1bcb148cf8e0867484a4ab2eab76a864"
@@ -68,7 +73,7 @@ passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
    //callbackURL: "http://localhost:8080/auth/facebook/callback",
-    callbackURL: "http://localhost:80/auth/facebook/callback",
+    callbackURL: "http://localhost:8080/auth/facebook/callback",
     profileFields: ['email', 'name']
   },
   function(accessToken, refreshToken, profile, done) {
@@ -79,14 +84,17 @@ passport.use(new FacebookStrategy({
     			if(user)
     				{
     				console.log("found user is: "+ user);
+    				
     				return done(null, user);
+
     				}
     			else {
     				var newUser = new Accounts();
-    				newUser.facebookid = profile.id;
-    				//newUser.facebooktoken = accessToken;
-    				//newUser.firstName = profile.familyName;
+    				//newUser.facebookid = profile.id;
+
+    				newUser.facebooktoken = accessToken;
     				newUser.firstName = profile.name.givenName;
+    				console.log("newUser.firstName "+ newUser.firstName);
             		newUser.lastName  = profile.name.familyName;
             		//newUser.dob = profile.birthday;
     				console.log("test1 here pls first.. 1 ..");
@@ -94,8 +102,9 @@ passport.use(new FacebookStrategy({
     				//newUser.facebook.photo = 'https://graph.facebook.com/v2.3/' + profile.id + '/picture?type=large';
 
     				newUser.save(function(err){
-    					if(err)
+    					if(err){
     						throw err;
+    					}
     					console.log("newuser is: "+ newUser);
     					return done(null, newUser);
     				})
@@ -114,23 +123,39 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/client/views/login.html' }),
 		function(req, res){
 			console.log("auth newuser is: "+ req.user.email);
+			console.log("req.session.passport.user: "+ req.session.passport.user._id);
+
 			console.log("is auth: ? "+ req.isAuthenticated());
 			/*if(req.isAuthenticated()){
 				var isloogedin = true;
 			}*/
-			res.redirect('/');
+			res.redirect('http://localhost:8080/#/mysets');
+
 			//res.json(newUser.email);
 			//res.json(newUser);
 			
 		});
 
+	app.get('/fbsessionurl', function(req, res){
+		console.log("Inside server side fb session call url !!!");
+
+		Accounts.find({_id: req.session.passport.user._id}, function(err, found){
+			if(err)
+				res.send(err);
+			else
+				res.json(found);
+		});
+	});
+
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
+
 });
 
 app.get('/getmysets', function(req,res){
 	console.log("Before getmysets:" + req.isAuthenticated());
+	//console.log("jsom email val: "+ req.profile.emails[0].value);
 
 	if(req.isAuthenticated()){
 		console.log("After getmysets:" + req.isAuthenticated());
@@ -147,7 +172,7 @@ app.get('/getmysets', function(req,res){
 	}
 	else{
 		console.log("redirecting to login page");
-		//res.redirect("/");
+		res.redirect("/");
 		//res.redirect("./#/login.html");
 	}
 })
@@ -155,9 +180,6 @@ app.get('/getmysets', function(req,res){
 //global variables to access the schema models
 var Sets;
 var Cards;
-
-/*const hmac = crypto.createHmac('sha256', 'a secret');
-console.log("hash is"+ hmac);*/
 
 //initializing mongoose connection to the MongoDB database
 //route to database held in 'db.config'
@@ -181,15 +203,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } } }; 
 mongoose.createConnection(mongooseUri, options);
-
-/*app.use(session({ 
-		secret: 'keyboard cat',
-		store: new MongoStore({ 
-			mongooseConnection: mongoose.connection,
-			collection: 'sessions'
-		})
-}));*/
-
 
 console.log('Sending connecting request with Mongo db');
 mongoose.connection.on('error', function() {
@@ -216,15 +229,7 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'accounts'}
 	);	
-	Accounts = mongoose.model('Accounts', AccountSchema);                                    
-
-	app.get('/logout', function(req, res){
-		req.logout();
-		res.redirect('/');
-	});
-
-
-	//Accounts = mongoose.model('Accounts', AccountSchema);
+	Accounts = mongoose.model('Accounts', AccountSchema);
 
 	var CardSetSchema = new Schema({
 		setIdNum: String,
@@ -232,7 +237,7 @@ mongoose.connection.on('open', function(){
 		Category: String,
 		numCards: Number,
 		Author: String,
-		DateCreated: Date,
+		DateCreated: String,
 		email: String
 		}, {collection: 'sets'}
 	);
@@ -241,17 +246,38 @@ mongoose.connection.on('open', function(){
 
 	var CardListSchema = new Schema({
 		setIdNum: String,
-		Author: String,
 		cards: [{
 			cardId: Number,
 			front: String,
 			back: String
 		}]
-		
 		}, {collection: 'cards'}
 	);
 	
 	Cards = mongoose.model('Cards', CardListSchema);
+
+		var SessionSchema = new Schema({
+		session: {
+			cookie: {
+				originalMaxAge: String,
+				expires: String,
+				httpOnly: Boolean,
+				path: String
+			},
+			passport: {
+				user: {
+					email: String,
+					lastName: String,
+					firstName: String,
+					facebookid: Number
+				}
+			}
+		},
+		expires: String
+		}, {collection: 'sessions'}
+	);
+	
+	Session = mongoose.model('Session', SessionSchema);
 	
 	console.log('Models created!');
 
@@ -434,24 +460,22 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 5;
+var idGen = 20;
 
 app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
-	
+
 	Sets.create(jsonObj, function(err, found){
 		if(err)
 			res.send(err)
 		else
 			res.json(found);
 	});
-	
-
 });
 
-app.post('/createset/cards', function(req,res){
+app.post('/createCards', function(req, res){
 	var jsonObj = req.body;
 	jsonObj.setIdNum = idGen;
 	console.log(jsonObj);
@@ -462,9 +486,9 @@ app.post('/createset/cards', function(req,res){
 		else
 			res.json(found);
 	});
-	
+
 	idGen++;
-})
+});
 
 app.delete('/delete/:setId', function(req,res){
 
