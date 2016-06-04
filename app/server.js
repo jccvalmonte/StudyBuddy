@@ -42,7 +42,12 @@ app.use(bodyParser());
 app.use(bodyParser.urlencoded({extend: false}));
 app.use(bodyParser.json());
 app.use(methodOverride());
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'keyboard cat', 
+	store: new MongoStore({ 
+			mongooseConnection: mongoose.connection,
+			collection: 'sessions'
+		}) 
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.Router());
@@ -67,7 +72,6 @@ passport.use(new FacebookStrategy({
 
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-   //callbackURL: "http://localhost:8080/auth/facebook/callback",
     callbackURL: "http://localhost:8080/auth/facebook/callback",
     profileFields: ['email', 'name']
   },
@@ -79,13 +83,17 @@ passport.use(new FacebookStrategy({
     			if(user)
     				{
     				console.log("found user is: "+ user);
+    				
     				return done(null, user);
+
     				}
     			else {
     				var newUser = new Accounts();
-    				newUser.facebookid = profile.id;
-    				//newUser.facebooktoken = accessToken;
+    				//newUser.facebookid = profile.id;
+
+    				newUser.facebooktoken = accessToken;
     				newUser.firstName = profile.name.givenName;
+    				console.log("newUser.firstName "+ newUser.firstName);
             		newUser.lastName  = profile.name.familyName;
             		//newUser.dob = profile.birthday;
     				console.log("test1 here pls first.. 1 ..");
@@ -93,9 +101,10 @@ passport.use(new FacebookStrategy({
     				//newUser.facebook.photo = 'https://graph.facebook.com/v2.3/' + profile.id + '/picture?type=large';
 
     				newUser.save(function(err){
-    					if(err)
+    					if(err){
     						throw err;
-    					console.log("new user is: "+ newUser);
+    					}
+    					console.log("newuser is: "+ newUser);
     					return done(null, newUser);
     				})
     				console.log("profile is: "+ profile);
@@ -110,22 +119,37 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 
 	});
 
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/client/views/login.html' }),
-	function(req, res){
-	console.log("auth new user is: "+ req.user.email);
-	console.log("is auth: ? "+ req.isAuthenticated());
-	/*if(req.isAuthenticated()){
-		var isloogedin = true;
-	}*/
-	res.redirect('http://localhost:8080/#/mysets');
+	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/client/views/login.html' }),
+		function(req, res){
+			console.log("auth newuser is: "+ req.user.email);
+			console.log("req.session.passport.user: "+ req.session.passport.user._id);
 
-	//res.json(newUser.email);
-	//res.json(newUser);
-});
+			console.log("is auth: ? "+ req.isAuthenticated());
+			/*if(req.isAuthenticated()){
+				var isloogedin = true;
+			}*/
+			res.redirect('http://localhost:8080/#/mysets');
+
+			//res.json(newUser.email);
+			//res.json(newUser);
+			
+		});
+
+	app.get('/fbsessionurl', function(req, res){
+		console.log("Inside server side fb session call url !!!");
+
+		Accounts.find({_id: req.session.passport.user._id}, function(err, found){
+			if(err)
+				res.send(err);
+			else
+				res.json(found);
+		});
+	});
 
 app.get('/logout', function(req, res){
-	req.logout();
-	res.redirect('/');
+  req.logout();
+  res.redirect('/');
+
 });
 
 app.get('/getmysets', function(req,res){
@@ -135,7 +159,7 @@ app.get('/getmysets', function(req,res){
 	if(req.isAuthenticated()){
 		console.log("After getmysets:" + req.isAuthenticated());
 
-		if(req.user.email != null){
+		if(req.user.email !=null){
 			var user_email = req.user.email;
 			Sets.find({email: user_email}, function(err, found) {
 		        if (err)
@@ -204,15 +228,7 @@ mongoose.connection.on('open', function(){
 	},
 	{collection: 'accounts'}
 	);	
-	Accounts = mongoose.model('Accounts', AccountSchema);                                    
-
-	app.get('/logout', function(req, res){
-		req.logout();
-		res.redirect('/');
-	});
-
-
-	//Accounts = mongoose.model('Accounts', AccountSchema);
+	Accounts = mongoose.model('Accounts', AccountSchema);
 
 	var CardSetSchema = new Schema({
 		setIdNum: String,
@@ -238,6 +254,29 @@ mongoose.connection.on('open', function(){
 	);
 	
 	Cards = mongoose.model('Cards', CardListSchema);
+
+		var SessionSchema = new Schema({
+		session: {
+			cookie: {
+				originalMaxAge: String,
+				expires: String,
+				httpOnly: Boolean,
+				path: String
+			},
+			passport: {
+				user: {
+					email: String,
+					lastName: String,
+					firstName: String,
+					facebookid: Number
+				}
+			}
+		},
+		expires: String
+		}, {collection: 'sessions'}
+	);
+	
+	Session = mongoose.model('Session', SessionSchema);
 	
 	console.log('Models created!');
 
@@ -263,24 +302,28 @@ function retrieveUserIdWithPwd(req, res, query) {
 			req.session.user = undefined;
 			res.sendStatus(404);
 			return;
-		} else {
-			var userusername = user.username;
-			var userpwd = user.password;
-			var hashedPwd = crypto.createHash('sha256').update(userpwd).digest('base64').toString();
-			console.log("had pwd is: "+hashedPwd);
+		}
+		else {
 
-			if(hashedPwd == user.hashed_pwd){
-				req.session.userid = user._id.valueOf();
-				console.log("user session is: "+ req.session.userid);
-				req.session.username = user.username;
-				req.session.email = user.email;
-				console.log('user information is correct');
-			}
-			console.log("dipali username userpass is: "+ userusername + " " + userpwd);
+				var userusername = user.username;
+				var userpwd = user.password;
+				var hashedPwd = crypto.createHash('sha256').update(userpwd).digest('base64').toString();
+				console.log("had pwd is: "+hashedPwd);
+
+				if(hashedPwd == user.hashed_pwd){
+					req.session.userid = user._id.valueOf();
+					console.log("user session is: "+ req.session.userid);
+					req.session.username = user.username;
+					req.session.email = user.email;
+					console.log('user information is correct');
+				}
+				console.log("dipali username userpass is: "+ userusername + " " + userpwd);
+			
 		}
 		if (err) {
 			console.log("errors accessing users");
-		} else {
+		}
+		else {
 			console.log("----------->user info:" + user);
 			var userusername = user.username;
 			console.log("else username is: "+ userusername);
@@ -416,7 +459,7 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 30;
+var idGen = 20;
 
 app.post('/createSet', function(req, res){
 	var jsonObj = req.body;

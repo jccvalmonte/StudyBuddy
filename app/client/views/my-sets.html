@@ -1,6 +1,7 @@
-<center ng-app="studybuddyApp" ng-controller="card-set-controller">
+<<<<<<< HEAD
+<center ng-app="studybuddyApp" ng-controller="card-set-controller" ng-init="getFBsessionDetails(); getmysets()">
 	
-	<h2>Welcome, {{}}!</h2>
+	<h2>Welcome, {{._id}}!</h2>
 
 	<form action="#" method="get" style="margin-top:50px; margin-bottom:60px">
         <div class="col-md-6 input-group has-feedback">
@@ -11,6 +12,37 @@
 
     <div class="container-fluid" style="height: 500px; overflow: auto">
 	    <table class="table table-hover table-responsive table-list-search" ng-init="getmysets()"> 
+<!--
+<div ng-app="studybuddyApp" ng-controller="card-set-controller" ng-init="getFBsessionDetails(); getmysets()">
+	
+		<table class="table">
+			<caption> <img class="img-responsive" src="/images/facebook_like_logo.jpg" style="width: 5%; height: 5%"> 
+			<b><font size="3" color="black"> Logged in User Facebook details !</font></b>
+			</caption>
+
+			<thead>
+				<tr>
+					<th>Userid</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+				</tr>	
+			</thead>
+			
+			<tbody>
+				<tr class ="success">
+					<td>{{fbdetails._id}}</td>
+					<td>{{fbdetails.firstName}}</td>
+					<td>{{fbdetails.lastName}}</td>
+					<td>{{fbdetails.email}}</td>
+				</tr>		 
+			</tbody>
+
+		</table>
+
+<center  style="margin-top:50px">
+		<table class="table table-bordered table-striped table-hover">
+-->
 			<thead>
 				<th>Name</th>
 				<th>Category</th>
