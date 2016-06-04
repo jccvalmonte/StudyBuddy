@@ -3,6 +3,48 @@ var app = angular.module('studybuddyApp');
 app.controller('create-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
 	function ($scope, $resource, $http, $location, $routeParams) {
 
+
+		$scope.initNewSet = function() {
+			console.log('new set init');
+			var newSet = {};
+			newSet.setIdNum = 0;
+			newSet.Name = "";
+			newSet.Author = "";
+			newSet.Category = "";
+			newSet.numCards = 3;
+			newSet.dateCreated = new Date();
+			newSet.email = "";
+			$scope.set = newSet;
+		}
+
+		$scope.incNumCards = function(){
+			$scope.set.numCards++;
+		}
+
+		$scope.writeSet = function(name, author, category) {
+			console.log($scope.set);
+			$http.post('/createSet', $scope.set).success(function(data, status, headers, config) {
+				$scope.set.setIdNum = data.setIdNum;
+			});
+		}
+
+		$scope.initCards = function(){
+			console.log('new cards init');
+
+			var newCards = {
+				setIdNum: 0,
+				cards:[]
+			};
+
+			$scope.newCards = newCards;
+
+		}
+
+
+
+		
+			
+		
 		var id = 3; // Incremented as more cards are added
   
 		$scope.cardList={cards:[]};
@@ -56,6 +98,17 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			$http.post('/createSet', $scope.set).success(function(data) {
 				$scope.set.setIdNum = data.setIdNum;
 			});
+
+
+		
+
+
+/*
+		$scope.set = { cards: [] };
+
+		$scope.addCard = function() {
+			var br = document.createElement('br');
+			$scope.set.cards.push("");
 
 			// CREATE CARDS
 			$http.post('/createCards', $scope.cardList).success(function(data) {

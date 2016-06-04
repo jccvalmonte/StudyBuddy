@@ -1,4 +1,4 @@
-<div class="container-fluid" id="newSet" ng-controller='create-set-controller' style="margin-bottom: 50px">
+<div class="container-fluid" ng-init = "initNewSet(); initCards()" id="newSet" ng-controller='create-set-controller' style="margin-bottom: 50px">
 
 	<center><h2>Create a Flashcard Set</h2></center>
 
@@ -14,6 +14,7 @@
 
 			Author
 			<input class="form-control input-lg" type="text" ng-model="set.Author" placeholder="Author"><br>
+
 
 			User Email
 			<input class="form-control input-lg" type="text" ng-model="set.email" placeholder="Facebook Email ID"><br>
@@ -41,6 +42,7 @@
 
 		<br><br><pre>set{{set | json}}</pre>
 		<br><br><pre>cardList{{cardList | json}}</pre>
+
 	</div>
 	<div class="col-xs-2"></div>
 </div>
