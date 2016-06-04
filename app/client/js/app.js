@@ -47,4 +47,12 @@ app.config(function ($routeProvider) {
     templateUrl: '/client/views/my-sets.html',
     controller: 'card-set-controller'
   })
+  .when('/modifySet/:setID', {
+    templateUrl: '/client/views/modifySetOptions.html',
+    controller: 'card-set-controller'
+  })
+  .when('/modifyCards/:setID',{
+    templateUrl: '/client/views/editCards.html',
+    controller: 'cardCRUDcontroller'
+  })
 });

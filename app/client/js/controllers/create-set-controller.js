@@ -3,33 +3,32 @@ var app = angular.module('studybuddyApp');
 app.controller('create-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
 	function ($scope, $resource, $http, $location, $routeParams) {
 
-		$scope.set={};
-
+		
 		$scope.initNewSet = function() {
 			console.log('new set init');
 			var newSet = {};
 			newSet.setIdNum = 0;
-			newSet.Name = "lalala";
-			newSet.Author = "Chris";
-			newSet.Category = "test";
+			newSet.Name = "";
+			newSet.Author = "";
+			newSet.Category = "";
 			newSet.numCards = 3;
 			newSet.dateCreated = new Date();
-			newSet.userEmail = "";
+			newSet.email = "";
 			$scope.set = newSet;
 		}
 
-		$scope.writeSet = function(name, author, category) {
-			$scope.set.Name = name;
-			$scope.set.Author = author;
-			$scope.set.Category = category;
+		$scope.incNumCards = function(){
+			$scope.set.numCards++;
+		}
 
+		$scope.writeSet = function(name, author, category) {
 			console.log($scope.set);
 			$http.post('/createSet', $scope.set).success(function(data, status, headers, config) {
 				$scope.set.setIdNum = data.setIdNum;
 			});
 		}
 
-		$scope.initCards = function(front1, front2, front3, back1, back2, back3){
+		$scope.initCards = function(){
 			console.log('new cards init');
 
 			var newCards = {
@@ -37,31 +36,43 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 				cards:[]
 			};
 
-			newCards.cards.push({
+			$scope.newCards = newCards;
+
+		}
+
+
+
+		$scope.createCards = function(){
+			
+			var id = 1;
+
+			$scope.newCards.cards.push({
 				"cardId" : 1,
-				"front" : front1,
-				"back" : back1
+				"front" : card1.front,
+				"back" : card1.back
 			});
-			newCards.cards.push({
+			$scope.newCards.cards.push({
 				"cardId" : 2,
-				"front" : front2,
-				"back" : back2
+				"front" : card2.front,
+				"back" : card2.back
 			});
-			newCards.cards.push({
+			$scope.newCards.cards.push({
 				"cardId" : 3,
-				"front" : front3,
-				"back" : back3
+				"front" : card3.front,
+				"back" : card3.back
 			});
 
-			/*for(var i=0; i<3; i++){
-				var id = i+1;
+			/*for(var i=0; i<card.length; i=i+2){
+
 
 				newCards.cards.push({
 				"cardId" : id,
-				"front" : "blank front",
-				"back" : "blank back"
-			});*/
-				
+				"front" : card[i].front,
+				"back" : card[i+1].back
+				});
+
+				id++;
+			}*/
 
 			
 
@@ -72,19 +83,7 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			});
 		}
 
-		/*$scope.writeCards = function(front1, front2, front3, back1, back2, back3){
-			$scope.newCards.cards[0].front = front1;
-			$scope.newCards.cards[0].back = back1;
-			$scope.newCards.cards[1].front = front2;
-			$scope.newCards.cards[1].back = back2;
-			$scope.newCards.cards[2].front = front3;
-			$scope.newCards.cards[2].back = back3;
-			console.log($scope.cards);
-			$http.post('/createset/cards', $scope.cards).success(function(data, status, headers, config) {
-				$scope.cards.setIdNum = data.setIdNum;
-			});
-
-		}*/
+		
 
 
 /*
