@@ -119,32 +119,31 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email']}),
 
 	});
 
-	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/client/views/login.html' }),
-		function(req, res){
-			console.log("auth newuser is: "+ req.user.email);
-			console.log("req.session.passport.user: "+ req.session.passport.user._id);
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/client/views/login.html' }),
+	function(req, res){
+		console.log("auth newuser is: "+ req.user.email);
+		console.log("req.session.passport.user: "+ req.session.passport.user._id);
 
-			console.log("is auth: ? "+ req.isAuthenticated());
-			/*if(req.isAuthenticated()){
-				var isloogedin = true;
-			}*/
-			res.redirect('http://localhost:8080/#/mysets');
+		console.log("is auth: ? "+ req.isAuthenticated());
+		/*if(req.isAuthenticated()){
+			var isloogedin = true;
+		}*/
+		res.redirect('http://localhost:8080/#/mySets');
 
-			//res.json(newUser.email);
-			//res.json(newUser);
-			
-		});
+		//res.json(newUser.email);
+		//res.json(newUser);
+});
 
-	app.get('/fbsessionurl', function(req, res){
-		console.log("Inside server side fb session call url !!!");
+app.get('/fbsessionurl', function(req, res){
+	console.log("Inside server side fb session call url !!!");
 
-		Accounts.find({_id: req.session.passport.user._id}, function(err, found){
-			if(err)
-				res.send(err);
-			else
-				res.json(found);
-		});
+	Accounts.find({_id: req.session.passport.user._id}, function(err, found){
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
 	});
+});
 
 app.get('/logout', function(req, res){
   req.logout();
@@ -168,8 +167,7 @@ app.get('/getmysets', function(req,res){
 		            res.json(found);
 		        });
 		}
-	}
-	else{
+	} else {
 		console.log("redirecting to login page");
 		res.redirect("/");
 		//res.redirect("./#/login.html");
@@ -288,8 +286,7 @@ function displayDBError(err){
 		for (p in err) {
 			console.log(p + ":" + err[p]);
 		}
-	}
-	else {
+	} else {
 		console.log("no errors querying the db");
 	}
 }
@@ -302,8 +299,7 @@ function retrieveUserIdWithPwd(req, res, query) {
 			req.session.user = undefined;
 			res.sendStatus(404);
 			return;
-		}
-		else {
+		} else {
 
 				var userusername = user.username;
 				var userpwd = user.password;
@@ -322,8 +318,7 @@ function retrieveUserIdWithPwd(req, res, query) {
 		}
 		if (err) {
 			console.log("errors accessing users");
-		}
-		else {
+		} else {
 			console.log("----------->user info:" + user);
 			var userusername = user.username;
 			console.log("else username is: "+ userusername);
@@ -448,7 +443,6 @@ app.get('/quiz/:setIdNum', function(req, res) {
 });
 
 app.get('/card/:setIdNum', function(req, res) {
-	
 	var searchrequest = req.params.setIdNum;
 	console.log(searchrequest);
 	Cards.findOne({setIdNum: searchrequest}, function(err, found) {
@@ -459,7 +453,18 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 20;
+app.post('/update/:setIdNum', function(req, res) {
+	var searchrequest = req.params.setIdNum;
+	console.log(searchrequest);
+	Cards.findOneAndUpdate({setIdNum: searchrequest}, function(err, found) {
+		if (err)
+			res.send(err);
+		else
+			res.json(found);
+	});
+});
+
+var idGen = 150;
 
 app.post('/createSet', function(req, res){
 	var jsonObj = req.body;
@@ -489,18 +494,15 @@ app.post('/createCards', function(req, res){
 	idGen++;
 });
 
-app.delete('/delete/:setId', function(req,res){
+app.delete('/deleteSet/:setIdNum', function(req,res){
 
-	Sets.findOneAndRemove({setIdNum: req.params.setId}, 
+	Sets.findOneAndRemove({setIdNum: req.params.setIdNum}, 
 		function(err,set){
 			if (err){
 				res.send(err);
-			}
-			else{
+			} else {
 				console.log("set deleted!");
-				
 			}
-
 		});
 });
 
