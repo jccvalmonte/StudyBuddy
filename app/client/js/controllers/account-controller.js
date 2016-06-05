@@ -3,13 +3,6 @@ var app = angular.module('studybuddyApp');
 app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($rootScope, $scope, $resource, $http, $location, $routeParams ) {
 
-		$scope.getCreateUrl = function() {
-			//console.log(flashcardsetName);
-			var url = "/createset";
-			$location.path(url);
-			console.log("createset:" + url);
-		}
-
 		$scope.checklogin = function(username) {
 
 		var url = "/checklogin/"+ username;
@@ -23,7 +16,7 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 				if ($scope.userid.length==0){
 					window.alert('Not a valid user. Please try again.');
 				} else {
-					console.log("login out is:"+ $scope.userid);
+					console.log("logging out:"+ $scope.userid);
 					var user_id = JSON.parse($scope.userid);
 					
 						var user_url = "/userSetsurl/"+ user_id;
@@ -54,7 +47,6 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 			});
 		}
 
-	//initUserSignUp(email, firstName, lastName, DOB, username, password)
 		$scope.initUserSignUp = function(email, firstName, lastName, DOB, username, password) {
 			console.log('new user signup');
 			var newUser = {};
@@ -70,7 +62,6 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 		}
 
 		$scope.writeUserSignUp = function() {
-
 			$http.post('/signup', $scope.userSignUp).success(function(data) {
 				$scope.results = data;
 
@@ -85,7 +76,6 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 		}
 
 		$scope.redirectUserCardUrl = function(setIdNum, name) {
-
 			var url = "/card/"+setIdNum+ "/"+name;
 			console.log(url);
 			$location.path(url);
