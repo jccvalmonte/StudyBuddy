@@ -2,66 +2,19 @@ var app = angular.module('studybuddyApp');
 
 app.controller('create-set-controller', ['$scope', '$resource', '$http', '$location','$routeParams',
 	function ($scope, $resource, $http, $location, $routeParams) {
-
-
-		$scope.initNewSet = function() {
-			console.log('new set init');
-			var newSet = {};
-			newSet.setIdNum = 0;
-			newSet.Name = "";
-			newSet.Author = "";
-			newSet.Category = "";
-			newSet.numCards = 3;
-			newSet.dateCreated = new Date();
-			newSet.email = "";
-			$scope.set = newSet;
-		}
-
-		$scope.incNumCards = function(){
-			$scope.set.numCards++;
-		}
-
-		$scope.writeSet = function(name, author, category) {
-			console.log($scope.set);
-			$http.post('/createSet', $scope.set).success(function(data, status, headers, config) {
-				$scope.set.setIdNum = data.setIdNum;
-			});
-		}
-
-		$scope.initCards = function(){
-			console.log('new cards init');
-
-			var newCards = {
-				setIdNum: 0,
-				cards:[]
-			};
-
-			$scope.newCards = newCards;
-
-		}
-
-
-
-		
-			
-		
-		var id = 3; // Incremented as more cards are added
   
 		$scope.cardList={cards:[]};
 
 		$scope.cardsToAdd = [
 			{
-				cardId: 1,
 				front: '',
 				back: ''
 			},
 			{
-				cardId: 2,
 				front: '',
 				back: ''
 			},
 			{
-				cardId: 3,
 				front: '',
 				back: ''
 			}
@@ -74,12 +27,18 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 		}
 
 		$scope.addNew = function() {
-			id++;
 			$scope.cardsToAdd.push({
-				cardId: id,
 				front: '',
 				back: ''
 			})
+		}
+
+		$scope.removeCardToAdd = function(indexToDelete) {
+			$scope.cardsToAdd.splice(indexToDelete, 1);
+		}
+
+		$scope.removeExistingCard = function(indexToDelete) {
+			$scope.cardList.cards.splice(indexToDelete, 1);
 		}
 
 		$scope.createSet = function() {
@@ -87,37 +46,32 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			// # Cards
 			$scope.set.numCards = $scope.cardList.cards.length;
 			
-			// # Date created
+			// Date created
 			var date = new Date();
 			var month = date.getUTCMonth() + 1; // months from 1-12
-			var day = date.getUTCDate();
+			var day = date.getUTCDate() - 1;
 			var year = date.getUTCFullYear();
 			$scope.set.DateCreated = month + "-" + day + "-" + year;
+
+			// Generate card id's
+			for (var i = 0; i < $scope.cardList.cards.length; i++)
+				$scope.cardList.cards[i].cardId = i+1;
 
 			// CREATE SET
 			$http.post('/createSet', $scope.set).success(function(data) {
 				$scope.set.setIdNum = data.setIdNum;
+				console.log($scope.set);
 			});
-
-
-		
-
-
-/*
-		$scope.set = { cards: [] };
-
-		$scope.addCard = function() {
-			var br = document.createElement('br');
-			$scope.set.cards.push("");
 
 			// CREATE CARDS
 			$http.post('/createCards', $scope.cardList).success(function(data) {
 				$scope.cardList.setIdNum = data.setIdNum;
+				console.log($scope.cardList);
 			});
 		}
 
 		$scope.redirectUserFlashcardsUrl = function() {
-			var url = "/mysets";
+			var url = "/mySets";
 			$location.path(url);
 		}
 }]);
