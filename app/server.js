@@ -134,6 +134,32 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
 		//res.json(newUser);
 });
 
+app.get ('/getallusers', function(req, res){
+	console.log("inside server side get all users for picklist");
+	Accounts.find({}, function(err, found){
+		if(err)
+			res.send(err);
+		else
+			res.json(found);
+	});
+
+});
+
+
+app.get ('/getUserSets/:selectedemail', function(req, res){
+console.log("inside the server side call for user picklist email");
+
+var useremail = req.params.selectedemail;
+
+Sets.find({email:useremail}, function(err, found){
+	 if (err)
+            res.send(err)
+        else
+            res.json(found);
+        });
+
+});
+
 app.get('/fbsessionurl', function(req, res){
 	console.log("Inside server side fb session call url !!!");
 
