@@ -51,8 +51,4 @@ app.config(function ($routeProvider) {
     templateUrl: '/client/views/modify-set.html',
     controller: 'modify-set-controller'
   })
-  .when('/getuser/:selectemail', {
-    templateUrl: '/client/views/picklist-user.html',
-    controller: 'account-controller'
-  })
 });

@@ -3,55 +3,6 @@ var app = angular.module('studybuddyApp');
 app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($rootScope, $scope, $resource, $http, $location, $routeParams ) {
 
-		$scope.getAllusers = function() {
-
-			$http.get("/getallusers").success(function(data){
-				//$scope.userresults = data;
-
-				 $scope.userresults = data;
-				 //	repeatSelect: null,
-				 //	data
-			
-			});
-		}
-
-		$scope.userRedirect = function(selecteduser) {
-			var selectemail = selecteduser.email;
-		console.log("Inside user specific picklist location path url call: "+ selectemail);
-			var url = "/getuser/"+selectemail;
-			$location.path(url);
-
-		}
-
-		$scope.getUserSets = function(){
-			console.log("user specific picklist getUserSets call");
-			//console.log("userresults.repeatSelect" + selecteduser.email);
-			var selectedemail= $routeParams.selectemail;
-			console.log("selected user email is: "+ selectedemail);
-			var url = "/getUserSets/"+ selectedemail;
-
-			$http.get(url).success(function(data) {
-				
-				$scope.usersets = data;
-			});
-		}
-
-				$scope.getcardResults = function() {
-			$scope.setIdNum = $routeParams.setIdNum;
-
-	    	var url = "/card/" + $scope.setIdNum;
-			console.log(url);
-
-			$http.get(url).success(function(data){
-				var i = 0;
-				$scope.i = i;
-				$scope.resultCards = data;
-				
-				console.log("result cards: " + $scope.resultCards);	
-			});
-		}
-
-
 		$scope.checklogin = function(username) {
 
 		var url = "/checklogin/"+ username;
@@ -118,23 +69,15 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 		}
 
 		$scope.redirectUserCardUrl = function(setIdNum, name) {
-			var url = "/card/" + setIdNum;
+			var url = "/card/"+setIdNum+ "/"+name;
+			console.log(url);
 			$location.path(url);
 		}
 
-		$scope.redirectModifySetUrl = function(setIdNum){
-			var url = "/modifySet/" + setIdNum;
-			$location.path(url);
-		}
-		
-		$scope.deleteSet = function(setIdNum){
-			var url = "/deleteSet/" + setIdNum;
-			$http.delete(url);
-		}
-
-		$scope.deleteCards = function(setIdNum){
-			var url = "/deleteCards/" + setIdNum;
-			$http.delete(url);
+		$scope.deleteSet = function(idNum){
+			var url = "/deleteSet/:" + idNum;
+			console.log(url);
+			$http.get(url);
 		}
 
 		$scope.loginUserSets = function(){
