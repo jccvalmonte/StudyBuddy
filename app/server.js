@@ -373,14 +373,14 @@ app.post('/signup', function(req, res) {
 
 
 	var jsonObj= req.body;
-	console.log(jsonObj);
+	console.log("Hello post Object is"+ jsonObj);
 
 	Accounts.create(jsonObj, function(err, found){
 		if (err)
      		res.send(err)
      	else
         //console.log(res.json);
-       // res.json(found); // return all accounts in JSON format
+       res.json(found); // return all accounts in JSON format
         console.log("Res is"+res.json(found));
 	}); 
 }); 

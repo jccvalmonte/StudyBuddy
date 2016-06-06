@@ -63,15 +63,8 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 
 		$scope.writeUserSignUp = function() {
 			$http.post('/signup', $scope.userSignUp).success(function(data) {
-				$scope.results = data;
-
-				/*if($scope.results.length==0){
-					window.alert('Account creation failed');
-				}
-				else{
-					window.alert('Successfully created an account, Please Login!');
-					//window.location.href = '/home.html';
-				}*/
+				$scope.results = data[0];
+				console.log("returned values are:"+ results.email);
 			});
 		}
 
