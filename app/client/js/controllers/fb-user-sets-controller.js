@@ -22,7 +22,7 @@ app.controller('fb-user-sets-controller', ['$rootScope','$scope', '$resource', '
 				$scope.sets = data;
 				
 				//if($scope.results.length == 0)
-					//window.alert("No flashcard sets found, please create new sets !");
+					//window.alert("You have not created any sets. Redirecting to");
 			});
 		}
 
@@ -36,8 +36,18 @@ app.controller('fb-user-sets-controller', ['$rootScope','$scope', '$resource', '
 			$location.path(url);
 		}
 
+		$scope.refreshPage = function() {
+			var url = "/mySets";
+			$location.path(url);
+		}
+
 		$scope.deleteSet = function(setIdNum){
 			var url = "/deleteSet/" + setIdNum;
+			$http.delete(url);
+		}
+
+		$scope.deleteCards = function(setIdNum){
+			var url = "/deleteCards/" + setIdNum;
 			$http.delete(url);
 		}
 
