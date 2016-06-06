@@ -450,7 +450,7 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 4;
+var idGen = 654658;
 
 app.post('/createSet', function(req, res){
 	idGen+=1;
@@ -500,25 +500,25 @@ app.delete('/deleteCards/:setIdNum', function(req, res) {
 	});
 });
 
-app.post('/updateSet/:setIdNum', function(req, res) {
-	var searchrequest = req.params.setIdNum;
-	console.log(searchrequest);
-	Sets.findOneAndUpdate({setIdNum: searchrequest}, function(err, found) {
+app.put('/updateSet/:setIdNum', function(req, res) {
+	var setToUpdate = req.params.setIdNum;
+	console.log(setToUpdate);
+	Sets.findOneAndUpdate({setIdNum: setToUpdate}, req.body, {upsert: true}, function(err, theSet) {
 		if (err)
 			res.send(err);
 		else
-			res.json(found);
+			res.json(theSet);
 	});
 });
 
-app.post('/updateCards/:setIdNum', function(req, res) {
-	var id = req.params.setIdNum;
-	console.log(searchrequest);
-	Cards.findOneAndUpdate({setIdNum: searchrequest}, function(err, found) {
+app.put('/updateCards/:setIdNum', function(req, res) {
+	var cardsToUpdate = req.params.setIdNum;
+	console.log(cardsToUpdate);
+	Cards.findOneAndUpdate({setIdNum: cardsToUpdate}, req.body, {upsert: true}, function(err, theCards) {
 		if (err)
 			res.send(err);
 		else
-			res.json(found);
+			res.json(theCards);
 	});
 });
 

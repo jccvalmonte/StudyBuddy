@@ -60,28 +60,16 @@ app.controller('modify-set-controller', ['$scope', '$resource', '$http', '$locat
 				$scope.cardList.cards[i].cardId = i+1;
 
 			// UPDATE SET
-
-
-			// UPDATE CARDS
-
-
-
-
-/*
-
-			// CREATE SET
-			$http.post('/createSet', $scope.set).success(function(data) {
-				$scope.set.setIdNum = data.setIdNum;
+			var set_url = "/updateSet/" + $scope.set.setIdNum;
+			$http.put(set_url, $scope.set).success(function(data) {
 				console.log($scope.set);
 			});
 
-			// CREATE CARDS
-			$http.post('/createCards', $scope.cardList).success(function(data) {
-				$scope.cardList.setIdNum = data.setIdNum;
+			// UPDATE CARDS
+			var cards_url = "/updateCards/" + $scope.cardList.setIdNum;
+			$http.put(cards_url, $scope.cardList).success(function(data) {
 				console.log($scope.cardList);
 			});
-
-*/
 		}
 
 		$scope.redirectUserFlashcardsUrl = function() {

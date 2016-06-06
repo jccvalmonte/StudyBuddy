@@ -1,4 +1,4 @@
-<center class="container-fluid" ng-controller="card-set-controller" ng-init="getAllSets()">
+<center class="container-fluid" ng-controller="card-set-controller">
 
     <h2>Flashcard Sets</h2>
 
@@ -9,7 +9,7 @@
         </div>
     </form>
     <div class="container-fluid" style="height: 500px; overflow: auto">
-    	<table class="table table-hover table-responsive table-list-search">
+    	<table class="table table-hover table-responsive table-list-search" ng-init="getAllSets()">
             <thead>
     			<th>Name</th>
     			<th>Category</th>
