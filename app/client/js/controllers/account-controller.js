@@ -63,8 +63,8 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 
 		$scope.writeUserSignUp = function() {
 			$http.post('/signup', $scope.userSignUp).success(function(data) {
-				$scope.results = data[0];
-				console.log("returned values are:"+ results.email);
+				$scope.results = data;
+				//console.log("returned values are:"+ results.email);
 			});
 		}
 
