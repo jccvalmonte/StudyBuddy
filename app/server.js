@@ -403,7 +403,8 @@ app.post('/signup', function(req, res) {
      		res.send(err)
      	else
         //console.log(res.json);
-       //res.json(found); // return all accounts in JSON format
+            res.json(found); // return all accounts in JSON format
+
         console.log("Res is"+res.json(found));
 	}); 
 }); 
