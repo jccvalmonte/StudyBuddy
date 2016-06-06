@@ -344,7 +344,6 @@ function isLoggedIn(req, res, next) {
 	res.redirect('/login');
 }
 
-
 app.get('/checklogin/:username', function(req, res) {
 	console.log("making a login request to server");
 	//console.log(req);
@@ -353,7 +352,6 @@ app.get('/checklogin/:username', function(req, res) {
 	retrieveUserIdWithPwd(req, res, {username: id});
 
 }); 
-
 
 app.get('/getUsersets/:userid', function(req, res) {
  
@@ -367,7 +365,6 @@ app.get('/getUsersets/:userid', function(req, res) {
             res.json(found);
         });
     }); 
-
 
 app.post('/signup', function(req, res) {
 
@@ -453,8 +450,69 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-app.post('/update/:setIdNum', function(req, res) {
+var idGen = 4;
+
+app.post('/createSet', function(req, res){
+	idGen+=1;
+	var jsonObj = req.body;
+	jsonObj.setIdNum = idGen;
+	console.log(jsonObj);
+
+	Sets.create(jsonObj, function(err, theSet){
+		if(err)
+			res.send(err)
+		else
+			res.json(theSet);
+	});
+});
+
+app.post('/createCards', function(req, res){
+	var jsonObj = req.body;
+	console.log(jsonObj);
+
+	Cards.create(jsonObj, function(err, theCards){
+		if(err)
+			res.send(err)
+		else
+			res.json(theCards);
+	});
+});
+
+app.delete('/deleteSet/:setIdNum', function(req, res) {
+	Sets.findOneAndRemove({setIdNum: req.params.setIdNum}, 
+		function(err, set){
+			if (err){
+				res.send(err);
+			} else {
+				console.log("set deleted");
+			}
+	});
+});
+
+app.delete('/deleteCards/:setIdNum', function(req, res) {
+	Cards.findOneAndRemove({setIdNum: req.params.setIdNum}, 
+	function(err, cards){
+		if (err){
+			res.send(err);
+		} else {
+			console.log("cards deleted");
+		}
+	});
+});
+
+app.post('/updateSet/:setIdNum', function(req, res) {
 	var searchrequest = req.params.setIdNum;
+	console.log(searchrequest);
+	Sets.findOneAndUpdate({setIdNum: searchrequest}, function(err, found) {
+		if (err)
+			res.send(err);
+		else
+			res.json(found);
+	});
+});
+
+app.post('/updateCards/:setIdNum', function(req, res) {
+	var id = req.params.setIdNum;
 	console.log(searchrequest);
 	Cards.findOneAndUpdate({setIdNum: searchrequest}, function(err, found) {
 		if (err)
@@ -464,47 +522,9 @@ app.post('/update/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 150;
 
-app.post('/createSet', function(req, res){
-	var jsonObj = req.body;
-	jsonObj.setIdNum = idGen;
-	console.log(jsonObj);
 
-	Sets.create(jsonObj, function(err, found){
-		if(err)
-			res.send(err)
-		else
-			res.json(found);
-	});
-});
 
-app.post('/createCards', function(req, res){
-	var jsonObj = req.body;
-	jsonObj.setIdNum = idGen;
-	console.log(jsonObj);
-
-	Cards.create(jsonObj, function(err, found){
-		if(err)
-			res.send(err)
-		else
-			res.json(found);
-	});
-
-	idGen++;
-});
-
-app.delete('/deleteSet/:setIdNum', function(req,res){
-
-	Sets.findOneAndRemove({setIdNum: req.params.setIdNum}, 
-		function(err,set){
-			if (err){
-				res.send(err);
-			} else {
-				console.log("set deleted!");
-			}
-		});
-});
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port') + "...");

@@ -42,7 +42,6 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 		}
 
 		$scope.createSet = function() {
-			
 			// # Cards
 			$scope.set.numCards = $scope.cardList.cards.length;
 			
@@ -53,25 +52,47 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			var year = date.getUTCFullYear();
 			$scope.set.DateCreated = month + "-" + day + "-" + year;
 
+			// Author
+			$scope.set.Author = $scope.fbDetails.firstName + " " + $scope.fbDetails.lastName.charAt(0) + ".";
+
+			// Email
+			$scope.set.email = $scope.fbDetails.email;
+			
+			// CREATE SET
+			$http.post('/createSet', $scope.set).success(function(data) {
+				$scope.set.setIdNum = data.setIdNum;
+				$scope.cardList.setIdNum = data.setIdNum;
+				console.log($scope.set);
+			});
+		}
+
+		$scope.createCards = function() {
 			// Generate card id's
 			for (var i = 0; i < $scope.cardList.cards.length; i++)
 				$scope.cardList.cards[i].cardId = i+1;
 
-			// CREATE SET
-			$http.post('/createSet', $scope.set).success(function(data) {
-				$scope.set.setIdNum = data.setIdNum;
-				console.log($scope.set);
-			});
-
 			// CREATE CARDS
 			$http.post('/createCards', $scope.cardList).success(function(data) {
-				$scope.cardList.setIdNum = data.setIdNum;
 				console.log($scope.cardList);
 			});
+
+			// Update # cards in set
+			$scope.set.numCards = $scope.cardList.cards.length;
+
+			// Update set
 		}
 
 		$scope.redirectUserFlashcardsUrl = function() {
 			var url = "/mySets";
 			$location.path(url);
+		}
+
+		$scope.getFBsessionDetails = function() {
+			var fbsessionurl = "/fbsessionurl";
+			console.log("fbsessionurl is: "+ fbsessionurl);
+
+			$http.get(fbsessionurl).success(function(data){
+				$scope.fbDetails = data[0];
+			});
 		}
 }]);
