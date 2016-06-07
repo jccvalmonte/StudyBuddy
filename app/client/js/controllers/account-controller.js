@@ -150,4 +150,12 @@ app.controller('account-controller', ['$window', '$rootScope', '$scope', '$resou
 				$location.path(newuserpageurl);
 			});
 		}
+
+		$scope.upgradeAccount = function() {
+			$rootScope.upgraded = true;
+		}
+
+		$scope.downgradeAccount = function() {
+			$rootScope.upgraded = false;
+		}
 }]);

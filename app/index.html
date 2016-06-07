@@ -40,15 +40,21 @@
 				<ul class="nav navbar-nav">
 					<li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
 					
-						<li><a ng-href="#/signup">Sign Up<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-						<li><a ng-href="#/login">Login<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-in"></span></a></li>
+					<li><a ng-href="#/signup">Sign Up<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+					<li><a ng-href="#/login">Login<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-in"></span></a></li>
 
 
-						<li><a ng-href="#/mySets">My Flashcards<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
-						<li><a ng-href="#/createSet">Create<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
-						<li><a ng-href="/logout">Logout<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
+					<li><a ng-href="#/mySets">My Flashcards<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
+					<li><a ng-href="#/createSet">Create<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
+					
+					
+					<li ng-controller="account-controller" ng-hide="upgraded"><a ng-href="#/mySets" ng-click="upgradeAccount()">Upgrade Account<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-chevron-up"></span></a></li>
+					<li ng-controller="account-controller" ng-show="upgraded"><a ng-href="#/mySets" ng-click="downgradeAccount()">Downgrade Account<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-chevron-down"></span></a></li>
 
+
+					<li><a ng-href="/logout">Logout<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
 				</ul>
+				
 			</div>
 		</div>
 	</nav>
@@ -73,7 +79,7 @@
 
 	<!-- Main content and injected views -->
 	<div class="main">
-		<div class="container ad-container" ng-hide="paid"><center><a ng-href="http://www.mcdonalds.com"><img src="./images/ad.jpg" class="img-responsive"></a></center></div>
+		<div class="container ad-container" ng-hide="upgraded"><center><a ng-href="http://www.mcdonalds.com"><img src="./images/ad.jpg" class="img-responsive"></a></center></div>
 		<!-- Angular templating -->
 		<!-- This is where content will be injected -->
    		<div ng-view=""></div>
