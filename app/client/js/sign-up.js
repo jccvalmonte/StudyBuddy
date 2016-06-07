@@ -1,9 +1,7 @@
 window.ParsleyValidator.addValidator('date', function(value){
 
-    console.log("IN FUNCTION");
     if(moment(value, 'MM/DD/YYYY', true).isValid()){
         
-        console.log("WITHIN");
         var currentDate = moment().format('MM/DD/YYYY');
         value = moment(value, 'MM/DD/YYYY');
 

@@ -9,14 +9,6 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			{
 				front: '',
 				back: ''
-			},
-			{
-				front: '',
-				back: ''
-			},
-			{
-				front: '',
-				back: ''
 			}
 		];
 
