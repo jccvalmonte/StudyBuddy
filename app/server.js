@@ -128,7 +128,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
 		/*if(req.isAuthenticated()){
 			var isloogedin = true;
 		}*/
-		res.redirect('http://localhost:8080/#/mySets');
+		res.redirect('http://su-studybuddy.azurewebsites.net/#/mySets');
 
 		//res.json(newUser.email);
 		//res.json(newUser);
