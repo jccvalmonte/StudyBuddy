@@ -10,7 +10,7 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			console.log(url);
 			$http.get(url).success(function(data) {
 				$scope.setDetails = data;
-				$scope.getRelatedSets($scope.setDetails.Category);
+				$scope.getRelatedSets($scope.setIdNum, $scope.setDetails.Category);
 
 				console.log("set details: " + $scope.setDetails);
 			});
