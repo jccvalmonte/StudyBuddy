@@ -422,18 +422,21 @@ app.get('/homeSets', function(req, res){
 	});
 });
 
-app.get('/relatedSets/:category', function(req, res) {
+app.get('/relatedSets/:setId/:category', function(req, res) {
 
 	var searchrequest = req.params.category;
+	var excludedSet = req.params.setId;
 	
-	Sets.find({Category: searchrequest}, function(err, found){
+	Sets
+	.find({Category: searchrequest}, function(err, found){
 		if(err)
 			res.send(err);
 		else {
 			console.log(found);
 			res.json(found);
 		}
-	});
+	})
+	.where('setIdNum').ne(excludedSet);
 });
 
 app.get('/setDetails/:setIdNum', function(req, res) {
