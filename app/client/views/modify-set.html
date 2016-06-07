@@ -4,8 +4,8 @@
 
 	<center><h2>Modify Set</h2></center>
 
-	<div class="col-xs-2"></div>
-	<div class="col-lg-8" style="margin-top:50px">
+	<div class="col-md-4"></div>
+	<div class="col-md-4" style="margin-top:50px">
 		<form>
 			<p class="lead">
 			Set Name
@@ -43,14 +43,16 @@
 		<center>
 			<b>NOTE: You must click "Add to Set" to add a card to the set.</b>
 			<br><br><br>
-			<button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="submitModifiedSet()">Submit Changes</button>
+			<button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="submitModifiedSet(); redirectUserFlashcardsUrl()">Submit Changes</button>
 		</center>
 
 
+<!--
 		<br><br><pre>cardList{{cardList | json}}</pre>
 		<br><br><pre>cardsToAdd{{cardsToAdd | json}}</pre>
 		<br><br><pre>setDetails{{setDetails | json}}</pre>
+-->
 
 	</div>
-	<div class="col-xs-2"></div>
+	<div class="col-md-4"></div>
 </div>

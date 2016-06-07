@@ -46,7 +46,7 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			// Date created
 			var date = new Date();
 			var month = date.getUTCMonth() + 1; // months from 1-12
-			var day = date.getUTCDate() - 1;
+			var day = date.getUTCDate();
 			var year = date.getUTCFullYear();
 			$scope.set.DateCreated = month + "-" + day + "-" + year;
 
@@ -78,6 +78,10 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			$scope.set.numCards = $scope.cardList.cards.length;
 
 			// Update set
+			var set_url = "/updateSet/" + $scope.set.setIdNum;
+			$http.put(set_url, $scope.set).success(function(data) {
+				console.log("set updated: " + $scope.set);
+			});
 		}
 
 		$scope.redirectUserFlashcardsUrl = function() {

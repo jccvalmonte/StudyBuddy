@@ -1,7 +1,7 @@
 var app = angular.module('studybuddyApp');
 
-app.controller('fb-user-sets-controller', ['$rootScope','$scope', '$resource', '$http', '$location','$routeParams',
-	function ($rootScope, $scope, $resource, $http, $location, $routeParams) {
+app.controller('fb-user-sets-controller', ['$window', '$rootScope','$scope', '$resource', '$http', '$location','$routeParams',
+	function ($window, $rootScope, $scope, $resource, $http, $location, $routeParams) {
 
 		$scope.getFBsessionDetails = function() {
 
@@ -39,6 +39,10 @@ app.controller('fb-user-sets-controller', ['$rootScope','$scope', '$resource', '
 		$scope.refreshPage = function() {
 			var url = "/mySets";
 			$location.path(url);
+		}
+
+		$scope.reloadRoute = function() {
+  			 $window.location.reload();
 		}
 
 		$scope.deleteSet = function(setIdNum){
