@@ -1,13 +1,14 @@
 <div class="container-fluid" ng-controller='create-set-controller' ng-init="getFBsessionDetails()" style="margin-bottom: 50px">
     <center><h2>Create a Flashcard Set</h2></center>
 
+<<<<<<< HEAD
     <div class="col-xs-2"></div>
     <div class="col-lg-8" style="margin-top:50px">
 
         <form name="setForm">
             <p class="lead">
                 Set Name
-                <input name="setName" class="form-control input-lg" type="text" ng-model="setName" placeholder="Name" required>
+                <input name="setName" class="form-control input-lg" type="text" ng-model="set.Name" placeholder="Name" required>
                 <span ng-show="setForm.setName.$touched && setForm.setName.$invalid">The Name is required.</span><br>
 
                 Category
