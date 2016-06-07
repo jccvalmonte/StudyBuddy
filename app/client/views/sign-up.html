@@ -37,7 +37,7 @@
 	
 	</p>
 
-	<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-click="createForm.$valid && initUserSignUp(email, firstName, lastName, DOB, username, password)">
+	<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-disabled="createForm.$invalid" ng-click="initUserSignUp(email, firstName, lastName, DOB, username, password)">
 		Register
 	</button>
 	</form>

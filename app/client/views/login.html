@@ -14,7 +14,7 @@
 			<input class="form-control input-lg" ng-required="true" id="inputPassword" placeholder="Password" type="password" ng-model="password">
 		</p>
 
-		<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-click="loginForm.$valid && checklogin(username)">
+		<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-disabled="loginForm.$invalid" ng-click="checklogin(username)">
 			Log In
 		</button>
 	<br>
