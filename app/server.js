@@ -267,13 +267,11 @@ mongoose.connection.on('open', function(){
 
 	Sets = mongoose.model('Sets', CardSetSchema);
 
+	var cardDetails = mongoose.Schema({cardId: Number, front: String, back: String}, {_id: false});
+
 	var CardListSchema = new Schema({
 		setIdNum: String,
-		cards: [{
-			cardId: Number,
-			front: String,
-			back: String
-		}]
+		cards: [cardDetails]
 		}, {collection: 'cards'}
 	);
 	
@@ -526,54 +524,33 @@ app.delete('/deleteCards/:setIdNum', function(req, res) {
 	});
 });
 
-/*
+
 app.put('/updateCards/:setIdNum', function(req, res) {
-	var cardsToUpdate = req.params.setIdNum;
+	var cardsToUpdate = {setIdNum: req.params.setIdNum};
 	console.log("updating cards w/ setIdNum: %s", cardsToUpdate);
 
 	// Query cards given the setIdNum parameter
-	Cards.findById(cardsToUpdate, function(err, updatedCards) {
+	Cards.findOneAndUpdate(cardsToUpdate, {$set: req.body}, {new: true}, function(err, updatedCards) {
 		if (err) {
 			res.send(err);
+		} else {
+			res.json("updated cards: " + updatedCards);
 		}
-
-		updatedCards.cards = req.body.cards;
-
-		updatedCards.save(function(err) {
-			if (err) {
-				res.send(err);
-			} else {
-				res.json({message: "cards updated"});
-			}
-		});
 	});
-});*/
+});
 
 
 app.put('/updateSet/:setIdNum', function(req, res) {
-	var setToUpdate = req.params.setIdNum;
+	var setToUpdate = {setIdNum: req.params.setIdNum};
 	console.log("updating set w/ setIdNum: %s", setToUpdate);
 
 	// Query sets given the setIdNum parameter
-	Sets.findById(setToUpdate, function(err, updatedSet) {
+	Sets.findOneAndUpdate(setToUpdate, {$set: req.body}, {new: true}, function(err, updatedSet) {
 		if (err) {
 			res.send(err);
+		} else {
+			res.json("updated set: " + updatedSet);
 		}
-
-		updatedSet.Name = req.body.Name;
-		updatedSet.Category = req.body.Category;
-		updatedSet.numCards = req.body.numCards;
-		updatedSet.DateCreated = req.body.DateCreated;
-
-		console.log("updated set: " + updatedSet);
-
-		updatedSet.save(function(err) {
-			if (err) {
-				res.send(err);
-			} else {
-				res.json({message: "set updated"});
-			}
-		});
 	});
 });
 
