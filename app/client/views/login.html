@@ -3,18 +3,18 @@
 </center>
 
 <div class="col-md-4"></div>
-<div class="col-md-4 container-fluid" ng-controller="account-controller" style="margin-top:50px" data-validate="parsley">
-	<form data-validate="parsley" method="post" action="">
+<div class="col-md-4 container-fluid" ng-controller="account-controller" style="margin-top:50px">
+	<form method="post" action="">
 		<p class="lead">
 			Username
-			<input class="form-control input-lg" required id ="username" placeholder="Username" type="text" ng-model="username">
+			<input class="form-control input-lg" ng-required="true" id ="username" placeholder="Username" type="text" ng-model="username">
 			<br>
 
 			Password
-			<input class="form-control input-lg" required id="inputPassword" placeholder="Password" type="password" ng-model="password">
+			<input class="form-control input-lg" ng-required="true" id="inputPassword" placeholder="Password" type="password" ng-model="password">
 		</p>
 
-		<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-click="checklogin(username)">
+		<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-submit="submit($event)">
 			Log In
 		</button>
 

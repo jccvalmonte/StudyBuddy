@@ -1,62 +1,65 @@
 <div class="container-fluid" ng-controller='create-set-controller' ng-init="getFBsessionDetails()" style="margin-bottom: 50px">
 
-	<center><h2>Create a Flashcard Set</h2></center>
+    <center><h2>Create a Flashcard Set</h2></center>
 
-	<div class="col-xs-2"></div>
-	<div class="col-lg-8" style="margin-top:50px">
+    <div class="col-xs-2"></div>
+    <div class="col-lg-8" style="margin-top:50px">
 
-		<form>
-			<p class="lead">
-			Set Name
-			<input class="form-control input-lg" type="text" ng-model="set.Name" placeholder="Name"><br>
+        <form name ="setForm">
+            <p class="lead">
+                Set Name
+                <input name="setName" class="form-control input-lg" type="text" ng-model="setName" placeholder="Name" required>
+                <span ng-show="setForm.setName.$touched && setForm.setName.$invalid">The Name is required.</span><br>
 
-			Category
-			<input class="form-control input-lg" type="text" ng-model="set.Category" placeholder="Category"><br>
-			</p>
+                Category
+                <input class="form-control input-lg" type="text" ng-model="set.Category" required placeholder="Category"><br>
+            </p>
 
-			<center ng-hide="setCreated">
-				<button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="createSet(); setCreated=true">
-					Create Set
-				</button>
-			</center>
-		</form>
+            <center ng-hide="setCreated">
+            <button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="form.$valid && createSet() && setCreated=true">
+                    Create Set
+                </button>
+                <span> </span>
 
-		<div ng-show="setCreated">
-			<form>
-				<div ng-repeat="card in cardList.cards">
-					<p class="lead">
-					<a href="" ng-click="removeExistingCard($index)"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
-					<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" />
-					<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" />
-					</p>
-				</div>
+            </center>
+        </form>
 
-				<div ng-repeat="card in cardsToAdd">
-					<p class="lead">
-					<a href="" ng-click="removeCardToAdd()"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
-					<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" />
-					<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" />
-					<button class="btn btn-primary btn-lg" ng-click="add(card)">Add to Set</button>
-					</p>
-				</div>
-			</form>
+        <div ng-show="setCreated">
+            <form>
+                <div ng-repeat="card in cardList.cards">
+                    <p class="lead">
+                        <a href="" ng-click="removeExistingCard($index)"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
+                        <input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" required/>
+                        <input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" required />
+                    </p>
+                </div>
 
-			<p class="lead">
-			<button class="btn btn-default btn-md" ng-click="addNew()"><i class="glyphicon glyphicon-plus"></i></button>
-			</p>
+                <div ng-repeat="card in cardsToAdd">
+                    <p class="lead">
+                        <a href="" ng-click="removeCardToAdd()"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
+                        <input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" required />
+                        <input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" required />
+                        <button class="btn btn-primary btn-lg" ng-click="form.$valid && add(card)">Add to Set</button>
+                    </p>
+                </div>
 
-			<center>
-				<b>NOTE: You must click "Add to Set" to add a card to the set.</b>
-				<br><br><br>
-				<button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="createCards(); redirectUserFlashcards()">Finish</button>
-			</center>
-		</div>
+                <p class="lead">
+                    <button class="btn btn-default btn-md" ng-click="addNew()"><i class="glyphicon glyphicon-plus"></i></button>
+                </p>
+            </form>
 
-		<!--
-		<br><br><pre>set{{set | json}}</pre>
-		<br><br><pre>cardList{{cardList | json}}</pre>
-		-->
-		
-	</div>
-	<div class="col-xs-2"></div>
+            <center>
+                <b>NOTE: You must click "Add to Set" to add a card to the set.</b>
+                <br><br><br>
+                <button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="createCards(); redirectUserFlashcards()">Finish</button>
+            </center>
+        </div>
+
+        <!--
+        <br><br><pre>set{{set | json}}</pre>
+        <br><br><pre>cardList{{cardList | json}}</pre>
+    -->
+
+</div>
+<div class="col-xs-2"></div>
 </div>

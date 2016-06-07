@@ -5,40 +5,40 @@
 <div class="col-md-3"></div>
 <div class="col-md-6 container-fluid" ng-controller="account-controller" style="margin-top:50px; margin-bottom:50px">
 
-	<form action="#/login" data-validate="parsley">
+	<form action="#/login">
 	<p class="lead">Email Address
-	<input ng-model="email" class="form-control input-lg" required id="email" data-parsley-trigger="change" placeholder="Email" type="email">
+	<input ng-model="email" class="form-control input-lg" required id="email" placeholder="Email" type="email">
 
 	<br>
 
 	First Name
-	<input ng-model="firstName" class="form-control input-lg" required id="firstName" data-parsley-pattern="/^[a-zA-Z\-]*$/" placeholder="First Name" type="firstName">
+	<input ng-model="firstName" class="form-control input-lg" required id="firstName" ng-pattern="/^[a-zA-Z\-]*$/" placeholder="First Name" type="firstName">
 
 	<br>
 
 	Last Name
-	<input ng-model="lastName" class="form-control input-lg" required id="lastName" data-parsley-pattern="/^[a-zA-Z\-]*$/" placeholder="Last Name" type="lastName">
+	<input ng-model="lastName" class="form-control input-lg" required id="lastName" ng-pattern="/^[a-zA-Z\-]*$/" placeholder="Last Name" type="lastName">
 
 	<br>
 
 	Date of Birth
-	<input ng-model="DOB" class="form-control input-lg" required id="DOB" data-parsley-date placeholder="MM/DD/YYYY" type="DOB">
+	<input ng-model="DOB" class="form-control input-lg" required id="DOB" ng-pattern="/^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$/" placeholder="MM/DD/YYYY" type="DOB">
 
 	<br>
 
 	Username
-	<input ng-model="username" class="form-control input-lg" required id="username" data-parsley-type="alphanum" data-parsley-minlength="5" placeholder="Username" type="username">
+	<input ng-model="username" class="form-control input-lg" required id="username" ng-minlength="5" placeholder="Username" type="username">
 
 	<br>
 
 	Password
-	<input ng-model="password" class="form-control input-lg" required id="password" data-parsley-minlength="6" placeholder="Password" type="password">
+	<input ng-model="password" class="form-control input-lg" required id="password" ng-minlength="6" placeholder="Password" type="password">
 
 	<br>
 	
 	</p>
 
-	<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-click="initUserSignUp(email, firstName, lastName, DOB, username, password)">
+	<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-click="form.$valid && initUserSignUp(email, firstName, lastName, DOB, username, password)">
 		Register
 	</button>
 	</form>
