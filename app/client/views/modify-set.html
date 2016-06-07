@@ -1,0 +1,56 @@
+<div class="container-fluid" ng-controller='modify-set-controller' style="margin-bottom: 50px" ng-init="getSetDetails(); getCards()">
+
+<!-- Set details go here -->
+
+	<center><h2>Modify Set</h2></center>
+
+	<div class="col-xs-2"></div>
+	<div class="col-lg-8" style="margin-top:50px">
+		<form>
+			<p class="lead">
+			Set Name
+			<input class="form-control input-lg" type="text" ng-model="setDetails.Name" placeholder="Name" />
+			
+			<br>
+
+			Category
+			<input class="form-control input-lg" type="text" ng-model="setDetails.Category" placeholder="Category" />
+			</p>
+
+			<div ng-repeat="card in cardList.cards">
+				<p class="lead">
+				<a href="" ng-click="removeExistingCard($index)"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
+				<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" />
+				<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" />
+				</p>
+			</div>
+
+			
+			<div ng-repeat="card in cardsToAdd">
+				<p class="lead">
+				<a href="" ng-click="removeCardToAdd()"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
+				<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" />
+				<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" />
+				<button class="btn btn-primary btn-lg" ng-click="add(card)">Add to Set</button>
+				</p>
+			</div>
+		</form>
+
+		<p class="lead">
+		<button class="btn btn-default btn-md" ng-click="addNew()"><i class="glyphicon glyphicon-plus"></i></button>
+		</p>
+
+		<center>
+			<b>NOTE: You must click "Add to Set" to add a card to the set.</b>
+			<br><br><br>
+			<button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="submitModifiedSet()">Submit Changes</button>
+		</center>
+
+
+		<br><br><pre>cardList{{cardList | json}}</pre>
+		<br><br><pre>cardsToAdd{{cardsToAdd | json}}</pre>
+		<br><br><pre>setDetails{{setDetails | json}}</pre>
+
+	</div>
+	<div class="col-xs-2"></div>
+</div>

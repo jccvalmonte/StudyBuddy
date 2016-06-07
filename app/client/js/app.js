@@ -23,7 +23,7 @@ app.config(function ($routeProvider) {
   .when('/getUserFlashcardsets/:email', {
     templateUrl: '/client/views/user-flashcards.html'
   })
-  .when('/createset', {
+  .when('/createSet', {
     templateUrl: '/client/views/create-set.html',
     controller: 'create-set-controller'
   }) 
@@ -43,8 +43,16 @@ app.config(function ($routeProvider) {
     templateUrl: '/client/views/user-flashcards.html',
     controller: 'account-controller'
   })
-  .when('/mysets', {
-    templateUrl: '/client/views/my-sets.html',
-    controller: 'card-set-controller'
+  .when('/mySets', {
+    templateUrl: '/client/views/fb-user-sets.html',
+    controller: 'fb-user-sets-controller'
+  })
+  .when('/modifySet/:setIdNum', {
+    templateUrl: '/client/views/modify-set.html',
+    controller: 'modify-set-controller'
+  })
+  .when('/getuser/:selectemail', {
+    templateUrl: '/client/views/picklist-user.html',
+    controller: 'account-controller'
   })
 });
