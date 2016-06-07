@@ -72,7 +72,7 @@ passport.use(new FacebookStrategy({
 
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:8080/auth/facebook/callback",
+    callbackURL: "http://su-studybuddy.azurewebsites.net/auth/facebook/callback",
     profileFields: ['email', 'name']
   },
   function(accessToken, refreshToken, profile, done) {
