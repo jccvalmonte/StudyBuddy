@@ -4,7 +4,7 @@
 
 	<div class="col-md-4"></div>
 	<div class="col-md-4" style="margin-top:50px">
-		<form>
+		<form name="cardForm">
 			<p class="lead">
 			Set Name
 			<input class="form-control input-lg" type="text" ng-model="setDetails.Name" placeholder="Name" />
@@ -18,8 +18,8 @@
 			<div ng-repeat="card in cardList.cards">
 				<p class="lead">
 				<a href="" ng-click="removeExistingCard($index)"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
-				<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" />
-				<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" />
+				<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" required/>
+				<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" required />
 				</p>
 			</div>
 
@@ -27,9 +27,9 @@
 			<div ng-repeat="card in cardsToAdd">
 				<p class="lead">
 				<a href="" ng-click="removeCardToAdd()"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
-				<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" />
-				<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" />
-				<button class="btn btn-primary btn-lg" ng-click="add(card)">Add to Set</button>
+				<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" required />
+				<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" required />
+				<button class="btn btn-primary btn-lg" ng-click="cardForm.$valid && add(card)">Add to Set</button>
 				</p>
 			</div>
 		</form>
