@@ -31,12 +31,11 @@ app.controller('account-controller', ['$window', '$rootScope', '$scope', '$resou
 			var url = "/getUserSets/"+ selectedemail;
 
 			$http.get(url).success(function(data) {
-				
 				$scope.usersets = data;
 			});
 		}
 
-				$scope.getcardResults = function() {
+		$scope.getcardResults = function() {
 			$scope.setIdNum = $routeParams.setIdNum;
 
 	    	var url = "/card/" + $scope.setIdNum;
@@ -143,8 +142,6 @@ app.controller('account-controller', ['$window', '$rootScope', '$scope', '$resou
 
 		$scope.loginUserSets = function(){
 			var loginurl = "/auth/facebook";
-			console.log("loginurl: "+ loginurl);
-			//$location.path(loginurl);
 			$http.get(loginurl).success(function(data){
 				$scope.results = data;
 				console.log("login results back"+ $scope.results);
