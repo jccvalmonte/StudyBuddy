@@ -1,14 +1,17 @@
 <center ng-app="studybuddyApp" ng-controller="fb-user-sets-controller" ng-init="getFBsessionDetails(); getmysets()">
 	
-	<h2>Welcome, {{fbdetails.firstName}} {{fbdetails.lastName}} !</h2>
+	<h2>Welcome, {{fbdetails.firstName}} {{fbdetails.lastName}}!</h2>
 
 	<form action="#" method="get" style="margin-top:50px; margin-bottom:60px">
-        <div class="col-md-6 input-group has-feedback">
+        <div class="col-md-3 input-group has-feedback">
             <input class="form-control input-lg" id="system-search" placeholder="Search your flashcard sets...">
             <i class="glyphicon glyphicon-search form-control-feedback"></i>
         </div>
     </form>
 
+
+    <div class="col-xs-2"></div>
+    <center class="col-lg-8">
     <div class="container-fluid" style="height: 500px; overflow: auto">
 	    <table id="fb-user-table" class="table table-hover table-responsive table-list-search" ng-init="getmysets()"> 
 			<thead>
@@ -37,6 +40,8 @@
 			 </tbody>
 		</table>
     </div>
+    </center>
+    <div class="col-xs-2"></div>
 
 </center>
 

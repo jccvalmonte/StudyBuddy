@@ -474,12 +474,9 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 47213;
-
 app.post('/createSet', function(req, res){
-	idGen+=1;
 	var jsonObj = req.body;
-	jsonObj.setIdNum = idGen;
+	jsonObj.setIdNum = mongoose.Types.ObjectId();
 	console.log(jsonObj);
 
 	Sets.create(jsonObj, function(err, theSet){
@@ -503,8 +500,7 @@ app.post('/createCards', function(req, res){
 });
 
 app.delete('/deleteSet/:setIdNum', function(req, res) {
-	Sets.findOneAndRemove({setIdNum: req.params.setIdNum}, 
-		function(err, set){
+	Sets.findOneAndRemove({setIdNum: req.params.setIdNum}, function(err, set){
 			if (err){
 				res.send(err);
 			} else {
@@ -524,7 +520,6 @@ app.delete('/deleteCards/:setIdNum', function(req, res) {
 	});
 });
 
-
 app.put('/updateCards/:setIdNum', function(req, res) {
 	var cardsToUpdate = {setIdNum: req.params.setIdNum};
 	console.log("updating cards w/ setIdNum: %s", cardsToUpdate);
@@ -539,7 +534,6 @@ app.put('/updateCards/:setIdNum', function(req, res) {
 	});
 });
 
-
 app.put('/updateSet/:setIdNum', function(req, res) {
 	var setToUpdate = {setIdNum: req.params.setIdNum};
 	console.log("updating set w/ setIdNum: %s", setToUpdate);
@@ -553,7 +547,6 @@ app.put('/updateSet/:setIdNum', function(req, res) {
 		}
 	});
 });
-
 
 
 

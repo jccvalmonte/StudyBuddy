@@ -1,10 +1,12 @@
 <div class="container-fluid" ng-controller="quiz-controller" ng-init="getSetDetails()" style="margin-bottom: 50px">
 
-	<p class="lead" style="margin-left:11%" ng-init="getSetDetails()">
-		Set Name: <b>{{setDetails.Name}}</b><br>
-		Author:   <b>{{setDetails.Author}}</b><br>
-		Category: <b>{{setDetails.Category}}</b>
-	</p>
+	<center>
+		<p class="lead" style="margin-top:3%" ng-init="getSetDetails()">
+			Set Name: <b>{{setDetails.Name}}</b><br>
+			Author:   <b>{{setDetails.Author}}</b><br>
+			Category: <b>{{setDetails.Category}}</b>
+		</p>
+	</center>
 
 	<div class="col-md-4"></div>
 	<div class="col-md-4" ng-init="getQuestions()">
@@ -49,7 +51,6 @@
 				<button class="btn btn-lg btn-primary" ng-click="redirectCardUrl()">Return to Set</button>
 			</center>
 		</div>
-
 	</div>
 	<div class="col-md-4"></div>
 </div>

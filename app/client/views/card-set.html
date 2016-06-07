@@ -1,29 +1,17 @@
-<left class="container-fluid" ng-controller="account-controller" ng-init="getAllusers()">
-
-      <div>
-      <form name="myForm" style="margin-top:50px; margin-bottom:60px; margin-left:70px">
-     <label> <b>Select a user: </b></label>
-        <select ng-model="selecteduser" ng-change="userRedirect(selecteduser)" ng-options="userresult.firstName for userresult in userresults">
-
-        <!--  <option ng-repeat="userresult in userresults.data" value="{{userresult.email}}">{{userresult.firstName}}</option>-->
-        </select>
-      </form>
-   <!--   <hr>
-  <tt>User email is = {{userresults.repeatSelect}}</tt><br/>-->
-    </div>
- </left>   
-
 <center class="container-fluid" ng-controller="card-set-controller" ng-init="getAllSets()">
 
     <h2>Flashcard Sets</h2>
 
     <form action="#" method="get" style="margin-top:50px; margin-bottom:60px">
 
-        <div class="col-md-6 input-group has-feedback">
+        <div class="col-md-3 input-group has-feedback">
             <input class="form-control input-lg" id="system-search" placeholder="Search...">
             <i class="glyphicon glyphicon-search form-control-feedback"></i>
         </div>
     </form>
+
+    <div class="col-xs-2"></div>
+    <div class="col-lg-8">
     <div class="container-fluid" style="height: 500px; overflow: auto">
     	<table class="table table-hover table-responsive table-list-search" ng-init="getAllSets()">
             <thead>
@@ -44,7 +32,18 @@
             </tbody>
         </table>
     </div>
+    </div>
+    <div class="col-xs-2"></div>
 </center>
 
 
+<<<<<<< HEAD
+=======
+
+<div class="container-fluid" ng-controller="account-controller" ng-init="getAllusers()">
+<label><b>Select a user </b></label>
+<select ng-model="selecteduser" ng-change="userRedirect(selecteduser)" ng-options="userresult.firstName for userresult in userresults"></select>
+</div>
+
+>>>>>>> refs/remotes/origin/master
 <script type = "text/javascript" src="/client/js/table.js"></script>

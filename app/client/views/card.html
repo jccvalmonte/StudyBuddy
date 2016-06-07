@@ -1,10 +1,11 @@
 <div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults()">
-
-	<p class="lead" style="margin-left:11%" ng-init="getSetDetails()">
-		Set Name: <b>{{setDetails.Name}}</b><br>
-		Author:   <b>{{setDetails.Author}}</b><br>
-		Category: <b>{{setDetails.Category}}</b>
-	</p>
+	<center>
+		<p class="lead" style="margin-top:3%" ng-init="getSetDetails()">
+			Set Name: <b>{{setDetails.Name}}</b><br>
+			Author:   <b>{{setDetails.Author}}</b><br>
+			Category: <b>{{setDetails.Category}}</b>
+		</p>
+	</center>
 		
 	<div class="flip">
 		<div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
