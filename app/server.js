@@ -476,7 +476,7 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 654658;
+var idGen = 47213;
 
 app.post('/createSet', function(req, res){
 	idGen+=1;
@@ -526,25 +526,54 @@ app.delete('/deleteCards/:setIdNum', function(req, res) {
 	});
 });
 
-app.put('/updateSet/:setIdNum', function(req, res) {
-	var setToUpdate = req.params.setIdNum;
-	console.log(setToUpdate);
-	Sets.findOneAndUpdate({setIdNum: setToUpdate}, req.body, {upsert: true}, function(err, theSet) {
-		if (err)
-			res.send(err);
-		else
-			res.json(theSet);
-	});
-});
-
+/*
 app.put('/updateCards/:setIdNum', function(req, res) {
 	var cardsToUpdate = req.params.setIdNum;
-	console.log(cardsToUpdate);
-	Cards.findOneAndUpdate({setIdNum: cardsToUpdate}, req.body, {upsert: true}, function(err, theCards) {
-		if (err)
+	console.log("updating cards w/ setIdNum: %s", cardsToUpdate);
+
+	// Query cards given the setIdNum parameter
+	Cards.findById(cardsToUpdate, function(err, updatedCards) {
+		if (err) {
 			res.send(err);
-		else
-			res.json(theCards);
+		}
+
+		updatedCards.cards = req.body.cards;
+
+		updatedCards.save(function(err) {
+			if (err) {
+				res.send(err);
+			} else {
+				res.json({message: "cards updated"});
+			}
+		});
+	});
+});*/
+
+
+app.put('/updateSet/:setIdNum', function(req, res) {
+	var setToUpdate = req.params.setIdNum;
+	console.log("updating set w/ setIdNum: %s", setToUpdate);
+
+	// Query sets given the setIdNum parameter
+	Sets.findById(setToUpdate, function(err, updatedSet) {
+		if (err) {
+			res.send(err);
+		}
+
+		updatedSet.Name = req.body.Name;
+		updatedSet.Category = req.body.Category;
+		updatedSet.numCards = req.body.numCards;
+		updatedSet.DateCreated = req.body.DateCreated;
+
+		console.log("updated set: " + updatedSet);
+
+		updatedSet.save(function(err) {
+			if (err) {
+				res.send(err);
+			} else {
+				res.json({message: "set updated"});
+			}
+		});
 	});
 });
 
