@@ -474,12 +474,9 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 47213;
-
 app.post('/createSet', function(req, res){
-	idGen+=1;
 	var jsonObj = req.body;
-	jsonObj.setIdNum = idGen;
+	jsonObj.setIdNum = mongoose.Types.ObjectId();
 	console.log(jsonObj);
 
 	Sets.create(jsonObj, function(err, theSet){
