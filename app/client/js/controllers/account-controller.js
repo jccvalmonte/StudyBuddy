@@ -1,7 +1,7 @@
 var app = angular.module('studybuddyApp');
 
-app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$http', '$location','$routeParams', 
-	function ($rootScope, $scope, $resource, $http, $location, $routeParams ) {
+app.controller('account-controller', ['$window', '$rootScope', '$scope', '$resource', '$http', '$location','$routeParams', 
+	function ($window, $rootScope, $scope, $resource, $http, $location, $routeParams ) {
 
 		$scope.getAllusers = function() {
 
@@ -135,6 +135,10 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 		$scope.deleteCards = function(setIdNum){
 			var url = "/deleteCards/" + setIdNum;
 			$http.delete(url);
+		}
+
+		$scope.reloadRoute = function() {
+  			 $window.location.reload();
 		}
 
 		$scope.loginUserSets = function(){
