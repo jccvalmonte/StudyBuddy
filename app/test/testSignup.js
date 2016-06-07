@@ -24,7 +24,6 @@ describe('Test result for /signup POST REST API', function () {
       .send({'email': 'lloyd@l.com', 'firstName':'lloyd', 'lastName':'lopez', 'dob':'04/06/1000', 'username':'lloyd', 'password':'lloyd'})
       .end(function (err, res) {
         response = res;
-        console.log(response);
         done();
       });
   });

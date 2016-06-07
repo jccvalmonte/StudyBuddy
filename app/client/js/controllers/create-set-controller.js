@@ -25,6 +25,12 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			})
 		}
 
+/*		$scope.createCheck = function(event) {
+
+			setCreated=true;
+			$scope.createSet;
+		}*/
+
 		$scope.removeCardToAdd = function(indexToDelete) {
 			$scope.cardsToAdd.splice(indexToDelete, 1);
 		}

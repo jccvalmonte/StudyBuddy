@@ -4,7 +4,7 @@
     <div class="col-xs-2"></div>
     <div class="col-lg-8" style="margin-top:50px">
 
-        <form name ="setForm">
+        <form name="setForm">
             <p class="lead">
                 Set Name
                 <input name="setName" class="form-control input-lg" type="text" ng-model="setName" placeholder="Name" required>
@@ -15,7 +15,7 @@
             </p>
 
             <center ng-hide="setCreated">
-            <button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="form.$valid && createSet() && setCreated=true">
+                <button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="setForm.$valid && createCheck(); setCreated=true">
                     Create Set
                 </button>
                 <span> </span>
@@ -24,7 +24,7 @@
         </form>
 
         <div ng-show="setCreated">
-            <form>
+            <form name="cardForm">
                 <div ng-repeat="card in cardList.cards">
                     <p class="lead">
                         <a href="" ng-click="removeExistingCard($index)"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
@@ -38,7 +38,7 @@
                         <a href="" ng-click="removeCardToAdd()"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
                         <input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" required />
                         <input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" required />
-                        <button class="btn btn-primary btn-lg" ng-click="form.$valid && add(card)">Add to Set</button>
+                        <button class="btn btn-primary btn-lg" ng-click="cardForm.$valid && add(card)">Add to Set</button>
                     </p>
                 </div>
 
@@ -52,6 +52,7 @@
                 <br><br><br>
                 <button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="createCards(); redirectUserFlashcards()">Finish</button>
             </center>
+            
         </div>
 
         <!--

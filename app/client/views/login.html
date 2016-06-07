@@ -4,7 +4,7 @@
 
 <div class="col-md-4"></div>
 <div class="col-md-4 container-fluid" ng-controller="account-controller" style="margin-top:50px">
-	<form method="post" action="">
+	<form method="post" action="" name="loginForm">
 		<p class="lead">
 			Username
 			<input class="form-control input-lg" ng-required="true" id ="username" placeholder="Username" type="text" ng-model="username">
@@ -14,7 +14,7 @@
 			<input class="form-control input-lg" ng-required="true" id="inputPassword" placeholder="Password" type="password" ng-model="password">
 		</p>
 
-		<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-submit="submit($event)">
+		<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-click="loginForm.$valid && checklogin(username)">
 			Log In
 		</button>
 	<br>
