@@ -31,12 +31,11 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 			var url = "/getUserSets/"+ selectedemail;
 
 			$http.get(url).success(function(data) {
-				
 				$scope.usersets = data;
 			});
 		}
 
-				$scope.getcardResults = function() {
+		$scope.getcardResults = function() {
 			$scope.setIdNum = $routeParams.setIdNum;
 
 	    	var url = "/card/" + $scope.setIdNum;
@@ -146,9 +145,5 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 				var newuserpageurl = "/userSets"+ user_token;
 				$location.path(newuserpageurl);
 			});
-		}
-
-		$scope.signIn = function() {
-			$rootScope.signedIn = true;
 		}
 }]);
