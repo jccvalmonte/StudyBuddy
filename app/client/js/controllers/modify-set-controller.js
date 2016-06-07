@@ -61,19 +61,19 @@ app.controller('modify-set-controller', ['$scope', '$resource', '$http', '$locat
 
 			// UPDATE SET
 			var set_url = "/updateSet/" + $scope.setDetails.setIdNum;
-			console.log("hello: " + $scope.setDetails.setIdNum);
 			console.log($scope.setDetails);
 			$http.put(set_url, $scope.setDetails).success(function(data) {
 				console.log($scope.setDetails);
 			});
 
-			/*
 			// UPDATE CARDS
 			var cards_url = "/updateCards/" + $scope.cardList.setIdNum;
+			console.log($scope.cardList);
 			$http.put(cards_url, $scope.cardList).success(function(data) {
 				console.log($scope.cardList);
-			});*/
+			});
 		}
+
 
 		$scope.redirectUserFlashcardsUrl = function() {
 			var url = "/mySets";
