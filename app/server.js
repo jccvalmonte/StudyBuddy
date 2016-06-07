@@ -403,12 +403,7 @@ app.post('/signup', function(req, res) {
      		res.send(err)
      	else
         //console.log(res.json);
-<<<<<<< HEAD
-            //res.json(found); // return all accounts in JSON format
-
-=======
        //res.json(found); // return all accounts in JSON format
->>>>>>> refs/remotes/origin/master
         console.log("Res is"+res.json(found));
 	}); 
 }); 
