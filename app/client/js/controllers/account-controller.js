@@ -151,7 +151,11 @@ app.controller('account-controller', ['$window', '$rootScope', '$scope', '$resou
 			});
 		}
 
-		$scope.submit = function($event) {
-			$event.preventDefault();
+		$scope.upgradeAccount = function() {
+			$rootScope.upgraded = true;
+		}
+
+		$scope.downgradeAccount = function() {
+			$rootScope.upgraded = false;
 		}
 }]);
