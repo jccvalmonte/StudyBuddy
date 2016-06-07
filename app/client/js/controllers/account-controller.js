@@ -149,4 +149,8 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 				$location.path(newuserpageurl);
 			});
 		}
+
+		$scope.submit = function($event) {
+			$event.preventDefault();
+		}
 }]);

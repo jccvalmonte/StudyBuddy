@@ -403,8 +403,12 @@ app.post('/signup', function(req, res) {
      		res.send(err)
      	else
         //console.log(res.json);
+<<<<<<< HEAD
             //res.json(found); // return all accounts in JSON format
 
+=======
+       //res.json(found); // return all accounts in JSON format
+>>>>>>> refs/remotes/origin/master
         console.log("Res is"+res.json(found));
 	}); 
 }); 
@@ -477,7 +481,7 @@ app.get('/card/:setIdNum', function(req, res) {
 	});
 });
 
-var idGen = 4;
+var idGen = 47213;
 
 app.post('/createSet', function(req, res){
 	idGen+=1;
@@ -527,25 +531,54 @@ app.delete('/deleteCards/:setIdNum', function(req, res) {
 	});
 });
 
-app.post('/updateSet/:setIdNum', function(req, res) {
-	var searchrequest = req.params.setIdNum;
-	console.log(searchrequest);
-	Sets.findOneAndUpdate({setIdNum: searchrequest}, function(err, found) {
-		if (err)
-			res.send(err);
-		else
-			res.json(found);
-	});
-});
+/*
+app.put('/updateCards/:setIdNum', function(req, res) {
+	var cardsToUpdate = req.params.setIdNum;
+	console.log("updating cards w/ setIdNum: %s", cardsToUpdate);
 
-app.post('/updateCards/:setIdNum', function(req, res) {
-	var id = req.params.setIdNum;
-	console.log(searchrequest);
-	Cards.findOneAndUpdate({setIdNum: searchrequest}, function(err, found) {
-		if (err)
+	// Query cards given the setIdNum parameter
+	Cards.findById(cardsToUpdate, function(err, updatedCards) {
+		if (err) {
 			res.send(err);
-		else
-			res.json(found);
+		}
+
+		updatedCards.cards = req.body.cards;
+
+		updatedCards.save(function(err) {
+			if (err) {
+				res.send(err);
+			} else {
+				res.json({message: "cards updated"});
+			}
+		});
+	});
+});*/
+
+
+app.put('/updateSet/:setIdNum', function(req, res) {
+	var setToUpdate = req.params.setIdNum;
+	console.log("updating set w/ setIdNum: %s", setToUpdate);
+
+	// Query sets given the setIdNum parameter
+	Sets.findById(setToUpdate, function(err, updatedSet) {
+		if (err) {
+			res.send(err);
+		}
+
+		updatedSet.Name = req.body.Name;
+		updatedSet.Category = req.body.Category;
+		updatedSet.numCards = req.body.numCards;
+		updatedSet.DateCreated = req.body.DateCreated;
+
+		console.log("updated set: " + updatedSet);
+
+		updatedSet.save(function(err) {
+			if (err) {
+				res.send(err);
+			} else {
+				res.json({message: "set updated"});
+			}
+		});
 	});
 });
 
