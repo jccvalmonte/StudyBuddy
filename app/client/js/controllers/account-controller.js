@@ -139,8 +139,6 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 
 		$scope.loginUserSets = function(){
 			var loginurl = "/auth/facebook";
-			console.log("loginurl: "+ loginurl);
-			//$location.path(loginurl);
 			$http.get(loginurl).success(function(data){
 				$scope.results = data;
 				console.log("login results back"+ $scope.results);
@@ -148,5 +146,9 @@ app.controller('account-controller', ['$rootScope', '$scope', '$resource', '$htt
 				var newuserpageurl = "/userSets"+ user_token;
 				$location.path(newuserpageurl);
 			});
+		}
+
+		$scope.signIn = function() {
+			$rootScope.signedIn = true;
 		}
 }]);

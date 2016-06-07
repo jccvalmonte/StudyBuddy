@@ -28,7 +28,7 @@ app.controller('quiz-controller', ['$scope', '$resource', '$http', '$location','
 			var questions = $scope.questions;
 
 			for(var i = 0; i < numQuestions; i++) {
-				if (questions[i].back == questions[i].input)
+				if (questions[i].back.toLowerCase() == questions[i].input)
 					numCorrect++;
 			}
 
