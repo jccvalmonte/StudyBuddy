@@ -19,9 +19,11 @@
 			<form class="form-group" ng-repeat="question in questions">
 				<p class="lead">
 					{{question.front}}
-					<input class="form-control input-lg" type="text" placeholder="Your answer" ng-model="question.input" />
+					<input class="form-control input-lg" type="text" placeholder="Your answer" ng-model="inputs[$index]" />
 				</p>
 			</form>
+
+			<pre>{{inputs | json}}</pre>
 
 			<br>
 
@@ -43,7 +45,7 @@
 				<p class="lead">
 					<b>{{answer.front}}</b><br>
 					Solution: <b>{{answer.back}}</b><br>
-					You entered: <b>{{answer.input}}</b><br>
+					You entered: <b>{{inputs[$index]}}</b><br>
 				</p>
 			</div>
 			<br><br>
