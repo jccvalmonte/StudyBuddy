@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="/styles/card.css">
 	<link rel="stylesheet" type="text/css" href="/styles/main.css">
 	<link rel="stylesheet" type="text/css" href="/styles/toolbar.css">
+	<!--<div ng-include="'/client/views/login.html'"></div>
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +25,7 @@
 	
 	<!-- Navigation Bar -->
 	<nav class="navbar navbar-inverse sidebar" role="navigation">
-	    <div class="container-fluid">
+		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
@@ -41,8 +42,7 @@
 					<li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
 					
 					<li><a ng-href="#/signup">Sign Up<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-					<li><a ng-href="#/login">Login<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-in"></span></a></li>
-
+					<li><a ng-hide="showLogin" ng-href="#/login">Login<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-in"></span></a></li>
 
 					<li><a ng-href="#/mySets">My Flashcards<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a></li>
 					<li><a ng-href="#/createSet">Create<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
@@ -51,8 +51,8 @@
 					<li ng-controller="account-controller" ng-hide="upgraded"><a ng-href="#/mySets" ng-click="upgradeAccount()">Upgrade Account<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-chevron-up"></span></a></li>
 					<li ng-controller="account-controller" ng-show="upgraded"><a ng-href="#/mySets" ng-click="downgradeAccount()">Downgrade Account<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-chevron-down"></span></a></li>
 
+					<li><a ng-show="showLogin" ng-href="/logout" ng-click="showLogin=false">Logout<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
 
-					<li><a ng-href="/logout">Logout<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
 				</ul>
 				
 			</div>
@@ -82,15 +82,15 @@
 		<div class="container ad-container" ng-hide="upgraded"><center><a ng-href="http://www.mcdonalds.com"><img src="./images/ad.jpg" class="img-responsive"></a></center></div>
 		<!-- Angular templating -->
 		<!-- This is where content will be injected -->
-   		<div ng-view=""></div>
+		<div ng-view=""></div>
 	</div>
 
 	<!-- Import core angularjs and jquery dependencies-->
 	<script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
-    <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
-    <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
-    <script type = "text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
+	<script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
+	<script type = "text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 	<script type = "text/javascript" src="/client/js/app.js"></script>
 	<script type = "text/javascript" src="/client/js/toolbar.js"></script>

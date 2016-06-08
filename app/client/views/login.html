@@ -14,14 +14,14 @@
 			<input class="form-control input-lg" ng-required="true" id="inputPassword" placeholder="Password" type="password" ng-model="password">
 		</p>
 
-		<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-disabled="loginForm.$invalid" ng-click="checklogin(username)">
+		<button class="btn btn-lg btn-default btn-block" type="submit" value="validate" ng-disabled="loginForm.$invalid" ng-click="checklogin(username); showLogin=false">
 			Log In
 		</button>
 	<br>
 	<p class="text-center">
-		Not registered yet? <a ng-href="#/signup">Create an account</a>
+		Not registered yet? <a ng-href="#/signup" ng-click="showLogin=true">Create an account</a>
 		<br><br>
 	</p>
-	<center><a ng-href="/auth/facebook"><img class="img-responsive" src="/images/FB login.png" style="width: 90%; height: auto"></a></center>
+	<center><a ng-href="/auth/facebook" ng-click="showLogin=true"><img class="img-responsive" src="/images/FB login.png" style="width: 90%; height: auto"></a></center>
 </div>
 <div class="col-md-4"></div>
