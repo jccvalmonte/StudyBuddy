@@ -10,7 +10,7 @@ var should = chai.should();
 var http = require('http');
 chai.use(chaiHttp);
 
-describe('Test result for /homeSets GET REST API', function () {
+describe('Test result for /card/:setIdNum GET REST API', function () {
 //  this.timeout(15000);
 
   var requestResult;
@@ -20,7 +20,7 @@ describe('Test result for /homeSets GET REST API', function () {
   before(function(done) {
     chai.request('http://su-studybuddy.azurewebsites.net')
     //chai.request("/app/lists")
-      .get('/homeSets')
+      .get('/card/1')
       .end(function (err, res) {
         requestResult = res.body;
         response = res;
@@ -28,32 +28,29 @@ describe('Test result for /homeSets GET REST API', function () {
       });
   });
 
-  it('Should return an array object with more than 1 object', function(done){
+  it('Should return an object', function(done){
     expect(response).to.have.status(200);
     expect(requestResult).to.be.an.object;
-    expect(requestResult).to.have.length.above(1);
     expect(response).to.have.headers;
     done();
   });
+
   it('The first entry in the array has known properties', function(done){
-    expect(requestResult[0]).to.include.property('Author');
-    expect(response.body).to.not.be.a.number;
+    expect(requestResult).to.include.property('setIdNum');
+    expect(requestResult).to.not.be.a.number;
     done();
   });
 
   it('The elements in the array have the expected properties', function(done){
-    expect(response.body).to.satisfy(
+    expect(requestResult).to.satisfy(
       function (body) {
         for (var i = 0; i < body.length; i++) {
-          expect(body[i]).to.have.property('Author').that.is.a('string');
-          expect(body[i]).to.have.property('Category').that.is.a('string');
-          expect(body[i]).to.have.property('DateCreated');
-          expect(body[i]).to.have.property('setIdNum');
-          expect(body[i]).to.have.property('Name').that.is.a('string');
+          expect(body[i]).to.have.property('cardId').that.is.a.number;
+          expect(body[i]).to.have.property('front').that.is.a('string');
+          expect(body[i]).to.have.property('back').that.is.a('string');
         }
         return true;
       });
     done();
   }); 
-  
 });

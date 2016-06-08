@@ -19,12 +19,11 @@ describe('Test result for /signup POST REST API', function () {
   
   // making call to localhost 8080 app list   
   before(function(done) {
-    chai.request('http://localhost:8080')
+    chai.request('http://su-studybuddy.azurewebsites.net')
       .post('/signup')
-      .send({'email': 'lloyd@l.com', 'firstName':'lloyd', 'lastName':'lopez', 'dob':'04/06/1000', 'username':'lloyd', 'password':'lloyd'})
+      .send({'email': 'l@l.com', 'firstName':'llo', 'lastName':'lop', 'dob':'04/06/1980', 'username':'llo'})
       .end(function (err, res) {
         response = res;
-        console.log(response);
         done();
       });
   });

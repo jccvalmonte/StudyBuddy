@@ -72,7 +72,7 @@ passport.use(new FacebookStrategy({
 
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:8080/auth/facebook/callback",
+    callbackURL: "http://su-studybuddy.azurewebsites.net/auth/facebook/callback",
     profileFields: ['email', 'name']
   },
   function(accessToken, refreshToken, profile, done) {
@@ -128,7 +128,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
 		/*if(req.isAuthenticated()){
 			var isloogedin = true;
 		}*/
-		res.redirect('http://localhost:8080/#/mySets');
+		res.redirect('http://su-studybuddy.azurewebsites.net/#/mySets');
 
 		//res.json(newUser.email);
 		//res.json(newUser);
@@ -387,8 +387,8 @@ app.get('/getUsersets/:userid', function(req, res) {
             res.send(err)
         else
             res.json(found);
-        });
-    }); 
+    });
+}); 
 
 app.post('/signup', function(req, res) {
 
@@ -414,26 +414,31 @@ app.post('/signup', function(req, res) {
 
 app.get('/homeSets', function(req, res){
 
-	Sets.find({}, function(err, found){
+	Sets
+	.find({}, function(err, found){
 		if(err)
 			res.send(err);
 		else
 			res.json(found);
-	});
+	})
+	.sort({'DateCreated': 'desc'});
 });
 
-app.get('/relatedSets/:category', function(req, res) {
+app.get('/relatedSets/:setId/:category', function(req, res) {
 
 	var searchrequest = req.params.category;
+	var excludedSet = req.params.setId;
 	
-	Sets.find({Category: searchrequest}, function(err, found){
+	Sets
+	.find({Category: {'$regex': searchrequest, '$options': 'i'}}, function(err, found){
 		if(err)
 			res.send(err);
 		else {
 			console.log(found);
 			res.json(found);
 		}
-	});
+	})
+	.where('setIdNum').ne(excludedSet);
 });
 
 app.get('/setDetails/:setIdNum', function(req, res) {

@@ -1,42 +1,41 @@
 <div class="container-fluid" ng-controller='create-set-controller' ng-init="getFBsessionDetails()" style="margin-bottom: 50px">
-
-	<center><h2>Create a Flashcard Set</h2></center>
+	<center><h2 style="margin-top:3%">Create a Flashcard Set</h2></center>
 
 	<div class="col-md-4"></div>
 	<div class="col-md-4" style="margin-top:50px">
 
-		<form>
+		<form name="setForm">
 			<p class="lead">
 			Set Name
-			<input class="form-control input-lg" type="text" ng-model="set.Name" placeholder="Name"><br>
+			<input class="form-control input-lg" type="text" ng-model="set.Name" placeholder="Name" required><br>
 
 			Category
-			<input class="form-control input-lg" type="text" ng-model="set.Category" placeholder="Category"><br>
+			<input class="form-control input-lg" type="text" ng-model="set.Category" placeholder="Category" required><br>
 			</p>
 
 			<center ng-hide="setCreated">
-				<button class="btn btn-default btn-lg" type="submit" role="submit" ng-click="createSet(); setCreated=true">
+				<button class="btn btn-default btn-lg" type="submit" role="submit" ng-disabled="setForm.$invalid" ng-click="createSet(); setCreated=true">
 					Create Set
 				</button>
 			</center>
 		</form>
 
 		<div ng-show="setCreated">
-			<form>
+			<form name="cardForm">
 				<div ng-repeat="card in cardList.cards">
 					<p class="lead">
 					<a href="" ng-click="removeExistingCard($index)"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
-					<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" />
-					<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" />
+					<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" required />
+					<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" required />
 					</p>
 				</div>
 
 				<div ng-repeat="card in cardsToAdd">
 					<p class="lead">
 					<a href="" ng-click="removeCardToAdd()"><i class="glyphicon glyphicon-minus-sign"></i></a> Card
-					<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" />
-					<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" />
-					<button class="btn btn-primary btn-lg" ng-click="add(card)">Add to Set</button>
+					<input class="form-control input-lg" type="text" ng-model="card.front" placeholder="Front" required />
+					<input class="form-control input-lg" type="text" ng-model="card.back" placeholder="Back" required />
+					<button class="btn btn-primary btn-lg" ng-click="cardForm.$valid && add(card)">Add to Set</button>
 					</p>
 				</div>
 			</form>
