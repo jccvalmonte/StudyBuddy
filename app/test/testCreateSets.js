@@ -1,4 +1,4 @@
-console.log('starting test');
+console.log('starting test for Creating Set POST REST API');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var async = require('async');
@@ -10,34 +10,27 @@ var should = chai.should();
 var http = require('http');
 chai.use(chaiHttp);
 
-describe('Test result for /homeSets GET REST API', function () {
+
+describe('Test result for /CreatSet POST REST API', function () {
 //  this.timeout(15000);
 
   var requestResult;
   var response;
   
-  //making call to localhost 8080 app list   
+  // making call to localhost 8080 app list   
   before(function(done) {
     chai.request('http://su-studybuddy.azurewebsites.net')
-    //chai.request("/app/lists")
-      .get('/homeSets')
+      .post('/CreateSet')
+      .send({'Author': 'Dipali K.', 'Category':'Chinese Learning', 'DateCreated':'6-8-2016', 'Name':'Chinese Words', 'email':'vagal.dipali@gmail.com'})
       .end(function (err, res) {
-        requestResult = res.body;
         response = res;
         done();
       });
   });
 
-  it('Should return an array object with more than 1 object', function(done){
+    it('Should return an array object with more than 1 object', function(done){
     expect(response).to.have.status(200);
-    expect(requestResult).to.be.an.object;
-    expect(requestResult).to.have.length.above(1);
     expect(response).to.have.headers;
-    done();
-  });
-  it('The first entry in the array has known properties', function(done){
-    expect(requestResult[0]).to.include.property('Author');
-    expect(response.body).to.not.be.a.number;
     done();
   });
 
@@ -48,12 +41,14 @@ describe('Test result for /homeSets GET REST API', function () {
           expect(body[i]).to.have.property('Author').that.is.a('string');
           expect(body[i]).to.have.property('Category').that.is.a('string');
           expect(body[i]).to.have.property('DateCreated');
-          expect(body[i]).to.have.property('setIdNum');
-          expect(body[i]).to.have.property('Name').that.is.a('string');
+          expect(body[i]).to.have.property('Name');
+          expect(body[i]).to.have.property('email').that.is.a('string');
+          expect(body[i]).to.have.property('setIdNum').that.is.a('Number');
         }
         return true;
       });
     done();
   }); 
-  
+
+
 });
