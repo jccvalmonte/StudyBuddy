@@ -21,8 +21,10 @@ app.controller('fb-user-sets-controller', ['$window', '$rootScope','$scope', '$r
 				
 				$scope.sets = data;
 				
-				//if($scope.results.length == 0)
-					//window.alert("You have not created any sets. Redirecting to");
+				if(data.length == 0) {
+					$window.alert("You have not created any sets. Create a set to continue.");
+					$window.location.href="http://su-studybuddy.azurewebsites.net/#/createSet";
+				}
 			});
 		}
 
@@ -36,18 +38,13 @@ app.controller('fb-user-sets-controller', ['$window', '$rootScope','$scope', '$r
 			$location.path(url);
 		}
 
-		$scope.refreshPage = function() {
-			var url = "/mySets";
-			$location.path(url);
-		}
-
-		$scope.reloadRoute = function() {
-  			 $window.location.reload();
-		}
-
 		$scope.deleteSet = function(setIdNum){
-			var url = "/deleteSet/" + setIdNum;
-			$http.delete(url);
+			var ask = window.confirm("Are you sure you want to delete this set?");
+    		if (ask) {
+    			var url = "/deleteSet/" + setIdNum;
+				$http.delete(url);
+		        $window.location.reload();
+		    }
 		}
 
 		$scope.deleteCards = function(setIdNum){

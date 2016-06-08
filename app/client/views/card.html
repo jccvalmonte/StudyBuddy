@@ -1,6 +1,6 @@
 <div class="container-fluid" ng-controller="card-controller" ng-init="getcardResults()">
 	<center>
-		<p class="lead" style="margin-top:3%" ng-init="getSetDetails()">
+		<p class="lead" style="margin-top:50px" ng-init="getSetDetails()">
 			Set Name: <b>{{setDetails.Name}}</b><br>
 			Author:   <b>{{setDetails.Author}}</b><br>
 			Category: <b>{{setDetails.Category}}</b>
@@ -36,11 +36,11 @@
 		
 	<p class="lead text-center">
 		<button type="submit" ng-click="reduceCount()" class="btn btn-default btn-lg">
-			<i class="glyphicon glyphicon-arrow-left col-xs-2"></i>
+			<i class="glyphicon glyphicon-arrow-left"></i>
 		</button>
 			{{i+1}} / {{resultCards.cards.length}} Flashcards
 		<button type="submit" ng-click="updateCount()" class="btn btn-default btn-lg">
-			<i class="glyphicon glyphicon-arrow-right col-xs-2"></i>
+			<i class="glyphicon glyphicon-arrow-right"></i>
 		</button>
 	</p>
 

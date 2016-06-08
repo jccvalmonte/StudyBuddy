@@ -1,6 +1,7 @@
 .flip {
   -webkit-perspective: 800;
-   width: 450px;
+   min-width: 250px;
+   width: 35%;
    height: 250px;
   position: relative;
   margin: 50px auto;
@@ -21,7 +22,7 @@
   height: 100%;
   position: absolute;
   overflow: auto;
-  -webkit-backface-visibility: hidden ;
+  -webkit-backface-visibility: hidden;
   z-index: 2;
   font-family: Georgia;
   font-size: 2em;
