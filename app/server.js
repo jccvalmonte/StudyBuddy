@@ -387,8 +387,8 @@ app.get('/getUsersets/:userid', function(req, res) {
             res.send(err)
         else
             res.json(found);
-        });
-    }); 
+    });
+}); 
 
 app.post('/signup', function(req, res) {
 
@@ -414,12 +414,14 @@ app.post('/signup', function(req, res) {
 
 app.get('/homeSets', function(req, res){
 
-	Sets.find({}, function(err, found){
+	Sets
+	.find({}, function(err, found){
 		if(err)
 			res.send(err);
 		else
 			res.json(found);
-	});
+	})
+	.sort({'DateCreated': 'desc'});
 });
 
 app.get('/relatedSets/:setId/:category', function(req, res) {
@@ -428,7 +430,7 @@ app.get('/relatedSets/:setId/:category', function(req, res) {
 	var excludedSet = req.params.setId;
 	
 	Sets
-	.find({Category: searchrequest}, function(err, found){
+	.find({Category: {'$regex': searchrequest, '$options': 'i'}}, function(err, found){
 		if(err)
 			res.send(err);
 		else {
