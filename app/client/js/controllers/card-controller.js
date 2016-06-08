@@ -10,7 +10,7 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			console.log(url);
 			$http.get(url).success(function(data) {
 				$scope.setDetails = data;
-				$scope.getRelatedSets($scope.setDetails.Category);
+				$scope.getRelatedSets($scope.setIdNum, $scope.setDetails.Category);
 
 				console.log("set details: " + $scope.setDetails);
 			});
@@ -49,8 +49,8 @@ app.controller('card-controller', ['$scope', '$resource', '$http', '$location','
 			$location.path(url);
 		}
 
-		$scope.getRelatedSets = function(category) {
-			var url = "/relatedSets/" + category;
+		$scope.getRelatedSets = function(setId, category) {
+			var url = "/relatedSets/" + setId + "/" + category;
 			console.log(url);
 			$http.get(url).success(function(data){
 				$scope.relatedSets = data;

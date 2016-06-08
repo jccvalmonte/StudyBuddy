@@ -18,7 +18,7 @@ describe('Test result for /card/:setIdNum GET REST API', function () {
   
   //making call to localhost 8080 app list   
   before(function(done) {
-    chai.request('http://localhost:8080')
+    chai.request('http://su-studybuddy.azurewebsites.net')
     //chai.request("/app/lists")
       .get('/card/1')
       .end(function (err, res) {

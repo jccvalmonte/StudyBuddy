@@ -60,7 +60,7 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 			$http.post('/createSet', $scope.set).success(function(data) {
 				$scope.set.setIdNum = data.setIdNum;
 				$scope.cardList.setIdNum = data.setIdNum;
-				console.log($scope.set);
+				console.log("create set output: "+ $scope.set);
 			});
 		}
 
@@ -71,7 +71,8 @@ app.controller('create-set-controller', ['$scope', '$resource', '$http', '$locat
 
 			// CREATE CARDS
 			$http.post('/createCards', $scope.cardList).success(function(data) {
-				console.log($scope.cardList);
+				$scope.cardList = data;
+				console.log("create cards output: "+ $scope.cardList);
 			});
 
 			// Update # cards in set
