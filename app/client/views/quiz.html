@@ -1,7 +1,7 @@
 <div class="container-fluid" ng-controller="quiz-controller" ng-init="getSetDetails()" style="margin-bottom: 50px">
 
 	<center>
-		<p class="lead" style="margin-top:3%" ng-init="getSetDetails()">
+		<p class="lead" style="margin-top:50px" ng-init="getSetDetails()">
 			Set Name: <b>{{setDetails.Name}}</b><br>
 			Author:   <b>{{setDetails.Author}}</b><br>
 			Category: <b>{{setDetails.Category}}</b>
@@ -19,7 +19,7 @@
 			<form class="form-group" ng-repeat="question in questions">
 				<p class="lead">
 					{{question.front}}
-					<input class="form-control input-lg" type="text" placeholder="Your answer" ng-model="question.input" />
+					<input class="form-control input-lg" type="text" placeholder="Your answer" ng-model="inputs[$index]" />
 				</p>
 			</form>
 
@@ -43,7 +43,7 @@
 				<p class="lead">
 					<b>{{answer.front}}</b><br>
 					Solution: <b>{{answer.back}}</b><br>
-					You entered: <b>{{answer.input}}</b><br>
+					You entered: <b>{{inputs[$index]}}</b><br>
 				</p>
 			</div>
 			<br><br>

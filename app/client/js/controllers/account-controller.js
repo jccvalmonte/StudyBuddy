@@ -127,17 +127,17 @@ app.controller('account-controller', ['$window', '$rootScope', '$scope', '$resou
 		}
 		
 		$scope.deleteSet = function(setIdNum){
-			var url = "/deleteSet/" + setIdNum;
-			$http.delete(url);
+			var ask = window.confirm("Are you sure you want to delete this set?");
+    		if (ask) {
+    			var url = "/deleteSet/" + setIdNum;
+				$http.delete(url);
+		        $window.location.reload();
+		    }
 		}
 
 		$scope.deleteCards = function(setIdNum){
 			var url = "/deleteCards/" + setIdNum;
 			$http.delete(url);
-		}
-
-		$scope.reloadRoute = function() {
-  			 $window.location.reload();
 		}
 
 		$scope.loginUserSets = function(){
