@@ -3,6 +3,8 @@ var app = angular.module('studybuddyApp');
 app.controller('quiz-controller', ['$scope', '$resource', '$http', '$location','$routeParams', 
 	function ($scope, $resource, $http, $location, $routeParams, $mdDialog) {
 
+		$scope.inputs = [];
+
 		$scope.getSetDetails = function() {
 			$scope.setIdNum = $routeParams.setIdNum;
 			var url = "/setDetails/" + $scope.setIdNum;
@@ -24,17 +26,19 @@ app.controller('quiz-controller', ['$scope', '$resource', '$http', '$location','
 
 		$scope.getStatistics = function() {
 			var numCorrect = 0;
-			var numQuestions = $scope.questions.length;
-			var questions = $scope.questions;
+			var inputs = $scope.inputs;
+			var solutions = $scope.questions;
 
-			for(var i = 0; i < numQuestions; i++) {
-				if (questions[i].back == questions[i].input)
+			for(var i = 0; i < inputs.length; i++) {
+				if (inputs[i] == null)
+					inputs[i] = '';
+				if (solutions[i].back.toUpperCase() === inputs[i].toUpperCase())
 					numCorrect++;
 			}
 
 			$scope.numAnsweredCorrect = numCorrect;
 
-			$scope.percentage=Math.round(numCorrect/(questions.length)*100);
+			$scope.percentage=Math.round(numCorrect/(solutions.length)*100);
 
 			$scope.grade=calculateGrade($scope.percentage);
 		}

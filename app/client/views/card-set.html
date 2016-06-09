@@ -1,6 +1,6 @@
 <center class="container-fluid" ng-controller="card-set-controller" ng-init="getAllSets()">
 
-    <h2 style="margin-top:3%">Flashcard Sets</h2>
+    <h2 style="margin-top:50px">Flashcard Sets</h2>
 
     <form action="#" method="get" style="margin-top:50px; margin-bottom:60px">
 
@@ -12,7 +12,7 @@
 
     <div class="col-sm-2"></div>
     <div class="col-lg-8">
-    <div class="container-fluid" style="height: 500px; overflow: auto">
+    <div class="container-fluid" style="height: 400px; overflow: auto">
     	<table class="table table-hover table-responsive table-list-search" ng-init="getAllSets()">
             <thead>
     			<th>Name</th>
@@ -36,11 +36,10 @@
     <div class="col-sm-2"></div>
 </center>
 
-
-
+<!--
 <div class="container-fluid" ng-controller="account-controller" ng-init="getAllusers()">
 <label><b>Select a user </b></label>
 <select ng-model="selecteduser" ng-change="userRedirect(selecteduser)" ng-options="userresult.firstName for userresult in userresults"></select>
-</div>
+</div>-->
 
 <script type = "text/javascript" src="/client/js/table.js"></script>
