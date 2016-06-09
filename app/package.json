@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "main": "./server.js",
   "dependencies": {
-    "async": "^2.0.0-rc.5",
+    "async": "^2.0.0-rc.6",
     "body-parser": "^1.15.0",
     "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
     "connect-mongo": "^1.2.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.7.1",
